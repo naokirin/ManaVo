@@ -12,5 +12,5 @@ Future main() async {
   flavor = flavor.isEmpty ? 'development' : flavor;
   await dotenv.load(fileName: "res/.env.$flavor");
 
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(ProviderScope(child: MyApp()));
 }

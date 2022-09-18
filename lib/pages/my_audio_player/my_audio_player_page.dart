@@ -9,14 +9,14 @@ import 'package:rxdart/rxdart.dart';
 import 'package:flutter_just_audio_sample/models/position_data.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class MyAudioPlayer extends StatefulWidget {
-  const MyAudioPlayer({Key? key}) : super(key: key);
+class MyAudioPlayerPage extends StatefulWidget {
+  const MyAudioPlayerPage({Key? key}) : super(key: key);
 
   @override
-  State<MyAudioPlayer> createState() => MyAudioState();
+  State<MyAudioPlayerPage> createState() => MyAudioState();
 }
 
-class MyAudioState extends State<MyAudioPlayer> with WidgetsBindingObserver {
+class MyAudioState extends State<MyAudioPlayerPage> with WidgetsBindingObserver {
   final _player = AudioPlayer();
 
   @override
