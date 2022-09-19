@@ -11,11 +11,11 @@ class HomePage extends StatelessWidget {
         home: Scaffold(
             appBar: AppBar(title: const Text('Sample just_audio')),
             body: Center(
-                child: MaterialButton(
-              child: const Text('Player'),
-              onPressed: () {
-                GoRouter.of(context).push('/player/1');
-              },
-            ))));
+              child: MaterialButton(
+                child: const Text('Player'),
+                onPressed: () {
+                  GoRouter.of(context).push('/course/1');
+                },
+              ))));
   }
 }
