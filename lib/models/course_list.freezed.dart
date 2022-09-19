@@ -14,10 +14,16 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+CourseList _$CourseListFromJson(Map<String, dynamic> json) {
+  return _CourseList.fromJson(json);
+}
+
 /// @nodoc
 mixin _$CourseList {
+  @JsonKey(name: 'courses')
   List<Course> get courses => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $CourseListCopyWith<CourseList> get copyWith =>
       throw _privateConstructorUsedError;
@@ -28,7 +34,7 @@ abstract class $CourseListCopyWith<$Res> {
   factory $CourseListCopyWith(
           CourseList value, $Res Function(CourseList) then) =
       _$CourseListCopyWithImpl<$Res>;
-  $Res call({List<Course> courses});
+  $Res call({@JsonKey(name: 'courses') List<Course> courses});
 }
 
 /// @nodoc
@@ -59,7 +65,7 @@ abstract class _$$_CourseListCopyWith<$Res>
           _$_CourseList value, $Res Function(_$_CourseList) then) =
       __$$_CourseListCopyWithImpl<$Res>;
   @override
-  $Res call({List<Course> courses});
+  $Res call({@JsonKey(name: 'courses') List<Course> courses});
 }
 
 /// @nodoc
@@ -87,12 +93,18 @@ class __$$_CourseListCopyWithImpl<$Res> extends _$CourseListCopyWithImpl<$Res>
 
 /// @nodoc
 
+@JsonSerializable(explicitToJson: true)
 class _$_CourseList implements _CourseList {
-  const _$_CourseList({required final List<Course> courses})
+  const _$_CourseList(
+      {@JsonKey(name: 'courses') required final List<Course> courses})
       : _courses = courses;
+
+  factory _$_CourseList.fromJson(Map<String, dynamic> json) =>
+      _$$_CourseListFromJson(json);
 
   final List<Course> _courses;
   @override
+  @JsonKey(name: 'courses')
   List<Course> get courses {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_courses);
@@ -111,6 +123,7 @@ class _$_CourseList implements _CourseList {
             const DeepCollectionEquality().equals(other._courses, _courses));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_courses));
@@ -119,13 +132,25 @@ class _$_CourseList implements _CourseList {
   @override
   _$$_CourseListCopyWith<_$_CourseList> get copyWith =>
       __$$_CourseListCopyWithImpl<_$_CourseList>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_CourseListToJson(
+      this,
+    );
+  }
 }
 
 abstract class _CourseList implements CourseList {
-  const factory _CourseList({required final List<Course> courses}) =
+  const factory _CourseList(
+          {@JsonKey(name: 'courses') required final List<Course> courses}) =
       _$_CourseList;
 
+  factory _CourseList.fromJson(Map<String, dynamic> json) =
+      _$_CourseList.fromJson;
+
   @override
+  @JsonKey(name: 'courses')
   List<Course> get courses;
   @override
   @JsonKey(ignore: true)

@@ -14,13 +14,22 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Course _$CourseFromJson(Map<String, dynamic> json) {
+  return _Course.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Course {
+  @JsonKey(name: 'id')
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name')
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'description')
   String get description => throw _privateConstructorUsedError;
-  List<Sound> get sounds => throw _privateConstructorUsedError;
+  @JsonKey(name: 'sound_url')
+  String get sound_url => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $CourseCopyWith<Course> get copyWith => throw _privateConstructorUsedError;
 }
@@ -29,7 +38,11 @@ mixin _$Course {
 abstract class $CourseCopyWith<$Res> {
   factory $CourseCopyWith(Course value, $Res Function(Course) then) =
       _$CourseCopyWithImpl<$Res>;
-  $Res call({String id, String name, String description, List<Sound> sounds});
+  $Res call(
+      {@JsonKey(name: 'id') String id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'description') String description,
+      @JsonKey(name: 'sound_url') String sound_url});
 }
 
 /// @nodoc
@@ -45,7 +58,7 @@ class _$CourseCopyWithImpl<$Res> implements $CourseCopyWith<$Res> {
     Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
-    Object? sounds = freezed,
+    Object? sound_url = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -60,10 +73,10 @@ class _$CourseCopyWithImpl<$Res> implements $CourseCopyWith<$Res> {
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      sounds: sounds == freezed
-          ? _value.sounds
-          : sounds // ignore: cast_nullable_to_non_nullable
-              as List<Sound>,
+      sound_url: sound_url == freezed
+          ? _value.sound_url
+          : sound_url // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -73,7 +86,11 @@ abstract class _$$_CourseCopyWith<$Res> implements $CourseCopyWith<$Res> {
   factory _$$_CourseCopyWith(_$_Course value, $Res Function(_$_Course) then) =
       __$$_CourseCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String name, String description, List<Sound> sounds});
+  $Res call(
+      {@JsonKey(name: 'id') String id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'description') String description,
+      @JsonKey(name: 'sound_url') String sound_url});
 }
 
 /// @nodoc
@@ -90,7 +107,7 @@ class __$$_CourseCopyWithImpl<$Res> extends _$CourseCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
-    Object? sounds = freezed,
+    Object? sound_url = freezed,
   }) {
     return _then(_$_Course(
       id: id == freezed
@@ -105,40 +122,43 @@ class __$$_CourseCopyWithImpl<$Res> extends _$CourseCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      sounds: sounds == freezed
-          ? _value._sounds
-          : sounds // ignore: cast_nullable_to_non_nullable
-              as List<Sound>,
+      sound_url: sound_url == freezed
+          ? _value.sound_url
+          : sound_url // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 
+@JsonSerializable(explicitToJson: true)
 class _$_Course implements _Course {
   const _$_Course(
-      {required this.id,
-      required this.name,
-      required this.description,
-      required final List<Sound> sounds})
-      : _sounds = sounds;
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'name') required this.name,
+      @JsonKey(name: 'description') required this.description,
+      @JsonKey(name: 'sound_url') required this.sound_url});
+
+  factory _$_Course.fromJson(Map<String, dynamic> json) =>
+      _$$_CourseFromJson(json);
 
   @override
+  @JsonKey(name: 'id')
   final String id;
   @override
+  @JsonKey(name: 'name')
   final String name;
   @override
+  @JsonKey(name: 'description')
   final String description;
-  final List<Sound> _sounds;
   @override
-  List<Sound> get sounds {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_sounds);
-  }
+  @JsonKey(name: 'sound_url')
+  final String sound_url;
 
   @override
   String toString() {
-    return 'Course(id: $id, name: $name, description: $description, sounds: $sounds)';
+    return 'Course(id: $id, name: $name, description: $description, sound_url: $sound_url)';
   }
 
   @override
@@ -150,38 +170,52 @@ class _$_Course implements _Course {
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other._sounds, _sounds));
+            const DeepCollectionEquality().equals(other.sound_url, sound_url));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(_sounds));
+      const DeepCollectionEquality().hash(sound_url));
 
   @JsonKey(ignore: true)
   @override
   _$$_CourseCopyWith<_$_Course> get copyWith =>
       __$$_CourseCopyWithImpl<_$_Course>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_CourseToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Course implements Course {
   const factory _Course(
-      {required final String id,
-      required final String name,
-      required final String description,
-      required final List<Sound> sounds}) = _$_Course;
+      {@JsonKey(name: 'id') required final String id,
+      @JsonKey(name: 'name') required final String name,
+      @JsonKey(name: 'description') required final String description,
+      @JsonKey(name: 'sound_url') required final String sound_url}) = _$_Course;
+
+  factory _Course.fromJson(Map<String, dynamic> json) = _$_Course.fromJson;
 
   @override
+  @JsonKey(name: 'id')
   String get id;
   @override
+  @JsonKey(name: 'name')
   String get name;
   @override
+  @JsonKey(name: 'description')
   String get description;
   @override
-  List<Sound> get sounds;
+  @JsonKey(name: 'sound_url')
+  String get sound_url;
   @override
   @JsonKey(ignore: true)
   _$$_CourseCopyWith<_$_Course> get copyWith =>

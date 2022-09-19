@@ -1,22 +1,22 @@
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_just_audio_sample/pages/my_audio_player/seekbar.dart';
+import 'package:flutter_just_audio_sample/pages/audio_player/seekbar.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:flutter_just_audio_sample/pages/my_audio_player/dialog.dart';
+import 'package:flutter_just_audio_sample/pages/audio_player/dialog.dart';
 import 'package:flutter_just_audio_sample/utils/common.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_just_audio_sample/models/position_data.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class MyAudioPlayerPage extends StatefulWidget {
-  const MyAudioPlayerPage({Key? key}) : super(key: key);
+class AudioPlayerPage extends StatefulWidget {
+  const AudioPlayerPage({Key? key}) : super(key: key);
 
   @override
-  State<MyAudioPlayerPage> createState() => MyAudioState();
+  State<AudioPlayerPage> createState() => MyAudioState();
 }
 
-class MyAudioState extends State<MyAudioPlayerPage> with WidgetsBindingObserver {
+class MyAudioState extends State<AudioPlayerPage> with WidgetsBindingObserver {
   final _player = AudioPlayer();
 
   @override

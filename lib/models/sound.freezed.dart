@@ -14,13 +14,22 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Sound _$SoundFromJson(Map<String, dynamic> json) {
+  return _Sound.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Sound {
+  @JsonKey(name: 'id')
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name')
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'length')
   String get length => throw _privateConstructorUsedError;
+  @JsonKey(name: 'url')
   String get url => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $SoundCopyWith<Sound> get copyWith => throw _privateConstructorUsedError;
 }
@@ -29,7 +38,11 @@ mixin _$Sound {
 abstract class $SoundCopyWith<$Res> {
   factory $SoundCopyWith(Sound value, $Res Function(Sound) then) =
       _$SoundCopyWithImpl<$Res>;
-  $Res call({String id, String name, String length, String url});
+  $Res call(
+      {@JsonKey(name: 'id') String id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'length') String length,
+      @JsonKey(name: 'url') String url});
 }
 
 /// @nodoc
@@ -73,7 +86,11 @@ abstract class _$$_SoundCopyWith<$Res> implements $SoundCopyWith<$Res> {
   factory _$$_SoundCopyWith(_$_Sound value, $Res Function(_$_Sound) then) =
       __$$_SoundCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String name, String length, String url});
+  $Res call(
+      {@JsonKey(name: 'id') String id,
+      @JsonKey(name: 'name') String name,
+      @JsonKey(name: 'length') String length,
+      @JsonKey(name: 'url') String url});
 }
 
 /// @nodoc
@@ -114,21 +131,28 @@ class __$$_SoundCopyWithImpl<$Res> extends _$SoundCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Sound implements _Sound {
   const _$_Sound(
-      {required this.id,
-      required this.name,
-      required this.length,
-      required this.url});
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'name') required this.name,
+      @JsonKey(name: 'length') required this.length,
+      @JsonKey(name: 'url') required this.url});
+
+  factory _$_Sound.fromJson(Map<String, dynamic> json) =>
+      _$$_SoundFromJson(json);
 
   @override
+  @JsonKey(name: 'id')
   final String id;
   @override
+  @JsonKey(name: 'name')
   final String name;
   @override
+  @JsonKey(name: 'length')
   final String length;
   @override
+  @JsonKey(name: 'url')
   final String url;
 
   @override
@@ -147,6 +171,7 @@ class _$_Sound implements _Sound {
             const DeepCollectionEquality().equals(other.url, url));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -159,22 +184,35 @@ class _$_Sound implements _Sound {
   @override
   _$$_SoundCopyWith<_$_Sound> get copyWith =>
       __$$_SoundCopyWithImpl<_$_Sound>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_SoundToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Sound implements Sound {
   const factory _Sound(
-      {required final String id,
-      required final String name,
-      required final String length,
-      required final String url}) = _$_Sound;
+      {@JsonKey(name: 'id') required final String id,
+      @JsonKey(name: 'name') required final String name,
+      @JsonKey(name: 'length') required final String length,
+      @JsonKey(name: 'url') required final String url}) = _$_Sound;
+
+  factory _Sound.fromJson(Map<String, dynamic> json) = _$_Sound.fromJson;
 
   @override
+  @JsonKey(name: 'id')
   String get id;
   @override
+  @JsonKey(name: 'name')
   String get name;
   @override
+  @JsonKey(name: 'length')
   String get length;
   @override
+  @JsonKey(name: 'url')
   String get url;
   @override
   @JsonKey(ignore: true)
