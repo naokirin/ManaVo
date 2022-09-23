@@ -14,12 +14,15 @@ class HomePage extends ConsumerWidget {
         home: Scaffold(
             appBar: AppBar(title: const Text('学習コース')),
             body: courseList.when(
-                data: (list) => ListView(
-                    children: list
-                        .map((course) => Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: CourseItem(course: course)))
-                        .toList()),
+                data: (list) => Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: ListView(
+                        children: list
+                            .map((course) => Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 20.0, left: 10.0, right: 10.0),
+                                child: CourseItem(course: course)))
+                            .toList())),
                 loading: () => const CircularProgressIndicator(),
                 error: (error, _) => Text(error.toString()))));
   }
