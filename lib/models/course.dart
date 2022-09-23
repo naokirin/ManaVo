@@ -7,10 +7,16 @@ part 'course.g.dart';
 class Course with _$Course {
   @JsonSerializable(explicitToJson: true)
   const factory Course(
-      {@JsonKey(name: 'id') required String id,
-      @JsonKey(name: 'name') required String name,
-      @JsonKey(name: 'description') required String description,
-      @JsonKey(name: 'sound_list_url') required String soundListUrl}) = _Course;
+      {@JsonKey(name: 'id')
+          required String id,
+      @JsonKey(name: 'name')
+          required String name,
+      @JsonKey(name: 'description')
+          required String description,
+      @JsonKey(name: 'sound_list_url')
+          required String soundListUrl,
+      @JsonKey(name: 'background_image')
+          required String? backgroundImage}) = _Course;
 
   factory Course.fromJson(Map<String, Object?> json) => _$CourseFromJson(json);
 }
