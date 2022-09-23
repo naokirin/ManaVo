@@ -26,8 +26,8 @@ mixin _$Course {
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'description')
   String get description => throw _privateConstructorUsedError;
-  @JsonKey(name: 'sound_url')
-  String get sound_url => throw _privateConstructorUsedError;
+  @JsonKey(name: 'sound_list_url')
+  String get soundListUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +42,7 @@ abstract class $CourseCopyWith<$Res> {
       {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'description') String description,
-      @JsonKey(name: 'sound_url') String sound_url});
+      @JsonKey(name: 'sound_list_url') String soundListUrl});
 }
 
 /// @nodoc
@@ -58,7 +58,7 @@ class _$CourseCopyWithImpl<$Res> implements $CourseCopyWith<$Res> {
     Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
-    Object? sound_url = freezed,
+    Object? soundListUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -73,9 +73,9 @@ class _$CourseCopyWithImpl<$Res> implements $CourseCopyWith<$Res> {
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      sound_url: sound_url == freezed
-          ? _value.sound_url
-          : sound_url // ignore: cast_nullable_to_non_nullable
+      soundListUrl: soundListUrl == freezed
+          ? _value.soundListUrl
+          : soundListUrl // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -90,7 +90,7 @@ abstract class _$$_CourseCopyWith<$Res> implements $CourseCopyWith<$Res> {
       {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'description') String description,
-      @JsonKey(name: 'sound_url') String sound_url});
+      @JsonKey(name: 'sound_list_url') String soundListUrl});
 }
 
 /// @nodoc
@@ -107,7 +107,7 @@ class __$$_CourseCopyWithImpl<$Res> extends _$CourseCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
-    Object? sound_url = freezed,
+    Object? soundListUrl = freezed,
   }) {
     return _then(_$_Course(
       id: id == freezed
@@ -122,9 +122,9 @@ class __$$_CourseCopyWithImpl<$Res> extends _$CourseCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      sound_url: sound_url == freezed
-          ? _value.sound_url
-          : sound_url // ignore: cast_nullable_to_non_nullable
+      soundListUrl: soundListUrl == freezed
+          ? _value.soundListUrl
+          : soundListUrl // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -138,7 +138,7 @@ class _$_Course implements _Course {
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'description') required this.description,
-      @JsonKey(name: 'sound_url') required this.sound_url});
+      @JsonKey(name: 'sound_list_url') required this.soundListUrl});
 
   factory _$_Course.fromJson(Map<String, dynamic> json) =>
       _$$_CourseFromJson(json);
@@ -153,12 +153,12 @@ class _$_Course implements _Course {
   @JsonKey(name: 'description')
   final String description;
   @override
-  @JsonKey(name: 'sound_url')
-  final String sound_url;
+  @JsonKey(name: 'sound_list_url')
+  final String soundListUrl;
 
   @override
   String toString() {
-    return 'Course(id: $id, name: $name, description: $description, sound_url: $sound_url)';
+    return 'Course(id: $id, name: $name, description: $description, soundListUrl: $soundListUrl)';
   }
 
   @override
@@ -170,7 +170,8 @@ class _$_Course implements _Course {
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.sound_url, sound_url));
+            const DeepCollectionEquality()
+                .equals(other.soundListUrl, soundListUrl));
   }
 
   @JsonKey(ignore: true)
@@ -180,7 +181,7 @@ class _$_Course implements _Course {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(sound_url));
+      const DeepCollectionEquality().hash(soundListUrl));
 
   @JsonKey(ignore: true)
   @override
@@ -197,10 +198,14 @@ class _$_Course implements _Course {
 
 abstract class _Course implements Course {
   const factory _Course(
-      {@JsonKey(name: 'id') required final String id,
-      @JsonKey(name: 'name') required final String name,
-      @JsonKey(name: 'description') required final String description,
-      @JsonKey(name: 'sound_url') required final String sound_url}) = _$_Course;
+      {@JsonKey(name: 'id')
+          required final String id,
+      @JsonKey(name: 'name')
+          required final String name,
+      @JsonKey(name: 'description')
+          required final String description,
+      @JsonKey(name: 'sound_list_url')
+          required final String soundListUrl}) = _$_Course;
 
   factory _Course.fromJson(Map<String, dynamic> json) = _$_Course.fromJson;
 
@@ -214,8 +219,8 @@ abstract class _Course implements Course {
   @JsonKey(name: 'description')
   String get description;
   @override
-  @JsonKey(name: 'sound_url')
-  String get sound_url;
+  @JsonKey(name: 'sound_list_url')
+  String get soundListUrl;
   @override
   @JsonKey(ignore: true)
   _$$_CourseCopyWith<_$_Course> get copyWith =>

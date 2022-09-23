@@ -1,23 +1,33 @@
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_just_audio_sample/models/sound.dart';
 import 'package:flutter_just_audio_sample/pages/audio_player/seekbar.dart';
+import 'package:flutter_just_audio_sample/providers/course.dart';
+import 'package:flutter_just_audio_sample/providers/sound_list.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter_just_audio_sample/pages/audio_player/dialog.dart';
 import 'package:flutter_just_audio_sample/utils/common.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_just_audio_sample/models/position_data.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:collection/collection.dart';
 
-class AudioPlayerPage extends StatefulWidget {
-  const AudioPlayerPage({Key? key}) : super(key: key);
+class AudioPlayerPage extends ConsumerStatefulWidget {
+  final String courseId;
+  final String id;
+
+  const AudioPlayerPage({Key? key, required this.courseId, required this.id})
+      : super(key: key);
 
   @override
-  State<AudioPlayerPage> createState() => MyAudioState();
+  AudioState createState() => AudioState();
 }
 
-class MyAudioState extends State<AudioPlayerPage> with WidgetsBindingObserver {
+class AudioState extends ConsumerState<AudioPlayerPage>
+    with WidgetsBindingObserver {
   final _player = AudioPlayer();
+  Sound? _sound;
 
   @override
   void initState() {
@@ -39,10 +49,18 @@ class MyAudioState extends State<AudioPlayerPage> with WidgetsBindingObserver {
         onError: (Object e, StackTrace stackTrace) {
       print('A stream error occurred: $e');
     });
+
+    final course = ref
+        .read(courseProvider)
+        .value
+        ?.firstWhereOrNull((item) => item.id == widget.courseId);
+    final soundList = ref.read(soundListProvider(course?.soundListUrl ?? ''));
+
     // Try to load audio from a source and catch any errors.
     try {
-      // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
-      String? url = dotenv.env['TEST_URL'];
+      setState(() =>
+          _sound = soundList.value?.firstWhere((item) => item.id == widget.id));
+      final url = _sound?.url;
       await _player.setAudioSource(AudioSource.uri(Uri.parse(url ?? '')));
     } catch (e) {
       print("Error loading audio source: $e");
@@ -80,33 +98,31 @@ class MyAudioState extends State<AudioPlayerPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Display play/pause button and volume/speed sliders.
-              ControlButtons(_player),
-              // Display seek bar. Using StreamBuilder, this widget rebuilds
-              // each time the position, buffered position or duration changes.
-              StreamBuilder<PositionData>(
-                stream: _positionDataStream,
-                builder: (context, snapshot) {
-                  final positionData = snapshot.data;
-                  return SeekBar(
-                    duration: positionData?.duration ?? Duration.zero,
-                    position: positionData?.position ?? Duration.zero,
-                    bufferedPosition:
-                        positionData?.bufferedPosition ?? Duration.zero,
-                    onChanged: _player.seek,
-                  );
-                },
-              ),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(title: Text(_sound?.name ?? '')),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Display play/pause button and volume/speed sliders.
+            ControlButtons(_player),
+            // Display seek bar. Using StreamBuilder, this widget rebuilds
+            // each time the position, buffered position or duration changes.
+            StreamBuilder<PositionData>(
+              stream: _positionDataStream,
+              builder: (context, snapshot) {
+                final positionData = snapshot.data;
+                return SeekBar(
+                  duration: positionData?.duration ?? Duration.zero,
+                  position: positionData?.position ?? Duration.zero,
+                  bufferedPosition:
+                      positionData?.bufferedPosition ?? Duration.zero,
+                  onChanged: _player.seek,
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

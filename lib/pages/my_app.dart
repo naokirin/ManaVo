@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_just_audio_sample/models/course.dart';
 import 'package:flutter_just_audio_sample/pages/course/course_page.dart';
 import 'package:flutter_just_audio_sample/pages/home/home_page.dart';
 import 'package:flutter_just_audio_sample/pages/audio_player/audio_player_page.dart';
@@ -12,15 +11,14 @@ class MyApp extends StatelessWidget {
     GoRoute(path: '/', builder: (context, state) => const HomePage()),
     GoRoute(
         path: '/course/:id',
-        builder: (context, state) => CoursePage(
-            course: Course(
-                id: state.params['id'] ?? '1',
-                name: 'course name 1',
-                description: 'このコースでは、AWSの基礎的なサービス、\n考え方などをお話しします。',
-                sound_url: 'sound_url'))),
+        builder: (context, state) {
+          return CoursePage(id: state.params['id'] ?? '');
+        }),
     GoRoute(
-        path: '/player/:id',
-        builder: (context, state) => const AudioPlayerPage()),
+        path: '/course/:course_id/player/:id',
+        builder: (context, state) => AudioPlayerPage(
+            courseId: state.params['course_id'] ?? '',
+            id: state.params['id'] ?? '')),
   ]);
 
   @override

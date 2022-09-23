@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_just_audio_sample/models/sound.dart';
 import 'package:go_router/go_router.dart';
 
-class SelectionItem extends StatelessWidget {
+class SoundItem extends StatelessWidget {
+  final String courseId;
   final Sound sound;
 
-  const SelectionItem({super.key, required this.sound});
+  const SoundItem({super.key, required this.courseId, required this.sound});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,8 @@ class SelectionItem extends StatelessWidget {
             title: Text(sound.name),
             subtitle: Text(sound.length),
             onTap: () {
-              GoRouter.of(context).push("/player/${sound.id}");
+              GoRouter.of(context)
+                  .push("/course/$courseId/player/${sound.id}");
             }));
   }
 }

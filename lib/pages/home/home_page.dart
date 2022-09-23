@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_just_audio_sample/pages/home/course_item.dart';
+import 'package:flutter_just_audio_sample/providers/course.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final courseList = ref.watch(courseProvider);
     return MaterialApp(
-        title: 'Sample just_audio',
+        title: '学習コース',
         home: Scaffold(
-            appBar: AppBar(title: const Text('Sample just_audio')),
-            body: Center(
-              child: MaterialButton(
-                child: const Text('Player'),
-                onPressed: () {
-                  GoRouter.of(context).push('/course/1');
-                },
-              ))));
+            appBar: AppBar(title: const Text('学習コース')),
+            body: courseList.when(
+                data: (list) => ListView(
+                    children: list
+                        .map((course) => Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: CourseItem(course: course)))
+                        .toList()),
+                loading: () => const CircularProgressIndicator(),
+                error: (error, _) => Text(error.toString()))));
   }
 }

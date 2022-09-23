@@ -12,13 +12,15 @@ class CourseItem extends StatelessWidget {
     return Card(
         elevation: 10,
         child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(image: AssetImage('')) // TODO: image path
-          ),
-          child: ListTile(
-            title: Text(course.name, style: const TextStyle(fontSize: 20)),
-            onTap: () {
-              GoRouter.of(context).push("/course/${course.id}");
-            })));
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(
+                        'assets/images/citrine.jpg')) // TODO: image path
+                ),
+            child: ListTile(
+                title: Text(course.name, style: const TextStyle(fontSize: 20)),
+                onTap: () {
+                  GoRouter.of(context).push("/course/${course.id}");
+                })));
   }
 }

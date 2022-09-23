@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_just_audio_sample/models/sound.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final soundProvider =
+final soundListProvider =
     FutureProvider.family<List<Sound>, String>((ref, url) async {
   return _fetchSounds(url).then((value) => value.sounds);
 });
