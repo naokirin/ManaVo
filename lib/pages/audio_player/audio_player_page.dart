@@ -103,9 +103,12 @@ class AudioState extends ConsumerState<AudioPlayerPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_course?.name ?? '')),
-      body: SafeArea(
-          child: Column(children: [
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.white),
+          actionsIconTheme: const IconThemeData(color: Colors.white),
+          backgroundColor: Colors.transparent),
+      body: Column(children: [
         Expanded(
             child: Container(
                 width: double.infinity,
@@ -128,9 +131,16 @@ class AudioState extends ConsumerState<AudioPlayerPage>
                           Colors.transparent
                         ])),
                     child: Center(
-                        child: Text(_sound?.name ?? '',
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.white)))))),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                          Text(_course?.name ?? '',
+                              style: const TextStyle(color: Colors.white)),
+                          Text(_sound?.name ?? '',
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.white))
+                        ]))))),
         const SizedBox(height: 64.0),
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -156,7 +166,7 @@ class AudioState extends ConsumerState<AudioPlayerPage>
           ],
         ),
         const SizedBox(height: 40.0)
-      ])),
+      ]),
     );
   }
 

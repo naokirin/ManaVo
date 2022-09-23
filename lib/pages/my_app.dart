@@ -24,6 +24,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(Object context) {
     return MaterialApp.router(
+      title: 'ManaVo',
+      theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+              color: Color(0xFFFEFEFE),
+              titleTextStyle: TextStyle(color: Colors.black, fontSize: 20),
+              toolbarTextStyle: TextStyle(color: Colors.black, fontSize: 20),
+              iconTheme: IconThemeData(color: Colors.black),
+              actionsIconTheme: IconThemeData(color: Colors.black),
+              elevation: 0),
+          scaffoldBackgroundColor: const Color(0xFFFEFEFE)),
       routeInformationProvider: _router.routeInformationProvider,
       routeInformationParser: _router.routeInformationParser,
       routerDelegate: _router.routerDelegate,
