@@ -9,7 +9,8 @@ class Sound with _$Sound {
       {@JsonKey(name: 'id') required String id,
       @JsonKey(name: 'name') required String name,
       @JsonKey(name: 'length') required String length,
-      @JsonKey(name: 'url') required String url}) = _Sound;
+      @JsonKey(name: 'url') required String url,
+      @JsonKey(name: 'description') required String description}) = _Sound;
 
   factory Sound.fromJson(Map<String, Object?> json) => _$SoundFromJson(json);
 }

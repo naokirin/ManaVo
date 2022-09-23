@@ -11,6 +11,7 @@ _$_Sound _$$_SoundFromJson(Map<String, dynamic> json) => _$_Sound(
       name: json['name'] as String,
       length: json['length'] as String,
       url: json['url'] as String,
+      description: json['description'] as String,
     );
 
 Map<String, dynamic> _$$_SoundToJson(_$_Sound instance) => <String, dynamic>{
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_SoundToJson(_$_Sound instance) => <String, dynamic>{
       'name': instance.name,
       'length': instance.length,
       'url': instance.url,
+      'description': instance.description,
     };

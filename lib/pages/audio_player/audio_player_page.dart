@@ -139,7 +139,11 @@ class AudioState extends ConsumerState<AudioPlayerPage>
                               style: const TextStyle(color: Colors.white)),
                           Text(_sound?.name ?? '',
                               style: const TextStyle(
-                                  fontSize: 20, color: Colors.white))
+                                  fontSize: 20, color: Colors.white)),
+                          Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text(_sound?.description ?? '',
+                                  style: const TextStyle(color: Colors.white)))
                         ]))))),
         const SizedBox(height: 64.0),
         Column(
