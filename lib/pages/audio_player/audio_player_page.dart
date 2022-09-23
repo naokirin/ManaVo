@@ -1,6 +1,7 @@
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_just_audio_sample/models/course.dart';
 import 'package:flutter_just_audio_sample/models/sound.dart';
 import 'package:flutter_just_audio_sample/pages/audio_player/seekbar.dart';
 import 'package:flutter_just_audio_sample/providers/course.dart';
@@ -27,6 +28,7 @@ class AudioPlayerPage extends ConsumerStatefulWidget {
 class AudioState extends ConsumerState<AudioPlayerPage>
     with WidgetsBindingObserver {
   final _player = AudioPlayer();
+  Course? _course;
   Sound? _sound;
 
   @override
@@ -50,16 +52,18 @@ class AudioState extends ConsumerState<AudioPlayerPage>
       print('A stream error occurred: $e');
     });
 
-    final course = ref
-        .read(courseProvider)
-        .value
-        ?.firstWhereOrNull((item) => item.id == widget.courseId);
-    final soundList = ref.read(soundListProvider(course?.soundListUrl ?? ''));
-
     // Try to load audio from a source and catch any errors.
     try {
-      setState(() =>
-          _sound = soundList.value?.firstWhere((item) => item.id == widget.id));
+      setState(() {
+        _course = ref
+            .read(courseProvider)
+            .value
+            ?.firstWhereOrNull((item) => item.id == widget.courseId);
+        final soundList =
+            ref.read(soundListProvider(_course?.soundListUrl ?? ''));
+
+        _sound = soundList.value?.firstWhere((item) => item.id == widget.id);
+      });
       final url = _sound?.url;
       await _player.setAudioSource(AudioSource.uri(Uri.parse(url ?? '')));
     } catch (e) {
@@ -99,11 +103,38 @@ class AudioState extends ConsumerState<AudioPlayerPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_sound?.name ?? '')),
+      appBar: AppBar(title: Text(_course?.name ?? '')),
       body: SafeArea(
-        child: Column(
+          child: Column(children: [
+        Expanded(
+            child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.cover, image: AssetImage(imagePath))),
+                child: Container(
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            stops: [
+                          0.0,
+                          0.5,
+                          1.0
+                        ],
+                            colors: [
+                          Colors.transparent,
+                          Colors.black54,
+                          Colors.transparent
+                        ])),
+                    child: Center(
+                        child: Text(_sound?.name ?? '',
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white)))))),
+        const SizedBox(height: 64.0),
+        Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             // Display play/pause button and volume/speed sliders.
             ControlButtons(_player),
@@ -124,9 +155,13 @@ class AudioState extends ConsumerState<AudioPlayerPage>
             ),
           ],
         ),
-      ),
+        const SizedBox(height: 40.0)
+      ])),
     );
   }
+
+  String get imagePath =>
+      'assets/images/${_course?.backgroundImage ?? 'green'}.jpg';
 }
 
 /// Displays the play/pause button and volume/speed sliders.
