@@ -34,14 +34,59 @@ class CourseItem extends StatelessWidget {
                             colors: [
                           Colors.black87,
                           Colors.black54,
-                          Colors.black12
+                          Colors.black45
                         ])),
                     child: ListTile(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
-                        title: Text(course.name,
-                            style: const TextStyle(
-                                fontSize: 16, color: Colors.white)),
+                        title: Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Text(course.name,
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white))),
+                        subtitle: Padding(
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: Column(children: [
+                              Text(course.description,
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.white)),
+                              Expanded(
+                                  child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 14.0),
+                                      child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                                child: Row(children: [
+                                              const Icon(Icons.list,
+                                                  color: Colors.white,
+                                                  size: 18),
+                                              const SizedBox(width: 4.0),
+                                              Text(course.lessons.toString(),
+                                                  style: const TextStyle(
+                                                      fontSize: 13,
+                                                      color: Colors.white))
+                                            ])),
+                                            Expanded(
+                                                child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                  const Icon(Icons.schedule,
+                                                      color: Colors.white,
+                                                      size: 14),
+                                                  const SizedBox(width: 4.0),
+                                                  Text(course.length,
+                                                      style: const TextStyle(
+                                                          fontSize: 13,
+                                                          color: Colors.white))
+                                                ]))
+                                          ])))
+                            ])),
                         onTap: () => goCoursePage(context))))));
   }
 

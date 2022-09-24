@@ -13,6 +13,10 @@ class Course with _$Course {
           required String name,
       @JsonKey(name: 'description')
           required String description,
+      @JsonKey(name: 'lessons')
+          required int lessons,
+      @JsonKey(name: 'length')
+          required String length,
       @JsonKey(name: 'lesson_list_url')
           required String lessonListUrl,
       @JsonKey(name: 'background_image')
