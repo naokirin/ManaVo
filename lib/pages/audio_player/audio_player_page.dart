@@ -7,6 +7,7 @@ import 'package:flutter_just_audio_sample/pages/audio_player/seekbar.dart';
 import 'package:flutter_just_audio_sample/providers/course.dart';
 import 'package:flutter_just_audio_sample/providers/sound_list.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter_just_audio_sample/pages/audio_player/dialog.dart';
 import 'package:flutter_just_audio_sample/utils/common.dart';
@@ -30,6 +31,8 @@ class AudioState extends ConsumerState<AudioPlayerPage>
   final _player = AudioPlayer();
   Course? _course;
   Sound? _sound;
+  List<Sound>? _soundList;
+  bool _ready = false;
 
   @override
   void initState() {
@@ -52,6 +55,15 @@ class AudioState extends ConsumerState<AudioPlayerPage>
       print('A stream error occurred: $e');
     });
 
+    _player.playerStateStream.listen((state) {
+      if (state.processingState == ProcessingState.ready && !_ready) {
+        _ready = true;
+        _player.play();
+      } else if (state.processingState == ProcessingState.completed) {
+        goNextPlayerPage(context);
+      }
+    });
+
     // Try to load audio from a source and catch any errors.
     try {
       setState(() {
@@ -59,10 +71,10 @@ class AudioState extends ConsumerState<AudioPlayerPage>
             .read(courseProvider)
             .value
             ?.firstWhereOrNull((item) => item.id == widget.courseId);
-        final soundList =
-            ref.read(soundListProvider(_course?.soundListUrl ?? ''));
+        _soundList =
+            ref.read(soundListProvider(_course?.soundListUrl ?? '')).value;
 
-        _sound = soundList.value?.firstWhere((item) => item.id == widget.id);
+        _sound = _soundList?.firstWhere((item) => item.id == widget.id);
       });
       final url = _sound?.url;
       await _player.setAudioSource(AudioSource.uri(Uri.parse(url ?? '')));
@@ -172,6 +184,15 @@ class AudioState extends ConsumerState<AudioPlayerPage>
         const SizedBox(height: 40.0)
       ]),
     );
+  }
+
+  void goNextPlayerPage(BuildContext context) {
+    final index = _soundList?.indexWhere((item) => _sound?.id == item.id);
+    if (index != null && index + 1 < (_soundList?.length ?? 0)) {
+      final nextSound = _soundList?[index + 1];
+      GoRouter.of(context)
+          .replace('/course/${_course?.id}/player/${nextSound?.id}');
+    }
   }
 
   String get imagePath =>
