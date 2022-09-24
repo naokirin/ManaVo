@@ -2,10 +2,10 @@ import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_just_audio_sample/models/course.dart';
-import 'package:flutter_just_audio_sample/models/sound.dart';
+import 'package:flutter_just_audio_sample/models/lesson.dart';
 import 'package:flutter_just_audio_sample/pages/audio_player/seekbar.dart';
 import 'package:flutter_just_audio_sample/providers/course.dart';
-import 'package:flutter_just_audio_sample/providers/sound_list.dart';
+import 'package:flutter_just_audio_sample/providers/lesson_list.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:just_audio/just_audio.dart';
@@ -30,8 +30,8 @@ class AudioState extends ConsumerState<AudioPlayerPage>
     with WidgetsBindingObserver {
   final _player = AudioPlayer();
   Course? _course;
-  Sound? _sound;
-  List<Sound>? _soundList;
+  Lesson? _lesson;
+  List<Lesson>? _lessonList;
   bool _ready = false;
 
   @override
@@ -71,12 +71,12 @@ class AudioState extends ConsumerState<AudioPlayerPage>
             .read(courseProvider)
             .value
             ?.firstWhereOrNull((item) => item.id == widget.courseId);
-        _soundList =
-            ref.read(soundListProvider(_course?.soundListUrl ?? '')).value;
+        _lessonList =
+            ref.read(lessonListProvider(_course?.lessonListUrl ?? '')).value;
 
-        _sound = _soundList?.firstWhere((item) => item.id == widget.id);
+        _lesson = _lessonList?.firstWhere((item) => item.id == widget.id);
       });
-      final url = _sound?.url;
+      final url = _lesson?.url;
       await _player.setAudioSource(AudioSource.uri(Uri.parse(url ?? '')));
     } catch (e) {
       print("Error loading audio source: $e");
@@ -149,12 +149,12 @@ class AudioState extends ConsumerState<AudioPlayerPage>
                             children: [
                           Text(_course?.name ?? '',
                               style: const TextStyle(color: Colors.white)),
-                          Text(_sound?.name ?? '',
+                          Text(_lesson?.name ?? '',
                               style: const TextStyle(
                                   fontSize: 20, color: Colors.white)),
                           Padding(
                               padding: const EdgeInsets.all(20.0),
-                              child: Text(_sound?.description ?? '',
+                              child: Text(_lesson?.description ?? '',
                                   style: const TextStyle(color: Colors.white)))
                         ]))))),
         const SizedBox(height: 64.0),
@@ -187,11 +187,11 @@ class AudioState extends ConsumerState<AudioPlayerPage>
   }
 
   void goNextPlayerPage(BuildContext context) {
-    final index = _soundList?.indexWhere((item) => _sound?.id == item.id);
-    if (index != null && index + 1 < (_soundList?.length ?? 0)) {
-      final nextSound = _soundList?[index + 1];
+    final index = _lessonList?.indexWhere((item) => _lesson?.id == item.id);
+    if (index != null && index + 1 < (_lessonList?.length ?? 0)) {
+      final nextLesson = _lessonList?[index + 1];
       GoRouter.of(context)
-          .replace('/course/${_course?.id}/player/${nextSound?.id}');
+          .replace('/course/${_course?.id}/player/${nextLesson?.id}');
     }
   }
 

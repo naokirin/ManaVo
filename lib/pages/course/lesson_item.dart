@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_just_audio_sample/models/sound.dart';
+import 'package:flutter_just_audio_sample/models/lesson.dart';
 import 'package:go_router/go_router.dart';
 
-class SoundItem extends StatelessWidget {
+class LessonItem extends StatelessWidget {
   final String courseId;
-  final Sound sound;
+  final Lesson lesson;
 
-  const SoundItem({super.key, required this.courseId, required this.sound});
+  const LessonItem({super.key, required this.courseId, required this.lesson});
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +27,15 @@ class SoundItem extends StatelessWidget {
                       alignment: Alignment.bottomLeft,
                       child: Padding(
                           padding: const EdgeInsets.only(top: 10.0),
-                          child: Text(sound.length,
-                              style: const TextStyle(fontSize: 15, color: Colors.black54))))
+                          child: Text(lesson.length,
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.black54))))
                 ])),
             title: SizedBox(
               height: 80.0,
               child: Padding(
                   padding: const EdgeInsets.only(top: 12.0),
-                  child: Text(sound.name)),
+                  child: Text(lesson.name)),
             ),
             onTap: () => goPlayerPage(context)));
   }
@@ -43,5 +44,5 @@ class SoundItem extends StatelessWidget {
     GoRouter.of(context).push(playerPath);
   }
 
-  String get playerPath => "/course/$courseId/player/${sound.id}";
+  String get playerPath => "/course/$courseId/player/${lesson.id}";
 }

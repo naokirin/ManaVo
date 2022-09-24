@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sound.dart';
+part of 'lesson.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Sound _$$_SoundFromJson(Map<String, dynamic> json) => _$_Sound(
+_$_Lesson _$$_LessonFromJson(Map<String, dynamic> json) => _$_Lesson(
       id: json['id'] as String,
       name: json['name'] as String,
       length: json['length'] as String,
@@ -14,7 +14,7 @@ _$_Sound _$$_SoundFromJson(Map<String, dynamic> json) => _$_Sound(
       description: json['description'] as String,
     );
 
-Map<String, dynamic> _$$_SoundToJson(_$_Sound instance) => <String, dynamic>{
+Map<String, dynamic> _$$_LessonToJson(_$_Lesson instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'length': instance.length,

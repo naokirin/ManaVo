@@ -1,16 +1,16 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'sound.freezed.dart';
-part 'sound.g.dart';
+part 'lesson.freezed.dart';
+part 'lesson.g.dart';
 
 @freezed
-class Sound with _$Sound {
-  const factory Sound(
+class Lesson with _$Lesson {
+  const factory Lesson(
       {@JsonKey(name: 'id') required String id,
       @JsonKey(name: 'name') required String name,
       @JsonKey(name: 'length') required String length,
       @JsonKey(name: 'url') required String url,
-      @JsonKey(name: 'description') required String description}) = _Sound;
+      @JsonKey(name: 'description') required String description}) = _Lesson;
 
-  factory Sound.fromJson(Map<String, Object?> json) => _$SoundFromJson(json);
+  factory Lesson.fromJson(Map<String, Object?> json) => _$LessonFromJson(json);
 }

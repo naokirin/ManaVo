@@ -13,8 +13,8 @@ class Course with _$Course {
           required String name,
       @JsonKey(name: 'description')
           required String description,
-      @JsonKey(name: 'sound_list_url')
-          required String soundListUrl,
+      @JsonKey(name: 'lesson_list_url')
+          required String lessonListUrl,
       @JsonKey(name: 'background_image')
           required String? backgroundImage}) = _Course;
 
