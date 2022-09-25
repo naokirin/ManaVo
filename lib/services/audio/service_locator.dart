@@ -14,6 +14,6 @@ Future<AudioServiceHandler> _initeAudioService() async {
       config: const AudioServiceConfig(
           androidNotificationChannelId: 'com.naokirin.manavo.audio',
           androidNotificationChannelName: 'ManaVo Audio',
-          androidNotificationOngoing: true,
+          androidNotificationOngoing: false,
           androidStopForegroundOnPause: true));
 }

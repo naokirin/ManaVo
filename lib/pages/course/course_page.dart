@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_just_audio_sample/pages/course/lesson_item.dart';
+import 'package:flutter_just_audio_sample/providers/audio_player.dart';
 import 'package:flutter_just_audio_sample/providers/course.dart';
 import 'package:flutter_just_audio_sample/providers/lesson_list.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +12,7 @@ class CoursePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(audioPlayerProvider.notifier).stop();
     final c = ref.read(courseProvider).value;
     final course = c?.firstWhere((item) => item.id == id);
     final lessonList =

@@ -4,14 +4,31 @@ import 'package:flutter_just_audio_sample/models/position_data.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
 
-class AudioServiceHandler extends BaseAudioHandler with SeekHandler {
+class AudioServiceHandler extends BaseAudioHandler
+    with QueueHandler, SeekHandler {
   final AudioPlayer player = AudioPlayer();
 
-  Future<void> initPlayer(MediaItem item) async {
+  Future<void> initPlayer(
+      {required List<MediaItem> items,
+      required int initialIndex,
+      required Duration initialPosition}) async {
+    final playlist = ConcatenatingAudioSource(
+        children:
+            items.map((item) => AudioSource.uri(Uri.parse(item.id))).toList());
     try {
       _notifyAudioHandlerAboutPlaybackEvents();
-      player.setAudioSource(AudioSource.uri(Uri.parse(item.id)));
-      mediaItem.add(item.copyWith(duration: player.duration));
+      _listenForDurationChanges();
+      _listenForCurrentSongIndexChanges();
+
+      queue.add(items);
+      player.setAudioSource(playlist,
+          initialIndex: initialIndex, initialPosition: initialPosition);
+      skipToQueueItem(initialIndex);
+      final position = player.position;
+      if (position > Duration.zero) {
+        seek(position);
+      }
+      mediaItem.add(items[initialIndex].copyWith(duration: player.duration));
     } catch (e) {
       debugPrint('ERROR OCCURED:$e');
     }
@@ -44,14 +61,14 @@ class AudioServiceHandler extends BaseAudioHandler with SeekHandler {
 
   Future<void> setVolume(double volume) async => player.setVolume(volume);
 
-  void listenOnCompleted(void Function(PlayerState event)? onData) =>
-      player.playerStateStream.listen(onData);
-
+  get currentPosition => player.position;
+  get currentIndex => player.currentIndex;
   get volume => player.volume;
   get speed => player.speed;
   get volumeStream => player.volumeStream;
   get playerStateStream => player.playerStateStream;
   get speedStream => player.speedStream;
+  get currentIndexStream => player.currentIndexStream;
 
   Stream<PositionData> get positionDataStream =>
       Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
@@ -66,13 +83,13 @@ class AudioServiceHandler extends BaseAudioHandler with SeekHandler {
       final playing = player.playing;
       playbackState.add(playbackState.value.copyWith(
         controls: [
-          MediaControl.skipToPrevious,
           if (playing) MediaControl.pause else MediaControl.play,
-          MediaControl.stop,
-          MediaControl.skipToNext,
+          MediaControl.rewind
         ],
         systemActions: const {
           MediaAction.seek,
+          MediaAction.seekForward,
+          MediaAction.seekBackward,
         },
         androidCompactActionIndices: const [0, 1, 3],
         processingState: const {
@@ -88,6 +105,33 @@ class AudioServiceHandler extends BaseAudioHandler with SeekHandler {
         speed: player.speed,
         queueIndex: event.currentIndex,
       ));
+    });
+  }
+
+  void _listenForDurationChanges() {
+    player.durationStream.listen((duration) {
+      var index = player.currentIndex;
+      final newQueue = queue.value;
+      if (index == null || newQueue.isEmpty) return;
+      if (player.shuffleModeEnabled) {
+        index = player.shuffleIndices![index];
+      }
+      final oldMediaItem = newQueue[index];
+      final newMediaItem = oldMediaItem.copyWith(duration: duration);
+      newQueue[index] = newMediaItem;
+      queue.add(newQueue);
+      mediaItem.add(newMediaItem);
+    });
+  }
+
+  void _listenForCurrentSongIndexChanges() {
+    player.currentIndexStream.listen((index) {
+      final playlist = queue.value;
+      if (index == null || playlist.isEmpty) return;
+      if (player.shuffleModeEnabled) {
+        index = player.shuffleIndices![index];
+      }
+      mediaItem.add(playlist[index]);
     });
   }
 }

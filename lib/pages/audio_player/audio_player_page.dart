@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,8 +21,13 @@ import 'package:collection/collection.dart';
 class AudioPlayerPage extends ConsumerStatefulWidget {
   final String courseId;
   final String id;
+  final Duration initialPosition;
 
-  const AudioPlayerPage({super.key, required this.courseId, required this.id});
+  const AudioPlayerPage(
+      {super.key,
+      required this.courseId,
+      required this.id,
+      required this.initialPosition});
 
   @override
   AudioState createState() => AudioState();
@@ -32,6 +39,8 @@ class AudioState extends ConsumerState<AudioPlayerPage>
   Lesson? _lesson;
   List<Lesson>? _lessonList;
   bool _ready = false;
+
+  final List<StreamSubscription> _subscriptions = [];
 
   @override
   void initState() {
@@ -50,18 +59,9 @@ class AudioState extends ConsumerState<AudioPlayerPage>
     final session = await AudioSession.instance;
     await session.configure(const AudioSessionConfiguration.speech());
 
-    // Automatically play
-    player.listenOnCompleted((state) {
-      if (state.processingState == ProcessingState.ready && !_ready) {
-        _ready = true;
-        player.play();
-      } else if (state.processingState == ProcessingState.completed) {
-        goNextPlayerPage(context);
-      }
-    });
-
     // Try to load audio from a source and catch any errors.
     try {
+      int index = 0;
       setState(() {
         _course = ref
             .read(courseProvider)
@@ -70,28 +70,55 @@ class AudioState extends ConsumerState<AudioPlayerPage>
         _lessonList =
             ref.read(lessonListProvider(_course?.lessonListUrl ?? '')).value;
 
-        _lesson = _lessonList?.firstWhere((item) => item.id == widget.id);
+        index = _lessonList?.indexWhere((item) => item.id == widget.id) ?? 0;
+        _lesson = _lessonList?[index];
       });
-      final url = _lesson?.url;
+
+      // Automatically play
+      _subscriptions.add(player.playerStateStream.listen((state) {
+        if (state.processingState == ProcessingState.ready && !_ready) {
+          _ready = true;
+          player.play();
+        }
+      }));
+
+      // Automatically go to a next lesson if complete
+      _subscriptions.add(player.currentIndexStream.listen((i) {
+        if (i == null || index == i) return;
+        goNextPlayerPage(context, i);
+      }));
+
       player.init(
-          id: url ?? '',
-          title: _lesson?.name ?? '',
+          lessons: _lessonList!,
           album: _course?.name ?? '',
-          artist: 'ManaVo Lesson');
+          index: index,
+          initialPosition: widget.initialPosition);
     } catch (e) {
-      print("Error loading audio source: $e");
+      debugPrint("Error loading audio source: $e");
     }
   }
 
   @override
   void dispose() {
     ambiguate(WidgetsBinding.instance)!.removeObserver(this);
+    for (var subscription in _subscriptions) {
+      subscription.cancel();
+    }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final player = ref.read(audioPlayerProvider.notifier);
+    SystemChannels.lifecycle.setMessageHandler((msg) async {
+      if (msg == 'AppLifecycleState.resumed') {
+        GoRouter.of(context).pop();
+        GoRouter.of(context).push(
+            '/course/${_course?.id}/player/${_lessonList?[player.currentIndex].id}?initial_position=${player.currentPosition}');
+      }
+      return null;
+    });
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -129,12 +156,9 @@ class AudioState extends ConsumerState<AudioPlayerPage>
     );
   }
 
-  void goNextPlayerPage(BuildContext context) {
-    final index = _lessonList?.indexWhere((item) => _lesson?.id == item.id);
-    if (index != null && index + 1 < (_lessonList?.length ?? 0)) {
-      final nextLesson = _lessonList?[index + 1];
-      GoRouter.of(context)
-          .replace('/course/${_course?.id}/player/${nextLesson?.id}');
-    }
+  void goNextPlayerPage(BuildContext context, int index) {
+    final nextLesson = _lessonList?[index];
+    GoRouter.of(context)
+        .replace('/course/${_course?.id}/player/${nextLesson?.id}');
   }
 }

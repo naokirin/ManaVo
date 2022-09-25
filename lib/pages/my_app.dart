@@ -1,3 +1,4 @@
+import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_just_audio_sample/pages/course/course_page.dart';
 import 'package:flutter_just_audio_sample/pages/home/home_page.dart';
@@ -16,9 +17,15 @@ class MyApp extends StatelessWidget {
         }),
     GoRoute(
         path: '/course/:course_id/player/:id',
-        builder: (context, state) => AudioPlayerPage(
-            courseId: state.params['course_id'] ?? '',
-            id: state.params['id'] ?? '')),
+        builder: (context, state) {
+          final initialPosition = state.queryParams['initial_position'];
+          return AudioPlayerPage(
+              courseId: state.params['course_id'] ?? '',
+              id: state.params['id'] ?? '',
+              initialPosition: initialPosition != null
+                  ? parseTime(initialPosition)
+                  : Duration.zero);
+        }),
   ]);
 
   @override
