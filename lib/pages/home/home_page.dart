@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_just_audio_sample/components/networks/http_error_snack_bar.dart';
 import 'package:flutter_just_audio_sample/pages/home/course_item.dart';
 import 'package:flutter_just_audio_sample/providers/course.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,6 +23,14 @@ class HomePage extends ConsumerWidget {
                             child: CourseItem(course: course)))
                         .toList())),
             loading: () => const CircularProgressIndicator(),
-            error: (error, _) => Text(error.toString())));
+            error: (error, _) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                HttpErrorSnackBar.showHttpErrorSnackBar(
+                    context: context,
+                    error: error,
+                    onRetry: () => ref.refresh(courseProvider));
+              });
+              return Container();
+            }));
   }
 }

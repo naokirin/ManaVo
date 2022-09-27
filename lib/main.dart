@@ -1,7 +1,3 @@
-// This is a minimal example demonstrating a play/pause button and a seek bar.
-// More advanced examples demonstrating other features can be found in the same
-// directory as this example in the GitHub repository.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_just_audio_sample/pages/my_app.dart';
