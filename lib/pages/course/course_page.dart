@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_just_audio_sample/components/networks/http_error_snack_bar.dart';
 import 'package:flutter_just_audio_sample/pages/course/lesson_item.dart';
 import 'package:flutter_just_audio_sample/providers/audio_player.dart';
 import 'package:flutter_just_audio_sample/providers/course.dart';
@@ -13,10 +14,9 @@ class CoursePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.read(audioPlayerProvider.notifier).stop();
-    final c = ref.read(courseProvider).value;
-    final course = c?.firstWhere((item) => item.id == id);
-    final lessonList =
-        ref.watch(lessonListProvider(course?.lessonListUrl ?? ''));
+    final course =
+        ref.read(courseProvider).value?.firstWhere((course) => course.id == id);
+    final lessonList = ref.watch(lessonListProvider(id));
     return Scaffold(
         appBar: AppBar(title: Text(course?.name ?? '')),
         body: Column(children: [
@@ -32,7 +32,15 @@ class CoursePage extends ConsumerWidget {
                               child: LessonItem(courseId: id, lesson: lesson)))
                           .toList()),
                   loading: () => const CircularProgressIndicator(),
-                  error: (error, _) => Text(error.toString())))
+                  error: (error, _) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      HttpErrorSnackBar.showHttpErrorSnackBar(
+                          context: context,
+                          error: error,
+                          onRetry: () => ref.refresh(lessonListProvider(id)));
+                    });
+                    return Container();
+                  }))
         ]));
   }
 }
