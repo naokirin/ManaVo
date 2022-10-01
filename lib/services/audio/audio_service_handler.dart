@@ -6,81 +6,103 @@ import 'package:rxdart/rxdart.dart';
 
 class AudioServiceHandler extends BaseAudioHandler
     with QueueHandler, SeekHandler {
-  final AudioPlayer player = AudioPlayer();
+  final AudioPlayer _player = AudioPlayer();
+  void Function(Object error, StackTrace stacktrace) _onError =
+      (e, s) => debugPrint('Playback error: $e\n$s');
 
   Future<void> initPlayer(
       {required List<MediaItem> items,
       required int initialIndex,
       required Duration initialPosition}) async {
+    // _player = AudioPlayer();
+
+    _notifyAudioHandlerAboutPlaybackEvents();
+    _listenForDurationChanges();
+    _listenForCurrentSongIndexChanges();
+
+    await setAudioSource(
+        items: items,
+        initialIndex: initialIndex,
+        initialPosition: initialPosition);
+  }
+
+  Future<void> setAudioSource(
+      {required List<MediaItem> items,
+      required int initialIndex,
+      required Duration initialPosition}) async {
+    queue.add(items);
     final playlist = ConcatenatingAudioSource(
         children:
             items.map((item) => AudioSource.uri(Uri.parse(item.id))).toList());
-    try {
-      _notifyAudioHandlerAboutPlaybackEvents();
-      _listenForDurationChanges();
-      _listenForCurrentSongIndexChanges();
-
-      queue.add(items);
-      player.setAudioSource(playlist,
-          initialIndex: initialIndex, initialPosition: initialPosition);
-      skipToQueueItem(initialIndex);
-      final position = player.position;
-      if (position > Duration.zero) {
-        seek(position);
-      }
-      mediaItem.add(items[initialIndex].copyWith(duration: player.duration));
-    } catch (e) {
-      debugPrint('ERROR OCCURED:$e');
+    await _player.setAudioSource(playlist,
+        initialIndex: initialIndex, initialPosition: initialPosition);
+    skipToQueueItem(initialIndex);
+    final position = _player.position;
+    if (position > Duration.zero) {
+      seek(position);
     }
+    mediaItem.add(items[initialIndex].copyWith(duration: _player.duration));
   }
 
   @override
   Future<void> play() async {
-    player.play();
+    await _player.play();
   }
 
   @override
   Future<void> pause() async {
-    player.pause();
+    await _player.pause();
   }
 
   @override
-  Future<void> seek(Duration position) => player.seek(position);
+  Future<void> seek(Duration position) => _player.seek(position);
 
   @override
-  Future<void> stop() {
-    player.stop();
+  Future<void> stop() async {
+    await _player.stop();
     return super.stop();
   }
 
   @override
-  Future<void> setSpeed(speed) {
-    player.setSpeed(speed);
+  Future<void> setSpeed(speed) async {
+    await _player.setSpeed(speed);
     return super.setSpeed(speed);
   }
 
-  Future<void> setVolume(double volume) async => player.setVolume(volume);
+  Future<Duration?> load() async {
+    return await _player.load();
+  }
 
-  get currentPosition => player.position;
-  get currentIndex => player.currentIndex;
-  get volume => player.volume;
-  get speed => player.speed;
-  get volumeStream => player.volumeStream;
-  get playerStateStream => player.playerStateStream;
-  get speedStream => player.speedStream;
-  get currentIndexStream => player.currentIndexStream;
+  Future<void> setVolume(double volume) async =>
+      await _player.setVolume(volume);
 
-  Stream<PositionData> get positionDataStream =>
+  bool loadedIndexedAudioSource(int i) {
+    return _player.audioSource?.sequence[i].duration != Duration.zero;
+  }
+
+  void setOnError(
+          void Function(Object error, StackTrace stacktrace) callback) =>
+      _onError = callback;
+
+  get currentPosition => _player.position;
+  get currentIndex => _player.currentIndex;
+  get volume => _player.volume;
+  get speed => _player.speed;
+  get volumeStream => _player.volumeStream;
+  get playerStateStream => _player.playerStateStream;
+  get speedStream => _player.speedStream;
+  get currentIndexStream => _player.currentIndexStream;
+  get positionDataStream =>
       Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-          player.positionStream,
-          player.bufferedPositionStream,
-          player.durationStream,
+          _player.positionStream,
+          _player.bufferedPositionStream,
+          _player.durationStream,
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
 
   void _notifyAudioHandlerAboutPlaybackEvents() {
-    player.playbackEventStream.listen((PlaybackEvent event) {
-      final playing = player.playing;
+    _player.playbackEventStream.listen((PlaybackEvent event) {
+      final playing = _player.playing;
       playbackState.add(playbackState.value.copyWith(
         controls: [
           if (playing) MediaControl.pause else MediaControl.play,
@@ -98,23 +120,23 @@ class AudioServiceHandler extends BaseAudioHandler
           ProcessingState.buffering: AudioProcessingState.buffering,
           ProcessingState.ready: AudioProcessingState.ready,
           ProcessingState.completed: AudioProcessingState.completed,
-        }[player.processingState]!,
+        }[_player.processingState]!,
         playing: playing,
-        updatePosition: player.position,
-        bufferedPosition: player.bufferedPosition,
-        speed: player.speed,
+        updatePosition: _player.position,
+        bufferedPosition: _player.bufferedPosition,
+        speed: _player.speed,
         queueIndex: event.currentIndex,
       ));
-    });
+    }, cancelOnError: true, onError: _onError);
   }
 
   void _listenForDurationChanges() {
-    player.durationStream.listen((duration) {
-      var index = player.currentIndex;
+    _player.durationStream.listen((duration) {
+      var index = _player.currentIndex;
       final newQueue = queue.value;
       if (index == null || newQueue.isEmpty) return;
-      if (player.shuffleModeEnabled) {
-        index = player.shuffleIndices![index];
+      if (_player.shuffleModeEnabled) {
+        index = _player.shuffleIndices![index];
       }
       final oldMediaItem = newQueue[index];
       final newMediaItem = oldMediaItem.copyWith(duration: duration);
@@ -125,11 +147,11 @@ class AudioServiceHandler extends BaseAudioHandler
   }
 
   void _listenForCurrentSongIndexChanges() {
-    player.currentIndexStream.listen((index) {
+    _player.currentIndexStream.listen((index) {
       final playlist = queue.value;
       if (index == null || playlist.isEmpty) return;
-      if (player.shuffleModeEnabled) {
-        index = player.shuffleIndices![index];
+      if (_player.shuffleModeEnabled) {
+        index = _player.shuffleIndices![index];
       }
       mediaItem.add(playlist[index]);
     });

@@ -16,11 +16,11 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
 
   final AudioServiceHandler _handler = getIt<AudioServiceHandler>();
 
-  void init(
+  Future<void> init(
       {required List<Lesson> lessons,
       required String album,
       required int index,
-      required Duration initialPosition}) {
+      required Duration initialPosition}) async {
     final items = lessons
         .map((lesson) => MediaItem(
             id: lesson.url,
@@ -28,7 +28,24 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
             title: lesson.name,
             artist: 'ManaVo Lesson'))
         .toList();
-    _handler.initPlayer(
+    await _handler.initPlayer(
+        items: items, initialIndex: index, initialPosition: initialPosition);
+  }
+
+  Future<void> setAudioSource(
+      {required List<Lesson> lessons,
+      required String album,
+      required int index,
+      required Duration initialPosition}) async {
+    final items = lessons
+        .map((lesson) => MediaItem(
+            id: lesson.url,
+            album: album,
+            title: lesson.name,
+            artist: 'ManaVo Lesson'))
+        .toList();
+
+    await _handler.setAudioSource(
         items: items, initialIndex: index, initialPosition: initialPosition);
   }
 
@@ -38,13 +55,15 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
     super.dispose();
   }
 
-  void play() => _handler.play();
+  Future<void> play() async => await _handler.play();
 
-  void pause() => _handler.pause();
+  Future<void> pause() async => await _handler.pause();
 
-  void stop() => _handler.stop();
+  Future<void> stop() async => await _handler.stop();
 
-  void seek(Duration position) => _handler.seek(position);
+  Future<void> seek(Duration position) async => await _handler.seek(position);
+
+  Future<Duration?> load() async => await _handler.load();
 
   void setAudioState(AudioState audioState) {
     state = state.copyWith(audioState: audioState);
@@ -59,6 +78,8 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
 
   void setVolume(double volume) => _handler.setVolume(volume);
   void setSpeed(double speed) => _handler.setVolume(speed);
+
+  bool loadedIndexedAudioSource(int i) => _handler.loadedIndexedAudioSource(i);
 
   get currentIndex => _handler.currentIndex;
   get currentPosition => _handler.currentPosition;

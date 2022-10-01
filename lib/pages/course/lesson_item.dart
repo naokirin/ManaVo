@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_just_audio_sample/models/lesson.dart';
+import 'package:flutter_just_audio_sample/utils/global/scaffold_key.dart';
 import 'package:go_router/go_router.dart';
 
 class LessonItem extends StatelessWidget {
@@ -42,6 +43,7 @@ class LessonItem extends StatelessWidget {
 
   void goPlayerPage(BuildContext context) {
     GoRouter.of(context).push(playerPath);
+    scaffoldKey.currentState!.removeCurrentSnackBar();
   }
 
   String get playerPath => "/course/$courseId/player/${lesson.id}";

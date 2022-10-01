@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:audio_session/audio_session.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_just_audio_sample/components/networks/http_error_snack_bar.dart';
 import 'package:flutter_just_audio_sample/models/course.dart';
 import 'package:flutter_just_audio_sample/models/lesson.dart';
 import 'package:flutter_just_audio_sample/pages/audio_player/audio_player_header.dart';
@@ -11,9 +13,10 @@ import 'package:flutter_just_audio_sample/pages/audio_player/seekbar.dart';
 import 'package:flutter_just_audio_sample/providers/audio_player.dart';
 import 'package:flutter_just_audio_sample/providers/course.dart';
 import 'package:flutter_just_audio_sample/providers/lesson_list.dart';
+import 'package:flutter_just_audio_sample/utils/exceptions/connection_exception.dart';
+import 'package:flutter_just_audio_sample/utils/global/snack_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:flutter_just_audio_sample/utils/common.dart';
 import 'package:flutter_just_audio_sample/models/position_data.dart';
 import 'package:collection/collection.dart';
@@ -54,48 +57,9 @@ class AudioState extends ConsumerState<AudioPlayerPage>
 
   Future<void> _init() async {
     final player = ref.read(audioPlayerProvider.notifier);
-    // Inform the operating system of our app's audio attributes etc.
-    // We pick a reasonable default for an app that plays speech.
     final session = await AudioSession.instance;
     await session.configure(const AudioSessionConfiguration.speech());
-
-    // Try to load audio from a source and catch any errors.
-    try {
-      int index = 0;
-      setState(() {
-        _course = ref
-            .read(courseProvider)
-            .value
-            ?.firstWhereOrNull((item) => item.id == widget.courseId);
-        _lessonList =
-            ref.read(lessonListProvider(_course?.lessonListUrl ?? '')).value;
-
-        index = _lessonList?.indexWhere((item) => item.id == widget.id) ?? 0;
-        _lesson = _lessonList?[index];
-      });
-
-      // Automatically play
-      _subscriptions.add(player.playerStateStream.listen((state) {
-        if (state.processingState == ProcessingState.ready && !_ready) {
-          _ready = true;
-          player.play();
-        }
-      }));
-
-      // Automatically go to a next lesson if complete
-      _subscriptions.add(player.currentIndexStream.listen((i) {
-        if (i == null || index == i) return;
-        goNextPlayerPage(context, i);
-      }));
-
-      player.init(
-          lessons: _lessonList!,
-          album: _course?.name ?? '',
-          index: index,
-          initialPosition: widget.initialPosition);
-    } catch (e) {
-      debugPrint("Error loading audio source: $e");
-    }
+    await _initPlayer(player);
   }
 
   @override
@@ -114,9 +78,16 @@ class AudioState extends ConsumerState<AudioPlayerPage>
       if (msg == 'AppLifecycleState.resumed') {
         GoRouter.of(context).pop();
         GoRouter.of(context).push(
-            '/course/${_course?.id}/player/${_lessonList?[player.currentIndex].id}?initial_position=${player.currentPosition}');
+            '/course/${widget.courseId}/player/${_lessonList?[player.currentIndex].id}?initial_position=${player.currentPosition}');
+        removeCurrentSnackBar();
       }
       return null;
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_ready) {
+        _startToPlay(player);
+        _ready = true;
+      }
     });
 
     return Scaffold(
@@ -159,6 +130,91 @@ class AudioState extends ConsumerState<AudioPlayerPage>
   void goNextPlayerPage(BuildContext context, int index) {
     final nextLesson = _lessonList?[index];
     GoRouter.of(context)
-        .replace('/course/${_course?.id}/player/${nextLesson?.id}');
+        .replace('/course/${widget.courseId}/player/${nextLesson?.id}');
+    removeCurrentSnackBar();
+  }
+
+  Future<void> _initPlayer(AudioPlayerNotifier player) async {
+    // Try to load audio from a source and catch any errors.
+    try {
+      int index = 0;
+      setState(() {
+        _course = ref
+            .read(courseProvider)
+            .value
+            ?.firstWhereOrNull((item) => item.id == widget.courseId);
+        _lessonList = ref.read(lessonListProvider(widget.courseId)).value;
+        index = _lessonList?.indexWhere((item) => item.id == widget.id) ?? 0;
+        _lesson = _lessonList?[index];
+      });
+
+      // Automatically go to a next lesson if complete
+      _subscriptions.add(player.currentIndexStream.listen((i) {
+        if (i == null || index == i) return;
+        if (player.loadedIndexedAudioSource(index)) return;
+        goNextPlayerPage(context, i);
+      }));
+
+      await player.init(
+          lessons: _lessonList ?? [],
+          album: _course?.name ?? '',
+          index: index,
+          initialPosition: widget.initialPosition);
+    } catch (error, stacktrace) {
+      debugPrint('$error\n$stacktrace');
+      await _playerErrorOccured(error, player);
+    }
+  }
+
+  Future<void> _setAudioSource(AudioPlayerNotifier player) async {
+    // Try to load audio from a source and catch any errors.
+    try {
+      int index = 0;
+      setState(() {
+        _course = ref
+            .read(courseProvider)
+            .value
+            ?.firstWhereOrNull((item) => item.id == widget.courseId);
+        _lessonList = ref.read(lessonListProvider(widget.courseId)).value;
+        index = _lessonList?.indexWhere((item) => item.id == widget.id) ?? 0;
+        _lesson = _lessonList?[index];
+      });
+
+      await player.setAudioSource(
+          lessons: _lessonList ?? [],
+          album: _course?.name ?? '',
+          index: index,
+          initialPosition: widget.initialPosition);
+    } catch (error) {
+      await _playerErrorOccured(error, player);
+    }
+  }
+
+  Future<void> _startToPlay(AudioPlayerNotifier player) async {
+    try {
+      var connectivityResult = await Connectivity().checkConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        await _playerErrorOccured(const NoNetworkException(), player);
+      } else {
+        await _setAudioSource(player);
+        await player.play();
+      }
+    } catch (e) {
+      await _playerErrorOccured(e, player);
+    }
+  }
+
+  Future<void> _playerErrorOccured(
+      Object error, AudioPlayerNotifier player) async {
+    HttpErrorSnackBar.showHttpErrorSnackBar(
+        error: error,
+        onRetry: () async {
+          var connectivityResult = await Connectivity().checkConnectivity();
+          if (connectivityResult == ConnectivityResult.none) {
+            await _playerErrorOccured(const NoNetworkException(), player);
+          } else {
+            await _setAudioSource(player);
+          }
+        });
   }
 }

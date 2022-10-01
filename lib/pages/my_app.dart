@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_just_audio_sample/pages/course/course_page.dart';
 import 'package:flutter_just_audio_sample/pages/home/home_page.dart';
 import 'package:flutter_just_audio_sample/pages/audio_player/audio_player_page.dart';
+import 'package:flutter_just_audio_sample/utils/global/scaffold_key.dart';
 import 'package:go_router/go_router.dart';
 
 class MyApp extends StatelessWidget {
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
         path: '/course/:id',
         builder: (context, state) {
           return CoursePage(id: state.params['id'] ?? '');
-        }),
+        },
+        ),
     GoRoute(
         path: '/course/:course_id/player/:id',
         builder: (context, state) {
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(Object context) {
     return MaterialApp.router(
+      scaffoldMessengerKey: scaffoldKey,
       title: 'ManaVo',
       theme: ThemeData(
           appBarTheme: const AppBarTheme(

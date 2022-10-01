@@ -26,9 +26,7 @@ class HomePage extends ConsumerWidget {
             error: (error, _) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 HttpErrorSnackBar.showHttpErrorSnackBar(
-                    context: context,
-                    error: error,
-                    onRetry: () => ref.refresh(courseProvider));
+                    error: error, onRetry: () => ref.refresh(courseProvider));
               });
               return Container();
             }));

@@ -8,7 +8,8 @@ class AudioPlayerState with _$AudioPlayerState {
       {@Default(Duration.zero) Duration current,
       @Default(Duration.zero) Duration buffered,
       @Default(Duration.zero) Duration total,
-      @Default(AudioState.paused) AudioState audioState}) = _AudioPlayerState;
+      @Default(AudioState.paused) AudioState audioState,
+      @Default(null) Object? error}) = _AudioPlayerState;
 }
 
 enum AudioState {

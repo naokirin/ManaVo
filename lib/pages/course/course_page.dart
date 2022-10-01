@@ -35,9 +35,11 @@ class CoursePage extends ConsumerWidget {
                   error: (error, _) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       HttpErrorSnackBar.showHttpErrorSnackBar(
-                          context: context,
                           error: error,
-                          onRetry: () => ref.refresh(lessonListProvider(id)));
+                          onRetry: () {
+                            ref.refresh(courseProvider);
+                            ref.refresh(lessonListProvider(id));
+                          });
                     });
                     return Container();
                   }))

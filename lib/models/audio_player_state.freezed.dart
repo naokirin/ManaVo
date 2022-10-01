@@ -20,6 +20,7 @@ mixin _$AudioPlayerState {
   Duration get buffered => throw _privateConstructorUsedError;
   Duration get total => throw _privateConstructorUsedError;
   AudioState get audioState => throw _privateConstructorUsedError;
+  Object? get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AudioPlayerStateCopyWith<AudioPlayerState> get copyWith =>
@@ -35,7 +36,8 @@ abstract class $AudioPlayerStateCopyWith<$Res> {
       {Duration current,
       Duration buffered,
       Duration total,
-      AudioState audioState});
+      AudioState audioState,
+      Object? error});
 }
 
 /// @nodoc
@@ -53,6 +55,7 @@ class _$AudioPlayerStateCopyWithImpl<$Res>
     Object? buffered = freezed,
     Object? total = freezed,
     Object? audioState = freezed,
+    Object? error = freezed,
   }) {
     return _then(_value.copyWith(
       current: current == freezed
@@ -71,6 +74,7 @@ class _$AudioPlayerStateCopyWithImpl<$Res>
           ? _value.audioState
           : audioState // ignore: cast_nullable_to_non_nullable
               as AudioState,
+      error: error == freezed ? _value.error : error,
     ));
   }
 }
@@ -86,7 +90,8 @@ abstract class _$$_AudioPlayerStateCopyWith<$Res>
       {Duration current,
       Duration buffered,
       Duration total,
-      AudioState audioState});
+      AudioState audioState,
+      Object? error});
 }
 
 /// @nodoc
@@ -106,6 +111,7 @@ class __$$_AudioPlayerStateCopyWithImpl<$Res>
     Object? buffered = freezed,
     Object? total = freezed,
     Object? audioState = freezed,
+    Object? error = freezed,
   }) {
     return _then(_$_AudioPlayerState(
       current: current == freezed
@@ -124,6 +130,7 @@ class __$$_AudioPlayerStateCopyWithImpl<$Res>
           ? _value.audioState
           : audioState // ignore: cast_nullable_to_non_nullable
               as AudioState,
+      error: error == freezed ? _value.error : error,
     ));
   }
 }
@@ -135,7 +142,8 @@ class _$_AudioPlayerState implements _AudioPlayerState {
       {this.current = Duration.zero,
       this.buffered = Duration.zero,
       this.total = Duration.zero,
-      this.audioState = AudioState.paused});
+      this.audioState = AudioState.paused,
+      this.error = null});
 
   @override
   @JsonKey()
@@ -149,10 +157,13 @@ class _$_AudioPlayerState implements _AudioPlayerState {
   @override
   @JsonKey()
   final AudioState audioState;
+  @override
+  @JsonKey()
+  final Object? error;
 
   @override
   String toString() {
-    return 'AudioPlayerState(current: $current, buffered: $buffered, total: $total, audioState: $audioState)';
+    return 'AudioPlayerState(current: $current, buffered: $buffered, total: $total, audioState: $audioState, error: $error)';
   }
 
   @override
@@ -164,7 +175,8 @@ class _$_AudioPlayerState implements _AudioPlayerState {
             const DeepCollectionEquality().equals(other.buffered, buffered) &&
             const DeepCollectionEquality().equals(other.total, total) &&
             const DeepCollectionEquality()
-                .equals(other.audioState, audioState));
+                .equals(other.audioState, audioState) &&
+            const DeepCollectionEquality().equals(other.error, error));
   }
 
   @override
@@ -173,7 +185,8 @@ class _$_AudioPlayerState implements _AudioPlayerState {
       const DeepCollectionEquality().hash(current),
       const DeepCollectionEquality().hash(buffered),
       const DeepCollectionEquality().hash(total),
-      const DeepCollectionEquality().hash(audioState));
+      const DeepCollectionEquality().hash(audioState),
+      const DeepCollectionEquality().hash(error));
 
   @JsonKey(ignore: true)
   @override
@@ -186,7 +199,8 @@ abstract class _AudioPlayerState implements AudioPlayerState {
       {final Duration current,
       final Duration buffered,
       final Duration total,
-      final AudioState audioState}) = _$_AudioPlayerState;
+      final AudioState audioState,
+      final Object? error}) = _$_AudioPlayerState;
 
   @override
   Duration get current;
@@ -196,6 +210,8 @@ abstract class _AudioPlayerState implements AudioPlayerState {
   Duration get total;
   @override
   AudioState get audioState;
+  @override
+  Object? get error;
   @override
   @JsonKey(ignore: true)
   _$$_AudioPlayerStateCopyWith<_$_AudioPlayerState> get copyWith =>
