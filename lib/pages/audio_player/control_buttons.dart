@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_just_audio_sample/pages/audio_player/dialog.dart';
-import 'package:flutter_just_audio_sample/providers/audio_player.dart';
+import 'package:manavo/pages/audio_player/dialog.dart';
+import 'package:manavo/providers/audio_player.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 

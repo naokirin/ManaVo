@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_just_audio_sample/providers/audio_player.dart';
+import 'package:manavo/providers/audio_player.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SeekBar extends ConsumerWidget {

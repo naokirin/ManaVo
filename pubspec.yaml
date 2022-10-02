@@ -1,5 +1,5 @@
-name: flutter_just_audio_sample
-description: A new Flutter project.
+name: manavo
+description: ManaVo is a voice lesson app
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 environment:
@@ -26,6 +26,7 @@ dependencies:
   get_it: ^7.2.0
   duration: ^3.0.12
   connectivity_plus: ^2.3.7
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

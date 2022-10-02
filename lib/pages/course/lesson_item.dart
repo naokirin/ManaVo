@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_just_audio_sample/models/lesson.dart';
-import 'package:flutter_just_audio_sample/utils/global/scaffold_key.dart';
+import 'package:manavo/models/lesson.dart';
+import 'package:manavo/providers/listened.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class LessonItem extends StatelessWidget {
+class LessonItem extends ConsumerWidget {
   final String courseId;
   final Lesson lesson;
 
   const LessonItem({super.key, required this.courseId, required this.lesson});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final listened = ref.watch(listenedProvider.notifier);
     return Card(
         elevation: 10,
         child: ListTile(
@@ -19,11 +21,18 @@ class LessonItem extends StatelessWidget {
                 width: 45.0,
                 height: 80.0,
                 child: Column(children: [
-                  const Align(
-                      alignment: Alignment.centerRight,
-                      child: Icon(Icons.check_circle,
-                          color: Colors.green,
-                          size: 24.0)), // TODO: Set if done
+                  FutureBuilder(
+                      future: listened.listened(courseId: courseId),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData &&
+                            (snapshot.data?.contains(lesson.id) ?? false)) {
+                          return const Align(
+                              alignment: Alignment.centerRight,
+                              child: Icon(Icons.check_circle,
+                                  color: Colors.green, size: 24.0));
+                        }
+                        return Container(height: 24.0);
+                      }),
                   Align(
                       alignment: Alignment.bottomLeft,
                       child: Padding(
@@ -43,8 +52,7 @@ class LessonItem extends StatelessWidget {
 
   void goPlayerPage(BuildContext context) {
     GoRouter.of(context).push(playerPath);
-    scaffoldKey.currentState!.removeCurrentSnackBar();
   }
 
-  String get playerPath => "/course/$courseId/player/${lesson.id}";
+  String get playerPath => "/player/$courseId/${lesson.id}";
 }

@@ -1,6 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_just_audio_sample/models/position_data.dart';
+import 'package:manavo/models/position_data.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -9,39 +9,33 @@ class AudioServiceHandler extends BaseAudioHandler
   final AudioPlayer _player = AudioPlayer();
   void Function(Object error, StackTrace stacktrace) _onError =
       (e, s) => debugPrint('Playback error: $e\n$s');
+  Future<void> Function() _onCompleted = () => Future(() {});
 
   Future<void> initPlayer(
       {required List<MediaItem> items,
       required int initialIndex,
-      required Duration initialPosition}) async {
-    // _player = AudioPlayer();
-
+      required Duration initialPosition,
+      required Future<void> Function() onCompleted}) async {
     _notifyAudioHandlerAboutPlaybackEvents();
-    _listenForDurationChanges();
-    _listenForCurrentSongIndexChanges();
 
-    await setAudioSource(
-        items: items,
-        initialIndex: initialIndex,
-        initialPosition: initialPosition);
+    _onCompleted = onCompleted;
+
+    await setAudioSource(items: items, initialPosition: initialPosition);
   }
 
   Future<void> setAudioSource(
       {required List<MediaItem> items,
-      required int initialIndex,
       required Duration initialPosition}) async {
     queue.add(items);
     final playlist = ConcatenatingAudioSource(
         children:
             items.map((item) => AudioSource.uri(Uri.parse(item.id))).toList());
-    await _player.setAudioSource(playlist,
-        initialIndex: initialIndex, initialPosition: initialPosition);
-    skipToQueueItem(initialIndex);
+    await _player.setAudioSource(playlist, initialPosition: initialPosition);
     final position = _player.position;
     if (position > Duration.zero) {
       seek(position);
     }
-    mediaItem.add(items[initialIndex].copyWith(duration: _player.duration));
+    mediaItem.add(items[0].copyWith(duration: _player.duration));
   }
 
   @override
@@ -84,6 +78,7 @@ class AudioServiceHandler extends BaseAudioHandler
           void Function(Object error, StackTrace stacktrace) callback) =>
       _onError = callback;
 
+  get playing => _player.playing;
   get currentPosition => _player.position;
   get currentIndex => _player.currentIndex;
   get volume => _player.volume;
@@ -101,8 +96,11 @@ class AudioServiceHandler extends BaseAudioHandler
               position, bufferedPosition, duration ?? Duration.zero));
 
   void _notifyAudioHandlerAboutPlaybackEvents() {
-    _player.playbackEventStream.listen((PlaybackEvent event) {
+    _player.playbackEventStream.listen((PlaybackEvent event) async {
       final playing = _player.playing;
+      if (_player.processingState == ProcessingState.completed) {
+        await _onCompleted();
+      }
       playbackState.add(playbackState.value.copyWith(
         controls: [
           if (playing) MediaControl.pause else MediaControl.play,
@@ -128,32 +126,5 @@ class AudioServiceHandler extends BaseAudioHandler
         queueIndex: event.currentIndex,
       ));
     }, cancelOnError: true, onError: _onError);
-  }
-
-  void _listenForDurationChanges() {
-    _player.durationStream.listen((duration) {
-      var index = _player.currentIndex;
-      final newQueue = queue.value;
-      if (index == null || newQueue.isEmpty) return;
-      if (_player.shuffleModeEnabled) {
-        index = _player.shuffleIndices![index];
-      }
-      final oldMediaItem = newQueue[index];
-      final newMediaItem = oldMediaItem.copyWith(duration: duration);
-      newQueue[index] = newMediaItem;
-      queue.add(newQueue);
-      mediaItem.add(newMediaItem);
-    });
-  }
-
-  void _listenForCurrentSongIndexChanges() {
-    _player.currentIndexStream.listen((index) {
-      final playlist = queue.value;
-      if (index == null || playlist.isEmpty) return;
-      if (_player.shuffleModeEnabled) {
-        index = _player.shuffleIndices![index];
-      }
-      mediaItem.add(playlist[index]);
-    });
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_just_audio_sample/components/networks/http_error_snack_bar.dart';
-import 'package:flutter_just_audio_sample/pages/course/lesson_item.dart';
-import 'package:flutter_just_audio_sample/providers/audio_player.dart';
-import 'package:flutter_just_audio_sample/providers/course.dart';
-import 'package:flutter_just_audio_sample/providers/lesson_list.dart';
+import 'package:manavo/components/networks/http_error_snack_bar.dart';
+import 'package:manavo/pages/course/lesson_item.dart';
+import 'package:manavo/providers/audio_player.dart';
+import 'package:manavo/providers/course.dart';
+import 'package:manavo/providers/lesson_list.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CoursePage extends ConsumerWidget {

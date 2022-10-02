@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter_just_audio_sample/utils/exceptions/connection_exception.dart';
-import 'package:flutter_just_audio_sample/utils/exceptions/error_response_exception.dart';
+import 'package:manavo/utils/exceptions/connection_exception.dart';
+import 'package:manavo/utils/exceptions/error_response_exception.dart';
 import 'package:http/http.dart';
 
 Future<Response> handleHttpResponse(Future<Response> Function() request) async {

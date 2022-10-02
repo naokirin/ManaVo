@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.naokirin" "\0"
-            VALUE "FileDescription", "flutter_just_audio_sample" "\0"
+            VALUE "FileDescription", "manavo" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "flutter_just_audio_sample" "\0"
+            VALUE "InternalName", "manavo" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.naokirin. All rights reserved." "\0"
-            VALUE "OriginalFilename", "flutter_just_audio_sample.exe" "\0"
-            VALUE "ProductName", "flutter_just_audio_sample" "\0"
+            VALUE "OriginalFilename", "manavo.exe" "\0"
+            VALUE "ProductName", "manavo" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

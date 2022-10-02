@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_just_audio_sample/models/course.dart';
-import 'package:flutter_just_audio_sample/models/lesson.dart';
+import 'package:manavo/models/course.dart';
+import 'package:manavo/models/lesson.dart';
 
 class AudioPlayerHeader extends StatelessWidget {
   final Course? course;

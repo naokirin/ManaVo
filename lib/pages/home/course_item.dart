@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_just_audio_sample/models/course.dart';
-import 'package:flutter_just_audio_sample/utils/global/scaffold_key.dart';
+import 'package:manavo/models/course.dart';
+import 'package:manavo/utils/global/scaffold_key.dart';
 import 'package:go_router/go_router.dart';
 
 class CourseItem extends StatelessWidget {

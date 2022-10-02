@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_just_audio_sample/components/networks/http_error_snack_bar.dart';
-import 'package:flutter_just_audio_sample/pages/home/course_item.dart';
-import 'package:flutter_just_audio_sample/providers/course.dart';
+import 'package:manavo/components/networks/http_error_snack_bar.dart';
+import 'package:manavo/pages/home/course_item.dart';
+import 'package:manavo/providers/course.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomePage extends ConsumerWidget {

@@ -1,4 +1,4 @@
-import 'package:flutter_just_audio_sample/models/lesson.dart';
+import 'package:manavo/models/lesson.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'lesson_list.freezed.dart';

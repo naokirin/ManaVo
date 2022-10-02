@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_just_audio_sample/utils/exceptions/connection_exception.dart';
-import 'package:flutter_just_audio_sample/utils/global/scaffold_key.dart';
+import 'package:manavo/utils/exceptions/connection_exception.dart';
+import 'package:manavo/utils/global/scaffold_key.dart';
 
 class HttpErrorSnackBar extends StatelessWidget {
   const HttpErrorSnackBar({super.key});
 
   static showHttpErrorSnackBar(
-      {required Object error,
-      required void Function() onRetry}) {
+      {required Object error, required void Function() onRetry}) {
     String text = '';
     if (error is NoNetworkException) {
       text = 'ネットワーク接続できませんでした。';
@@ -15,8 +14,6 @@ class HttpErrorSnackBar extends StatelessWidget {
       text = 'タイムアウトしました。';
     } else {
       text = 'データの取得に失敗しました。 $error';
-      debugPrint('Error: $error');
-      debugPrint(StackTrace.current.toString());
     }
     final snackBar = SnackBar(
         content: Text(text),

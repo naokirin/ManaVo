@@ -1,14 +1,15 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:flutter_just_audio_sample/models/audio_player_state.dart';
-import 'package:flutter_just_audio_sample/models/lesson.dart';
-import 'package:flutter_just_audio_sample/services/audio/audio_service_handler.dart';
-import 'package:flutter_just_audio_sample/services/audio/service_locator.dart';
+import 'package:manavo/models/audio_player_state.dart';
+import 'package:manavo/models/lesson.dart';
+import 'package:manavo/services/audio/audio_service_handler.dart';
+import 'package:manavo/services/audio/service_locator.dart';
+import 'package:manavo/services/listened/listened.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final seekBarDragProvider = StateProvider.autoDispose<double?>((ref) => null);
+final seekBarDragProvider = StateProvider<double?>((ref) => null);
 
 final audioPlayerProvider =
-    StateNotifierProvider.autoDispose<AudioPlayerNotifier, AudioPlayerState>(
+    StateNotifierProvider<AudioPlayerNotifier, AudioPlayerState>(
         (ref) => AudioPlayerNotifier());
 
 class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
@@ -17,7 +18,8 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
   final AudioServiceHandler _handler = getIt<AudioServiceHandler>();
 
   Future<void> init(
-      {required List<Lesson> lessons,
+      {required String courseId,
+      required List<Lesson> lessons,
       required String album,
       required int index,
       required Duration initialPosition}) async {
@@ -29,13 +31,20 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
             artist: 'ManaVo Lesson'))
         .toList();
     await _handler.initPlayer(
-        items: items, initialIndex: index, initialPosition: initialPosition);
+        items: items,
+        initialIndex: index,
+        initialPosition: initialPosition,
+        onCompleted: () async {
+          final listened = await Listened.getInstance();
+          final lessonId = lessons.first.id;
+          listened.saveListened(courseId: courseId, lessonId: lessonId);
+          listened.incrementListenedCount(lessonId: lessonId);
+        });
   }
 
   Future<void> setAudioSource(
       {required List<Lesson> lessons,
       required String album,
-      required int index,
       required Duration initialPosition}) async {
     final items = lessons
         .map((lesson) => MediaItem(
@@ -46,7 +55,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
         .toList();
 
     await _handler.setAudioSource(
-        items: items, initialIndex: index, initialPosition: initialPosition);
+        items: items, initialPosition: initialPosition);
   }
 
   @override
@@ -81,6 +90,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
 
   bool loadedIndexedAudioSource(int i) => _handler.loadedIndexedAudioSource(i);
 
+  get playing => _handler.playing;
   get currentIndex => _handler.currentIndex;
   get currentPosition => _handler.currentPosition;
   get positionDataStream => _handler.positionDataStream;

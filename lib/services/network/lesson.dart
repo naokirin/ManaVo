@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter_just_audio_sample/models/lesson.dart';
-import 'package:flutter_just_audio_sample/models/lesson_list.dart';
-import 'package:flutter_just_audio_sample/providers/course.dart';
-import 'package:flutter_just_audio_sample/utils/networks/http.dart';
+import 'package:manavo/models/lesson.dart';
+import 'package:manavo/models/lesson_list.dart';
+import 'package:manavo/providers/course.dart';
+import 'package:manavo/utils/networks/http.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
