@@ -1,11 +1,12 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:manavo/actions/listened_action.dart';
 import 'package:manavo/models/lesson.dart';
 import 'package:manavo/services/audio/audio_service_handler.dart';
 import 'package:manavo/services/audio/service_locator.dart';
-import 'package:manavo/services/listened/listened.dart';
 
-final audioPlayerActionProvider = Provider((ref) => AudioPlayerAction(ref.read));
+final audioPlayerActionProvider =
+    Provider((ref) => AudioPlayerAction(ref.read));
 
 class AudioPlayerAction {
   AudioPlayerAction(this.read);
@@ -13,7 +14,6 @@ class AudioPlayerAction {
   final Reader read;
 
   final AudioServiceHandler _handler = getIt<AudioServiceHandler>();
-  final Listened _listened = getIt<Listened>();
 
   Future<void> init(
       {required String courseId,
@@ -21,6 +21,7 @@ class AudioPlayerAction {
       required String album,
       required int index,
       required Duration initialPosition}) async {
+    final listened = read(listenedActionProvider);
     final items = lessons
         .map((lesson) => MediaItem(
             id: lesson.url,
@@ -34,8 +35,8 @@ class AudioPlayerAction {
         initialPosition: initialPosition,
         onCompleted: () async {
           final lessonId = lessons.first.id;
-          _listened.saveListened(courseId: courseId, lessonId: lessonId);
-          _listened.incrementListenedCount(lessonId: lessonId);
+          listened.saveListened(courseId: courseId, lessonId: lessonId);
+          listened.incrementListenedCount(lessonId: lessonId);
         });
   }
 
