@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manavo/actions/audio_player_action.dart';
 import 'package:manavo/pages/audio_player/dialog.dart';
 import 'package:manavo/providers/audio_player.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +12,7 @@ class ControlButtons extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final player = ref.watch(audioPlayerProvider.notifier);
+    final action = ref.read(audioPlayerActionProvider);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -26,7 +28,7 @@ class ControlButtons extends ConsumerWidget {
               max: 1.0,
               value: player.volume,
               stream: player.volumeStream,
-              onChanged: player.setVolume,
+              onChanged: action.setVolume,
             );
           },
         ),
@@ -53,19 +55,19 @@ class ControlButtons extends ConsumerWidget {
               return IconButton(
                 icon: const Icon(Icons.play_arrow),
                 iconSize: 64.0,
-                onPressed: player.play,
+                onPressed: action.play,
               );
             } else if (processingState != ProcessingState.completed) {
               return IconButton(
                 icon: const Icon(Icons.pause),
                 iconSize: 64.0,
-                onPressed: player.pause,
+                onPressed: action.pause,
               );
             } else {
               return IconButton(
                 icon: const Icon(Icons.replay),
                 iconSize: 64.0,
-                onPressed: () => player.seek(Duration.zero),
+                onPressed: () => action.seek(Duration.zero),
               );
             }
           },
@@ -85,7 +87,7 @@ class ControlButtons extends ConsumerWidget {
                 max: 1.5,
                 value: player.speed,
                 stream: player.speedStream,
-                onChanged: player.setSpeed,
+                onChanged: action.setSpeed,
               );
             },
           ),

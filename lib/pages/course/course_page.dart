@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:manavo/actions/audio_player_action.dart';
 import 'package:manavo/components/networks/http_error_snack_bar.dart';
 import 'package:manavo/pages/course/lesson_item.dart';
-import 'package:manavo/providers/audio_player.dart';
 import 'package:manavo/providers/course.dart';
 import 'package:manavo/providers/lesson_list.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +13,8 @@ class CoursePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(audioPlayerProvider.notifier).stop();
+    final audioPlayerAction = ref.read(audioPlayerActionProvider);
+    audioPlayerAction.stop();
     final course =
         ref.read(courseProvider).value?.firstWhere((course) => course.id == id);
     final lessonList = ref.watch(lessonListProvider(id));

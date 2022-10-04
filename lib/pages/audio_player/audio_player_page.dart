@@ -4,6 +4,7 @@ import 'package:audio_session/audio_session.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:manavo/actions/audio_player_action.dart';
 import 'package:manavo/components/networks/http_error_snack_bar.dart';
 import 'package:manavo/models/course.dart';
 import 'package:manavo/models/lesson.dart';
@@ -54,10 +55,9 @@ class AudioState extends ConsumerState<AudioPlayerPage>
   }
 
   Future<void> _init() async {
-    final player = ref.read(audioPlayerProvider.notifier);
     final session = await AudioSession.instance;
     await session.configure(const AudioSessionConfiguration.speech());
-    await _initPlayer(player);
+    await _initPlayer();
   }
 
   @override
@@ -71,10 +71,10 @@ class AudioState extends ConsumerState<AudioPlayerPage>
 
   @override
   Widget build(BuildContext context) {
-    final player = ref.read(audioPlayerProvider.notifier);
+    final player = _player();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!_ready && !player.playing) {
-        _startToPlay(player);
+      if (!_ready && !player.notifier.playing) {
+        _startToPlay();
         _ready = true;
       }
     });
@@ -97,7 +97,7 @@ class AudioState extends ConsumerState<AudioPlayerPage>
             // Display seek bar. Using StreamBuilder, this widget rebuilds
             // each time the position, buffered position or duration changes.
             StreamBuilder<PositionData>(
-              stream: player.positionDataStream,
+              stream: player.notifier.positionDataStream,
               builder: (context, snapshot) {
                 final positionData = snapshot.data;
                 return SeekBar(
@@ -105,7 +105,7 @@ class AudioState extends ConsumerState<AudioPlayerPage>
                   position: positionData?.position ?? Duration.zero,
                   bufferedPosition:
                       positionData?.bufferedPosition ?? Duration.zero,
-                  onChanged: player.seek,
+                  onChanged: player.action.seek,
                 );
               },
             ),
@@ -116,9 +116,10 @@ class AudioState extends ConsumerState<AudioPlayerPage>
     );
   }
 
-  Future<void> _initPlayer(AudioPlayerNotifier player) async {
+  Future<void> _initPlayer() async {
     // Try to load audio from a source and catch any errors.
     try {
+      final player = _player();
       int index = 0;
       setState(() {
         _course = ref
@@ -130,7 +131,7 @@ class AudioState extends ConsumerState<AudioPlayerPage>
         _lesson = _lessonList?[index];
       });
 
-      await player.init(
+      await player.action.init(
           courseId: widget.courseId,
           lessons: _lesson != null ? [_lesson!] : [],
           album: _course?.name ?? '',
@@ -138,34 +139,51 @@ class AudioState extends ConsumerState<AudioPlayerPage>
           initialPosition: widget.initialPosition);
     } catch (error, stacktrace) {
       debugPrint('$error\n$stacktrace');
-      await _playerErrorOccured(error, player);
+      await _playerErrorOccured(error);
     }
   }
 
-  Future<void> _startToPlay(AudioPlayerNotifier player) async {
+  Future<void> _startToPlay() async {
     try {
+      final player = _player();
       var connectivityResult = await Connectivity().checkConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
-        await _playerErrorOccured(const NoNetworkException(), player);
+        await _playerErrorOccured(const NoNetworkException());
       } else {
-        await player.play();
+        await player.action.play();
       }
     } catch (e) {
-      await _playerErrorOccured(e, player);
+      await _playerErrorOccured(e);
     }
   }
 
-  Future<void> _playerErrorOccured(
-      Object error, AudioPlayerNotifier player) async {
+  Future<void> _playerErrorOccured(Object error) async {
+    final player = _player();
     HttpErrorSnackBar.showHttpErrorSnackBar(
         error: error,
         onRetry: () async {
           var connectivityResult = await Connectivity().checkConnectivity();
           if (connectivityResult == ConnectivityResult.none) {
-            await _playerErrorOccured(const NoNetworkException(), player);
+            await _playerErrorOccured(const NoNetworkException());
           } else {
-            player.play();
+            player.action.play();
           }
         });
   }
+
+  _PlayerRef _player() {
+    return _PlayerRef(ref.read);
+  }
+}
+
+class _PlayerRef {
+  final AudioPlayerNotifier _notifier;
+  final AudioPlayerAction _action;
+
+  _PlayerRef(Reader read)
+      : _notifier = read(audioPlayerProvider.notifier),
+        _action = read(audioPlayerActionProvider);
+
+  AudioPlayerNotifier get notifier => _notifier;
+  AudioPlayerAction get action => _action;
 }
