@@ -155,27 +155,6 @@ class AudioState extends ConsumerState<AudioPlayerPage>
     }
   }
 
-  Future<void> _setAudioSource(AudioPlayerNotifier player) async {
-    // Try to load audio from a source and catch any errors.
-    try {
-      setState(() {
-        _course = ref
-            .read(courseProvider)
-            .value
-            ?.firstWhereOrNull((item) => item.id == widget.courseId);
-        _lessonList = ref.read(lessonListProvider(widget.courseId)).value;
-        _lesson = _lessonList?.firstWhere((item) => item.id == widget.id);
-      });
-
-      await player.setAudioSource(
-          lessons: _lessonList ?? [],
-          album: _course?.name ?? '',
-          initialPosition: widget.initialPosition);
-    } catch (error) {
-      await _playerErrorOccured(error, player);
-    }
-  }
-
   Future<void> _playerErrorOccured(
       Object error, AudioPlayerNotifier player) async {
     HttpErrorSnackBar.showHttpErrorSnackBar(
