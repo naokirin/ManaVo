@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 import 'package:manavo/providers/listened.dart';
 import 'package:manavo/services/listened/listened.dart';
 
@@ -10,7 +11,7 @@ class ListenedAction {
 
   ListenedAction(this.read);
 
-  Future<Listened> _listened() async => await Listened.getInstance();
+  Future<Listened> _listened() async => GetIt.I<Listened>();
 
   Future<void> saveListened(
       {required String courseId, required String lessonId}) async {
