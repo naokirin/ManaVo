@@ -36,6 +36,7 @@ dev_dependencies:
   mockito: ^5.3.0
   flutter_lints: ^2.0.0
   flutter_native_splash: ^2.2.9
+  flutter_launcher_icons: ^0.10.0
 
 flutter:
   uses-material-design: true
@@ -56,3 +57,10 @@ flutter_native_splash:
     image: assets/images/ManaVo_Android.png
     icon_background_color_dark: '#262626'
     image_dark: assets/images/ManaVo_white_Android.png
+
+flutter_icons:
+  android: true 
+  ios: true
+  image_path: "assets/icons/ManaVo_icon.png"
+  adaptive_icon_background: 'assets/icons/ManaVo_background.png'
+  adaptive_icon_foreground: 'assets/icons/ManaVo_icon.png'
