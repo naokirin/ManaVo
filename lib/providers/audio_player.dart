@@ -9,6 +9,7 @@ final audioPlayerProvider =
     StateNotifierProvider<AudioPlayerNotifier, AudioPlayerState>(
         (ref) => AudioPlayerNotifier());
 
+// FIXME: Remove dependency of AudioServiceHandler
 class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
   AudioPlayerNotifier() : super(const AudioPlayerState());
 
