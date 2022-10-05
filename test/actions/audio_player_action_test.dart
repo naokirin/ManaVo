@@ -1,6 +1,8 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:manavo/actions/audio_player_action.dart';
+import 'package:manavo/models/lesson.dart';
 import 'package:manavo/services/audio/audio_service_handler.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -15,19 +17,19 @@ void main() {
     test('setAudioSource', () {
       final mock = MockAudioServiceHandler();
       GetIt.instance.registerSingleton<AudioServiceHandler>(mock);
-      when(mock.setAudioSource(items: [], initialPosition: Duration.zero))
+      when(mock.setAudioSource(item: const MediaItem(id: '', title: ''), initialPosition: Duration.zero))
           .thenAnswer((_) async {});
 
       final container = ProviderContainer();
       addTearDown(container.dispose);
 
       container.read(audioPlayerActionProvider).setAudioSource(
-        lessons: [],
+        lesson: const Lesson(id: '', name: '', length: '', description: '', url: ''),
         album: '',
         initialPosition: Duration.zero,
       );
 
-      verify(mock.setAudioSource(items: [], initialPosition: Duration.zero))
+      verify(mock.setAudioSource(item: const MediaItem(id: '', title: ''), initialPosition: Duration.zero))
           .called(1);
     });
 

@@ -12,7 +12,7 @@ class AudioServiceHandler extends BaseAudioHandler
   Future<void> Function() _onCompleted = () => Future(() {});
 
   Future<void> initPlayer(
-      {required List<MediaItem> items,
+      {required MediaItem item,
       required int initialIndex,
       required Duration initialPosition,
       required Future<void> Function() onCompleted}) async {
@@ -20,22 +20,19 @@ class AudioServiceHandler extends BaseAudioHandler
 
     _onCompleted = onCompleted;
 
-    await setAudioSource(items: items, initialPosition: initialPosition);
+    await setAudioSource(item: item, initialPosition: initialPosition);
   }
 
   Future<void> setAudioSource(
-      {required List<MediaItem> items,
-      required Duration initialPosition}) async {
-    queue.add(items);
-    final playlist = ConcatenatingAudioSource(
-        children:
-            items.map((item) => AudioSource.uri(Uri.parse(item.id))).toList());
-    await _player.setAudioSource(playlist, initialPosition: initialPosition);
+      {required MediaItem item, required Duration initialPosition}) async {
+    queue.add([item]);
+    final uri = AudioSource.uri(Uri.parse(item.id));
+    await _player.setAudioSource(uri, initialPosition: initialPosition);
     final position = _player.position;
     if (position > Duration.zero) {
       seek(position);
     }
-    mediaItem.add(items[0].copyWith(duration: _player.duration));
+    mediaItem.add(item.copyWith(duration: _player.duration));
   }
 
   @override

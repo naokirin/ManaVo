@@ -17,43 +17,37 @@ class AudioPlayerAction {
 
   Future<void> init(
       {required String courseId,
-      required List<Lesson> lessons,
+      required Lesson lesson,
       required String album,
       required int index,
       required Duration initialPosition}) async {
     final listened = read(listenedActionProvider);
-    final items = lessons
-        .map((lesson) => MediaItem(
-            id: lesson.url,
-            album: album,
-            title: lesson.name,
-            artist: 'ManaVo Lesson'))
-        .toList();
+    final item = MediaItem(
+        id: lesson.url,
+        album: album,
+        title: lesson.name,
+        artist: 'ManaVo Lesson');
     await _handler.initPlayer(
-        items: items,
+        item: item,
         initialIndex: index,
         initialPosition: initialPosition,
         onCompleted: () async {
-          final lessonId = lessons.first.id;
+          final lessonId = lesson.id;
           listened.saveListened(courseId: courseId, lessonId: lessonId);
           listened.incrementListenedCount(lessonId: lessonId);
         });
   }
 
   Future<void> setAudioSource(
-      {required List<Lesson> lessons,
+      {required Lesson lesson,
       required String album,
       required Duration initialPosition}) async {
-    final items = lessons
-        .map((lesson) => MediaItem(
-            id: lesson.url,
-            album: album,
-            title: lesson.name,
-            artist: 'ManaVo Lesson'))
-        .toList();
-
-    await _handler.setAudioSource(
-        items: items, initialPosition: initialPosition);
+    final item = MediaItem(
+        id: lesson.url,
+        album: album,
+        title: lesson.name,
+        artist: 'ManaVo Lesson');
+    await _handler.setAudioSource(item: item, initialPosition: initialPosition);
   }
 
   Future<void> play() async => await _handler.play();
