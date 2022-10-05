@@ -63,5 +63,5 @@ class AudioPlayerAction {
   Future<Duration?> load() async => await _handler.load();
 
   void setVolume(double volume) => _handler.setVolume(volume);
-  void setSpeed(double speed) => _handler.setVolume(speed);
+  void setSpeed(double speed) => _handler.setSpeed(speed);
 }
