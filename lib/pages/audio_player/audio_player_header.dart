@@ -41,11 +41,14 @@ class AudioPlayerHeader extends ConsumerWidget {
                     children: [
                   Text(course?.name ?? '',
                       style: const TextStyle(color: Colors.white)),
-                  Text(lesson?.name ?? '',
-                      style:
-                          const TextStyle(fontSize: 20, color: Colors.white)),
                   Padding(
                       padding: const EdgeInsets.all(20.0),
+                      child: Text(lesson?.name ?? '',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.white))),
+                  Padding(
+                      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                       child: Text(lesson?.description ?? '',
                           style: const TextStyle(color: Colors.white))),
                   FutureBuilder(
