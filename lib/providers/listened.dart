@@ -1,6 +1,6 @@
+import 'package:get_it/get_it.dart';
 import 'package:manavo/models/listened_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:manavo/services/audio/service_locator.dart';
 import 'package:manavo/services/listened/listened.dart';
 
 final listenedProvider =
@@ -10,7 +10,7 @@ final listenedProvider =
 class ListenedNotifier extends StateNotifier<ListenedState> {
   ListenedNotifier() : super(ListenedState.create(updatedAt: DateTime.now()));
 
-  Listened _listened() => getIt<Listened>();
+  Listened _listened() => GetIt.I<Listened>();
 
   void update() {
     state = state.copyWith(updatedAt: DateTime.now());

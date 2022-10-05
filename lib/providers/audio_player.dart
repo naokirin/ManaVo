@@ -1,6 +1,6 @@
+import 'package:get_it/get_it.dart';
 import 'package:manavo/models/audio_player_state.dart';
 import 'package:manavo/services/audio/audio_service_handler.dart';
-import 'package:manavo/services/audio/service_locator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final seekBarDragProvider = StateProvider<double?>((ref) => null);
@@ -12,7 +12,7 @@ final audioPlayerProvider =
 class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
   AudioPlayerNotifier() : super(const AudioPlayerState());
 
-  final AudioServiceHandler _handler = getIt<AudioServiceHandler>();
+  final AudioServiceHandler _handler = GetIt.I<AudioServiceHandler>();
 
   @override
   void dispose() {

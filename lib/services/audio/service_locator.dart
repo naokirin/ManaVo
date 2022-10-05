@@ -3,11 +3,11 @@ import 'package:manavo/services/audio/audio_service_handler.dart';
 import 'package:get_it/get_it.dart';
 import 'package:manavo/services/listened/listened.dart';
 
-GetIt getIt = GetIt.instance;
+final GetIt _getIt = GetIt.instance;
 
 Future<void> initServiceLocator() async {
-  getIt.registerSingleton<AudioServiceHandler>(await _initeAudioService());
-  getIt.registerSingleton<Listened>(await _initListenedService());
+  _getIt.registerSingleton<AudioServiceHandler>(await _initeAudioService());
+  _getIt.registerSingleton<Listened>(await _initListenedService());
 }
 
 Future<AudioServiceHandler> _initeAudioService() async {

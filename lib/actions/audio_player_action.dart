@@ -1,9 +1,9 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 import 'package:manavo/actions/listened_action.dart';
 import 'package:manavo/models/lesson.dart';
 import 'package:manavo/services/audio/audio_service_handler.dart';
-import 'package:manavo/services/audio/service_locator.dart';
 
 final audioPlayerActionProvider =
     Provider((ref) => AudioPlayerAction(ref.read));
@@ -13,7 +13,7 @@ class AudioPlayerAction {
 
   final Reader read;
 
-  final AudioServiceHandler _handler = getIt<AudioServiceHandler>();
+  final AudioServiceHandler _handler = GetIt.I<AudioServiceHandler>();
 
   Future<void> init(
       {required String courseId,
