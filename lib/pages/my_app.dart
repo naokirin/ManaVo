@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'ManaVo',
       theme: ThemeData(
           appBarTheme: const AppBarTheme(
-              color: Color(0xFFFEFEFE),
+              backgroundColor: Colors.transparent,
               titleTextStyle: TextStyle(color: Colors.black, fontSize: 20),
               toolbarTextStyle: TextStyle(color: Colors.black, fontSize: 20),
               iconTheme: IconThemeData(color: Colors.black),
