@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:manavo/models/course.dart';
+import 'package:manavo/pages/home/listened_slider.dart';
 import 'package:manavo/utils/global/scaffold_key.dart';
 import 'package:go_router/go_router.dart';
 
-class CourseItem extends StatelessWidget {
+class CourseItem extends ConsumerWidget {
   final Course course;
 
   const CourseItem({super.key, required this.course});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
         height: 140,
         child: Card(
@@ -53,10 +55,11 @@ class CourseItem extends StatelessWidget {
                               Text(course.description,
                                   style: const TextStyle(
                                       fontSize: 12, color: Colors.white)),
+                              ListenedSlider(course: course),
                               Expanded(
                                   child: Padding(
                                       padding:
-                                          const EdgeInsets.only(bottom: 14.0),
+                                          const EdgeInsets.only(bottom: 28.0),
                                       child: Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,

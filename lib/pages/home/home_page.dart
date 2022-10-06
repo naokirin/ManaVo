@@ -11,7 +11,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final courseList = ref.watch(courseProvider);
     return Scaffold(
-        appBar: AppBar(title: const Text('学習コース')),
+        appBar: AppBar(title: const Text('学習コース 一覧')),
         body: courseList.when(
             data: (list) => Padding(
                 padding: const EdgeInsets.only(top: 10.0),
