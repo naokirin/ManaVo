@@ -549,6 +549,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.3.0"
+  mp3_info:
+    dependency: "direct dev"
+    description:
+      name: mp3_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   nm:
     dependency: transitive
     description:
