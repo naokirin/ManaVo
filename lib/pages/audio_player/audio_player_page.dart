@@ -14,6 +14,7 @@ import 'package:manavo/pages/audio_player/control_buttons.dart';
 import 'package:manavo/pages/audio_player/seekbar.dart';
 import 'package:manavo/providers/audio_player.dart';
 import 'package:manavo/providers/course.dart';
+import 'package:manavo/providers/initializers.dart';
 import 'package:manavo/providers/lesson_list.dart';
 import 'package:manavo/utils/exceptions/connection_exception.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -129,6 +130,8 @@ class AudioState extends ConsumerState<AudioPlayerPage>
         index = _lessonList?.indexWhere((item) => item.id == widget.id) ?? 0;
         _lesson = _lessonList?[index];
       });
+
+      initAudioPlayerProvider(ref.read);
 
       await player.action.init(
           courseId: widget.courseId,

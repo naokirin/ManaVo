@@ -21,7 +21,7 @@ void showSliderDialog({
           height: 100.0,
           child: Column(
             children: [
-              Text('${snapshot.data?.toStringAsFixed(1)}$valueSuffix',
+              Text('${snapshot.data?.toStringAsFixed(1) ?? 1.0}$valueSuffix',
                   style: const TextStyle(
                       fontFamily: 'Fixed',
                       fontWeight: FontWeight.bold,
