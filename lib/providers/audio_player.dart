@@ -30,8 +30,6 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
     _streamController.add(state);
   }
 
-  bool loadedIndexedAudioSource(int i) => _handler.loadedIndexedAudioSource(i);
-
   bool get playing => state.playing;
   int? get currentIndex => state.currentIndex;
   Duration get currentPosition => state.currentPosition;

@@ -154,10 +154,6 @@ class MockAudioServiceHandler extends _i1.Mock
       returnValue: _i5.Future<void>.value(),
       returnValueForMissingStub: _i5.Future<void>.value()) as _i5.Future<void>);
   @override
-  bool loadedIndexedAudioSource(int? i) =>
-      (super.noSuchMethod(Invocation.method(#loadedIndexedAudioSource, [i]),
-          returnValue: false) as bool);
-  @override
   _i5.Stream<_i6.AudioPlayerState> audioPlayerStateStream() =>
       (super.noSuchMethod(Invocation.method(#audioPlayerStateStream, []),
               returnValue: _i5.Stream<_i6.AudioPlayerState>.empty())

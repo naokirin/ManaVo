@@ -65,10 +65,6 @@ class AudioServiceHandler extends BaseAudioHandler
   Future<void> setVolume(double volume) async =>
       await _player.setVolume(volume);
 
-  bool loadedIndexedAudioSource(int i) {
-    return _player.audioSource?.sequence[i].duration != Duration.zero;
-  }
-
   get playerStateStream => _player.playerStateStream;
 
   Stream<model.AudioPlayerState> audioPlayerStateStream() {
