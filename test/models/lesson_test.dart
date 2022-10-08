@@ -9,7 +9,8 @@ void main() {
         'name': 'lesson_name',
         'description': 'lesson_description',
         'length': '10:45',
-        'url': 'https://example.com'
+        'url': 'https://example.com',
+        'last_updated_date': '2022/10/01'
       });
 
       expect(actual.id, 'lesson_id');
