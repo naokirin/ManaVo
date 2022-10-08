@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:manavo/actions/audio_player_action.dart';
+import 'package:manavo/models/audio_player_state.dart';
 import 'package:manavo/pages/audio_player/dialog.dart';
 import 'package:manavo/providers/audio_player.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:just_audio/just_audio.dart';
 
 /// Displays the play/pause button and volume/speed sliders.
 class ControlButtons extends ConsumerWidget {
@@ -22,29 +22,26 @@ class ControlButtons extends ConsumerWidget {
           onPressed: () {
             showSliderDialog(
               context: context,
-              title: "Adjust volume",
+              title: "ボリューム",
               divisions: 10,
               min: 0.0,
               max: 1.0,
               value: player.volume,
-              stream: player.volumeStream,
+              stream:
+                  player.playerStateStream.map<double>((state) => state.volume),
               onChanged: action.setVolume,
             );
           },
         ),
 
-        /// This StreamBuilder rebuilds whenever the player state changes, which
-        /// includes the playing/paused state and also the
-        /// loading/buffering/ready state. Depending on the state we show the
-        /// appropriate button or loading indicator.
-        StreamBuilder<PlayerState>(
+        StreamBuilder<AudioPlayerState>(
           stream: player.playerStateStream,
           builder: (context, snapshot) {
             final playerState = snapshot.data;
-            final processingState = playerState?.processingState;
+            final processingState = playerState?.audioProcessingState;
             final playing = playerState?.playing;
-            if (processingState == ProcessingState.loading ||
-                processingState == ProcessingState.buffering) {
+            if (processingState == AudioProcessingState.loading ||
+                processingState == AudioProcessingState.buffering) {
               return Container(
                 margin: const EdgeInsets.all(8.0),
                 width: 64.0,
@@ -57,7 +54,7 @@ class ControlButtons extends ConsumerWidget {
                 iconSize: 64.0,
                 onPressed: action.play,
               );
-            } else if (processingState != ProcessingState.completed) {
+            } else if (processingState != AudioProcessingState.completed) {
               return IconButton(
                 icon: const Icon(Icons.pause),
                 iconSize: 64.0,
@@ -73,20 +70,21 @@ class ControlButtons extends ConsumerWidget {
           },
         ),
         // Opens speed slider dialog
-        StreamBuilder<double>(
-          stream: player.speedStream,
+        StreamBuilder<AudioPlayerState>(
+          stream: player.playerStateStream,
           builder: (context, snapshot) => IconButton(
-            icon: Text("${snapshot.data?.toStringAsFixed(1)}x",
+            icon: Text("${snapshot.data?.speed.toStringAsFixed(1)}x",
                 style: const TextStyle(fontWeight: FontWeight.bold)),
             onPressed: () {
               showSliderDialog(
                 context: context,
-                title: "Adjust speed",
+                title: "再生スピード",
                 divisions: 10,
                 min: 0.5,
                 max: 1.5,
                 value: player.speed,
-                stream: player.speedStream,
+                stream: player.playerStateStream
+                    .map<double>((state) => state.speed),
                 onChanged: action.setSpeed,
               );
             },

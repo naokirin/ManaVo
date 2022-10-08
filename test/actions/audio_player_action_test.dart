@@ -17,19 +17,29 @@ void main() {
     test('setAudioSource', () {
       final mock = MockAudioServiceHandler();
       GetIt.instance.registerSingleton<AudioServiceHandler>(mock);
-      when(mock.setAudioSource(item: const MediaItem(id: '', title: ''), initialPosition: Duration.zero))
+      when(mock.setAudioSource(
+              item: const MediaItem(id: '', title: ''),
+              initialPosition: Duration.zero))
           .thenAnswer((_) async {});
 
       final container = ProviderContainer();
       addTearDown(container.dispose);
 
       container.read(audioPlayerActionProvider).setAudioSource(
-        lesson: const Lesson(id: '', name: '', length: '', description: '', url: ''),
-        album: '',
-        initialPosition: Duration.zero,
-      );
+            lesson: const Lesson(
+                id: '',
+                name: '',
+                length: '',
+                description: '',
+                url: '',
+                lastUpdatedDate: ''),
+            album: '',
+            initialPosition: Duration.zero,
+          );
 
-      verify(mock.setAudioSource(item: const MediaItem(id: '', title: ''), initialPosition: Duration.zero))
+      verify(mock.setAudioSource(
+              item: const MediaItem(id: '', title: ''),
+              initialPosition: Duration.zero))
           .called(1);
     });
 
@@ -84,7 +94,9 @@ void main() {
     test('load', () {
       final mock = MockAudioServiceHandler();
       GetIt.instance.registerSingleton<AudioServiceHandler>(mock);
-      when(mock.load()).thenAnswer((_) async {});
+      when(mock.load()).thenAnswer((_) async {
+        return null;
+      });
 
       final container = ProviderContainer();
       addTearDown(container.dispose);

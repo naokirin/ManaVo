@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:manavo/actions/audio_player_action.dart';
 import 'package:manavo/components/networks/http_error_snack_bar.dart';
+import 'package:manavo/models/audio_player_state.dart';
 import 'package:manavo/models/course.dart';
 import 'package:manavo/models/lesson.dart';
 import 'package:manavo/pages/audio_player/audio_player_header.dart';
@@ -13,11 +14,11 @@ import 'package:manavo/pages/audio_player/control_buttons.dart';
 import 'package:manavo/pages/audio_player/seekbar.dart';
 import 'package:manavo/providers/audio_player.dart';
 import 'package:manavo/providers/course.dart';
+import 'package:manavo/providers/initializers.dart';
 import 'package:manavo/providers/lesson_list.dart';
 import 'package:manavo/utils/exceptions/connection_exception.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:manavo/utils/common.dart';
-import 'package:manavo/models/position_data.dart';
 import 'package:collection/collection.dart';
 
 class AudioPlayerPage extends ConsumerStatefulWidget {
@@ -96,15 +97,14 @@ class AudioState extends ConsumerState<AudioPlayerPage>
             const ControlButtons(),
             // Display seek bar. Using StreamBuilder, this widget rebuilds
             // each time the position, buffered position or duration changes.
-            StreamBuilder<PositionData>(
-              stream: player.notifier.positionDataStream,
+            StreamBuilder<AudioPlayerState>(
+              stream: player.notifier.playerStateStream,
               builder: (context, snapshot) {
-                final positionData = snapshot.data;
+                final state = snapshot.data;
                 return SeekBar(
-                  duration: positionData?.duration ?? Duration.zero,
-                  position: positionData?.position ?? Duration.zero,
-                  bufferedPosition:
-                      positionData?.bufferedPosition ?? Duration.zero,
+                  duration: state?.duration ?? Duration.zero,
+                  position: state?.currentPosition ?? Duration.zero,
+                  bufferedPosition: state?.bufferedPosition ?? Duration.zero,
                   onChanged: player.action.seek,
                 );
               },
@@ -130,6 +130,8 @@ class AudioState extends ConsumerState<AudioPlayerPage>
         index = _lessonList?.indexWhere((item) => item.id == widget.id) ?? 0;
         _lesson = _lessonList?[index];
       });
+
+      initAudioPlayerProvider(ref.read);
 
       await player.action.init(
           courseId: widget.courseId,

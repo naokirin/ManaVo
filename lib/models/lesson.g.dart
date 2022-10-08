@@ -12,6 +12,7 @@ _$_Lesson _$$_LessonFromJson(Map<String, dynamic> json) => _$_Lesson(
       length: json['length'] as String,
       url: json['url'] as String,
       description: json['description'] as String,
+      lastUpdatedDate: json['last_updated_date'] as String,
     );
 
 Map<String, dynamic> _$$_LessonToJson(_$_Lesson instance) => <String, dynamic>{
@@ -20,4 +21,5 @@ Map<String, dynamic> _$$_LessonToJson(_$_Lesson instance) => <String, dynamic>{
       'length': instance.length,
       'url': instance.url,
       'description': instance.description,
+      'last_updated_date': instance.lastUpdatedDate,
     };
