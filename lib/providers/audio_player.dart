@@ -17,7 +17,7 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
 
   final AudioServiceHandler _handler = GetIt.I<AudioServiceHandler>();
   final StreamController<AudioPlayerState> _streamController =
-      StreamController();
+      StreamController.broadcast();
 
   @override
   void dispose() {
@@ -32,13 +32,11 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
 
   bool loadedIndexedAudioSource(int i) => _handler.loadedIndexedAudioSource(i);
 
-  get playing => state.playing;
-  get currentIndex => state.currentIndex;
-  get currentPosition => state.currentPosition;
-  get positionDataStream => _handler.positionDataStream;
-  get volume => _handler.volume;
-  get speed => _handler.speed;
-  get volumeStream => _handler.volumeStream;
-  get playerStateStream => _streamController.stream;
-  get speedStream => _handler.speedStream;
+  bool get playing => state.playing;
+  int? get currentIndex => state.currentIndex;
+  Duration get currentPosition => state.currentPosition;
+  Stream<AudioPlayerState> get playerStateStream => _streamController.stream;
+
+  double get volume => state.volume;
+  double get speed => state.speed;
 }

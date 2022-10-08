@@ -11,6 +11,12 @@ class AudioPlayerState with _$AudioPlayerState {
           Duration currentPosition,
       @Default(Duration.zero)
           Duration bufferedPosition,
+      @Default(Duration.zero)
+          Duration duration,
+      @Default(1.0)
+          double volume,
+      @Default(1.0)
+          double speed,
       @Default(AudioProcessingState.idle)
           AudioProcessingState audioProcessingState,
       @Default(false)

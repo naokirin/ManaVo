@@ -158,10 +158,6 @@ class MockAudioServiceHandler extends _i1.Mock
       (super.noSuchMethod(Invocation.method(#loadedIndexedAudioSource, [i]),
           returnValue: false) as bool);
   @override
-  void setOnError(void Function(Object, StackTrace)? callback) =>
-      super.noSuchMethod(Invocation.method(#setOnError, [callback]),
-          returnValueForMissingStub: null);
-  @override
   _i5.Stream<_i6.AudioPlayerState> audioPlayerStateStream() =>
       (super.noSuchMethod(Invocation.method(#audioPlayerStateStream, []),
               returnValue: _i5.Stream<_i6.AudioPlayerState>.empty())

@@ -19,6 +19,9 @@ mixin _$AudioPlayerState {
   int? get currentIndex => throw _privateConstructorUsedError;
   Duration get currentPosition => throw _privateConstructorUsedError;
   Duration get bufferedPosition => throw _privateConstructorUsedError;
+  Duration get duration => throw _privateConstructorUsedError;
+  double get volume => throw _privateConstructorUsedError;
+  double get speed => throw _privateConstructorUsedError;
   AudioProcessingState get audioProcessingState =>
       throw _privateConstructorUsedError;
   bool get playing => throw _privateConstructorUsedError;
@@ -37,6 +40,9 @@ abstract class $AudioPlayerStateCopyWith<$Res> {
       {int? currentIndex,
       Duration currentPosition,
       Duration bufferedPosition,
+      Duration duration,
+      double volume,
+      double speed,
       AudioProcessingState audioProcessingState,
       bool playing});
 }
@@ -55,6 +61,9 @@ class _$AudioPlayerStateCopyWithImpl<$Res>
     Object? currentIndex = freezed,
     Object? currentPosition = freezed,
     Object? bufferedPosition = freezed,
+    Object? duration = freezed,
+    Object? volume = freezed,
+    Object? speed = freezed,
     Object? audioProcessingState = freezed,
     Object? playing = freezed,
   }) {
@@ -71,6 +80,18 @@ class _$AudioPlayerStateCopyWithImpl<$Res>
           ? _value.bufferedPosition
           : bufferedPosition // ignore: cast_nullable_to_non_nullable
               as Duration,
+      duration: duration == freezed
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as Duration,
+      volume: volume == freezed
+          ? _value.volume
+          : volume // ignore: cast_nullable_to_non_nullable
+              as double,
+      speed: speed == freezed
+          ? _value.speed
+          : speed // ignore: cast_nullable_to_non_nullable
+              as double,
       audioProcessingState: audioProcessingState == freezed
           ? _value.audioProcessingState
           : audioProcessingState // ignore: cast_nullable_to_non_nullable
@@ -94,6 +115,9 @@ abstract class _$$_AudioPlayerStateCopyWith<$Res>
       {int? currentIndex,
       Duration currentPosition,
       Duration bufferedPosition,
+      Duration duration,
+      double volume,
+      double speed,
       AudioProcessingState audioProcessingState,
       bool playing});
 }
@@ -114,6 +138,9 @@ class __$$_AudioPlayerStateCopyWithImpl<$Res>
     Object? currentIndex = freezed,
     Object? currentPosition = freezed,
     Object? bufferedPosition = freezed,
+    Object? duration = freezed,
+    Object? volume = freezed,
+    Object? speed = freezed,
     Object? audioProcessingState = freezed,
     Object? playing = freezed,
   }) {
@@ -130,6 +157,18 @@ class __$$_AudioPlayerStateCopyWithImpl<$Res>
           ? _value.bufferedPosition
           : bufferedPosition // ignore: cast_nullable_to_non_nullable
               as Duration,
+      duration: duration == freezed
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as Duration,
+      volume: volume == freezed
+          ? _value.volume
+          : volume // ignore: cast_nullable_to_non_nullable
+              as double,
+      speed: speed == freezed
+          ? _value.speed
+          : speed // ignore: cast_nullable_to_non_nullable
+              as double,
       audioProcessingState: audioProcessingState == freezed
           ? _value.audioProcessingState
           : audioProcessingState // ignore: cast_nullable_to_non_nullable
@@ -149,6 +188,9 @@ class _$_AudioPlayerState implements _AudioPlayerState {
       {this.currentIndex = null,
       this.currentPosition = Duration.zero,
       this.bufferedPosition = Duration.zero,
+      this.duration = Duration.zero,
+      this.volume = 1.0,
+      this.speed = 1.0,
       this.audioProcessingState = AudioProcessingState.idle,
       this.playing = false});
 
@@ -163,6 +205,15 @@ class _$_AudioPlayerState implements _AudioPlayerState {
   final Duration bufferedPosition;
   @override
   @JsonKey()
+  final Duration duration;
+  @override
+  @JsonKey()
+  final double volume;
+  @override
+  @JsonKey()
+  final double speed;
+  @override
+  @JsonKey()
   final AudioProcessingState audioProcessingState;
   @override
   @JsonKey()
@@ -170,7 +221,7 @@ class _$_AudioPlayerState implements _AudioPlayerState {
 
   @override
   String toString() {
-    return 'AudioPlayerState(currentIndex: $currentIndex, currentPosition: $currentPosition, bufferedPosition: $bufferedPosition, audioProcessingState: $audioProcessingState, playing: $playing)';
+    return 'AudioPlayerState(currentIndex: $currentIndex, currentPosition: $currentPosition, bufferedPosition: $bufferedPosition, duration: $duration, volume: $volume, speed: $speed, audioProcessingState: $audioProcessingState, playing: $playing)';
   }
 
   @override
@@ -184,6 +235,9 @@ class _$_AudioPlayerState implements _AudioPlayerState {
                 .equals(other.currentPosition, currentPosition) &&
             const DeepCollectionEquality()
                 .equals(other.bufferedPosition, bufferedPosition) &&
+            const DeepCollectionEquality().equals(other.duration, duration) &&
+            const DeepCollectionEquality().equals(other.volume, volume) &&
+            const DeepCollectionEquality().equals(other.speed, speed) &&
             const DeepCollectionEquality()
                 .equals(other.audioProcessingState, audioProcessingState) &&
             const DeepCollectionEquality().equals(other.playing, playing));
@@ -195,6 +249,9 @@ class _$_AudioPlayerState implements _AudioPlayerState {
       const DeepCollectionEquality().hash(currentIndex),
       const DeepCollectionEquality().hash(currentPosition),
       const DeepCollectionEquality().hash(bufferedPosition),
+      const DeepCollectionEquality().hash(duration),
+      const DeepCollectionEquality().hash(volume),
+      const DeepCollectionEquality().hash(speed),
       const DeepCollectionEquality().hash(audioProcessingState),
       const DeepCollectionEquality().hash(playing));
 
@@ -209,6 +266,9 @@ abstract class _AudioPlayerState implements AudioPlayerState {
       {final int? currentIndex,
       final Duration currentPosition,
       final Duration bufferedPosition,
+      final Duration duration,
+      final double volume,
+      final double speed,
       final AudioProcessingState audioProcessingState,
       final bool playing}) = _$_AudioPlayerState;
 
@@ -218,6 +278,12 @@ abstract class _AudioPlayerState implements AudioPlayerState {
   Duration get currentPosition;
   @override
   Duration get bufferedPosition;
+  @override
+  Duration get duration;
+  @override
+  double get volume;
+  @override
+  double get speed;
   @override
   AudioProcessingState get audioProcessingState;
   @override

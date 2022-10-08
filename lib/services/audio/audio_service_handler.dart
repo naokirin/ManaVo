@@ -1,7 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:manavo/models/audio_player_state.dart' as model;
-import 'package:manavo/models/position_data.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -70,24 +69,18 @@ class AudioServiceHandler extends BaseAudioHandler
     return _player.audioSource?.sequence[i].duration != Duration.zero;
   }
 
-  get playing => _player.playing;
-  get currentPosition => _player.position;
-  get currentIndex => _player.currentIndex;
-  get volume => _player.volume;
-  get speed => _player.speed;
-  get volumeStream => _player.volumeStream;
   get playerStateStream => _player.playerStateStream;
-  get speedStream => _player.speedStream;
-  get positionDataStream =>
-      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-          _player.positionStream,
-          _player.bufferedPositionStream,
-          _player.durationStream,
-          (position, bufferedPosition, duration) => PositionData(
-              position, bufferedPosition, duration ?? Duration.zero));
 
   Stream<model.AudioPlayerState> audioPlayerStateStream() {
-    return _player.playbackEventStream.map((event) {
+    return Rx.combineLatest6<Duration, Duration, Duration?, double, double,
+            PlaybackEvent, model.AudioPlayerState>(
+        _player.positionStream,
+        _player.bufferedPositionStream,
+        _player.durationStream,
+        _player.volumeStream,
+        _player.speedStream,
+        _player.playbackEventStream,
+        (position, bufferedPosition, duration, volume, speed, event) {
       model.AudioProcessingState? processingState;
       switch (event.processingState) {
         case ProcessingState.idle:
@@ -108,8 +101,11 @@ class AudioServiceHandler extends BaseAudioHandler
       }
       return model.AudioPlayerState(
           currentIndex: event.currentIndex,
-          currentPosition: event.updatePosition,
-          bufferedPosition: event.bufferedPosition,
+          currentPosition: position,
+          bufferedPosition: bufferedPosition,
+          duration: duration ?? Duration.zero,
+          volume: volume,
+          speed: speed,
           audioProcessingState: processingState,
           playing: _player.playing);
     });

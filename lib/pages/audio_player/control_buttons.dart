@@ -22,12 +22,13 @@ class ControlButtons extends ConsumerWidget {
           onPressed: () {
             showSliderDialog(
               context: context,
-              title: "Adjust volume",
+              title: "ボリューム",
               divisions: 10,
               min: 0.0,
               max: 1.0,
               value: player.volume,
-              stream: player.volumeStream,
+              stream:
+                  player.playerStateStream.map<double>((state) => state.volume),
               onChanged: action.setVolume,
             );
           },
@@ -69,20 +70,21 @@ class ControlButtons extends ConsumerWidget {
           },
         ),
         // Opens speed slider dialog
-        StreamBuilder<double>(
-          stream: player.speedStream,
+        StreamBuilder<AudioPlayerState>(
+          stream: player.playerStateStream,
           builder: (context, snapshot) => IconButton(
-            icon: Text("${snapshot.data?.toStringAsFixed(1)}x",
+            icon: Text("${snapshot.data?.speed.toStringAsFixed(1)}x",
                 style: const TextStyle(fontWeight: FontWeight.bold)),
             onPressed: () {
               showSliderDialog(
                 context: context,
-                title: "Adjust speed",
+                title: "再生スピード",
                 divisions: 10,
                 min: 0.5,
                 max: 1.5,
                 value: player.speed,
-                stream: player.speedStream,
+                stream: player.playerStateStream
+                    .map<double>((state) => state.speed),
                 onChanged: action.setSpeed,
               );
             },
