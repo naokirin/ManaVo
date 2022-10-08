@@ -30,6 +30,8 @@ mixin _$Lesson {
   String get url => throw _privateConstructorUsedError;
   @JsonKey(name: 'description')
   String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'last_updated_date')
+  String get lastUpdatedDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +47,8 @@ abstract class $LessonCopyWith<$Res> {
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'length') String length,
       @JsonKey(name: 'url') String url,
-      @JsonKey(name: 'description') String description});
+      @JsonKey(name: 'description') String description,
+      @JsonKey(name: 'last_updated_date') String lastUpdatedDate});
 }
 
 /// @nodoc
@@ -63,6 +66,7 @@ class _$LessonCopyWithImpl<$Res> implements $LessonCopyWith<$Res> {
     Object? length = freezed,
     Object? url = freezed,
     Object? description = freezed,
+    Object? lastUpdatedDate = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -85,6 +89,10 @@ class _$LessonCopyWithImpl<$Res> implements $LessonCopyWith<$Res> {
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      lastUpdatedDate: lastUpdatedDate == freezed
+          ? _value.lastUpdatedDate
+          : lastUpdatedDate // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -99,7 +107,8 @@ abstract class _$$_LessonCopyWith<$Res> implements $LessonCopyWith<$Res> {
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'length') String length,
       @JsonKey(name: 'url') String url,
-      @JsonKey(name: 'description') String description});
+      @JsonKey(name: 'description') String description,
+      @JsonKey(name: 'last_updated_date') String lastUpdatedDate});
 }
 
 /// @nodoc
@@ -118,6 +127,7 @@ class __$$_LessonCopyWithImpl<$Res> extends _$LessonCopyWithImpl<$Res>
     Object? length = freezed,
     Object? url = freezed,
     Object? description = freezed,
+    Object? lastUpdatedDate = freezed,
   }) {
     return _then(_$_Lesson(
       id: id == freezed
@@ -140,6 +150,10 @@ class __$$_LessonCopyWithImpl<$Res> extends _$LessonCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      lastUpdatedDate: lastUpdatedDate == freezed
+          ? _value.lastUpdatedDate
+          : lastUpdatedDate // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -152,7 +166,8 @@ class _$_Lesson implements _Lesson {
       @JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'length') required this.length,
       @JsonKey(name: 'url') required this.url,
-      @JsonKey(name: 'description') required this.description});
+      @JsonKey(name: 'description') required this.description,
+      @JsonKey(name: 'last_updated_date') required this.lastUpdatedDate});
 
   factory _$_Lesson.fromJson(Map<String, dynamic> json) =>
       _$$_LessonFromJson(json);
@@ -172,10 +187,13 @@ class _$_Lesson implements _Lesson {
   @override
   @JsonKey(name: 'description')
   final String description;
+  @override
+  @JsonKey(name: 'last_updated_date')
+  final String lastUpdatedDate;
 
   @override
   String toString() {
-    return 'Lesson(id: $id, name: $name, length: $length, url: $url, description: $description)';
+    return 'Lesson(id: $id, name: $name, length: $length, url: $url, description: $description, lastUpdatedDate: $lastUpdatedDate)';
   }
 
   @override
@@ -188,7 +206,9 @@ class _$_Lesson implements _Lesson {
             const DeepCollectionEquality().equals(other.length, length) &&
             const DeepCollectionEquality().equals(other.url, url) &&
             const DeepCollectionEquality()
-                .equals(other.description, description));
+                .equals(other.description, description) &&
+            const DeepCollectionEquality()
+                .equals(other.lastUpdatedDate, lastUpdatedDate));
   }
 
   @JsonKey(ignore: true)
@@ -199,7 +219,8 @@ class _$_Lesson implements _Lesson {
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(length),
       const DeepCollectionEquality().hash(url),
-      const DeepCollectionEquality().hash(description));
+      const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(lastUpdatedDate));
 
   @JsonKey(ignore: true)
   @override
@@ -216,12 +237,18 @@ class _$_Lesson implements _Lesson {
 
 abstract class _Lesson implements Lesson {
   const factory _Lesson(
-          {@JsonKey(name: 'id') required final String id,
-          @JsonKey(name: 'name') required final String name,
-          @JsonKey(name: 'length') required final String length,
-          @JsonKey(name: 'url') required final String url,
-          @JsonKey(name: 'description') required final String description}) =
-      _$_Lesson;
+      {@JsonKey(name: 'id')
+          required final String id,
+      @JsonKey(name: 'name')
+          required final String name,
+      @JsonKey(name: 'length')
+          required final String length,
+      @JsonKey(name: 'url')
+          required final String url,
+      @JsonKey(name: 'description')
+          required final String description,
+      @JsonKey(name: 'last_updated_date')
+          required final String lastUpdatedDate}) = _$_Lesson;
 
   factory _Lesson.fromJson(Map<String, dynamic> json) = _$_Lesson.fromJson;
 
@@ -240,6 +267,9 @@ abstract class _Lesson implements Lesson {
   @override
   @JsonKey(name: 'description')
   String get description;
+  @override
+  @JsonKey(name: 'last_updated_date')
+  String get lastUpdatedDate;
   @override
   @JsonKey(ignore: true)
   _$$_LessonCopyWith<_$_Lesson> get copyWith =>

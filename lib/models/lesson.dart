@@ -10,7 +10,8 @@ class Lesson with _$Lesson {
       @JsonKey(name: 'name') required String name,
       @JsonKey(name: 'length') required String length,
       @JsonKey(name: 'url') required String url,
-      @JsonKey(name: 'description') required String description}) = _Lesson;
+      @JsonKey(name: 'description') required String description,
+      @JsonKey(name: 'last_updated_date') required String lastUpdatedDate}) = _Lesson;
 
   factory Lesson.fromJson(Map<String, Object?> json) => _$LessonFromJson(json);
 }
