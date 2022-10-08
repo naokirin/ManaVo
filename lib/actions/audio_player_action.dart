@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:manavo/actions/listened_action.dart';
 import 'package:manavo/models/lesson.dart';
+import 'package:manavo/providers/audio_player.dart';
 import 'package:manavo/services/audio/audio_service_handler.dart';
 
 final audioPlayerActionProvider =
@@ -36,6 +37,10 @@ class AudioPlayerAction {
           listened.saveListened(courseId: courseId, lessonId: lessonId);
           listened.incrementListenedCount(lessonId: lessonId);
         });
+
+    _handler
+        .audioPlayerStateStream()
+        .listen((state) => read(audioPlayerProvider.notifier).setState(state));
   }
 
   Future<void> setAudioSource(

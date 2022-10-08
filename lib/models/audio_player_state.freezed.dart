@@ -16,11 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AudioPlayerState {
-  Duration get current => throw _privateConstructorUsedError;
-  Duration get buffered => throw _privateConstructorUsedError;
-  Duration get total => throw _privateConstructorUsedError;
-  AudioState get audioState => throw _privateConstructorUsedError;
-  Object? get error => throw _privateConstructorUsedError;
+  int? get currentIndex => throw _privateConstructorUsedError;
+  Duration get currentPosition => throw _privateConstructorUsedError;
+  Duration get bufferedPosition => throw _privateConstructorUsedError;
+  AudioProcessingState get audioProcessingState =>
+      throw _privateConstructorUsedError;
+  bool get playing => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AudioPlayerStateCopyWith<AudioPlayerState> get copyWith =>
@@ -33,11 +34,11 @@ abstract class $AudioPlayerStateCopyWith<$Res> {
           AudioPlayerState value, $Res Function(AudioPlayerState) then) =
       _$AudioPlayerStateCopyWithImpl<$Res>;
   $Res call(
-      {Duration current,
-      Duration buffered,
-      Duration total,
-      AudioState audioState,
-      Object? error});
+      {int? currentIndex,
+      Duration currentPosition,
+      Duration bufferedPosition,
+      AudioProcessingState audioProcessingState,
+      bool playing});
 }
 
 /// @nodoc
@@ -51,30 +52,33 @@ class _$AudioPlayerStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? current = freezed,
-    Object? buffered = freezed,
-    Object? total = freezed,
-    Object? audioState = freezed,
-    Object? error = freezed,
+    Object? currentIndex = freezed,
+    Object? currentPosition = freezed,
+    Object? bufferedPosition = freezed,
+    Object? audioProcessingState = freezed,
+    Object? playing = freezed,
   }) {
     return _then(_value.copyWith(
-      current: current == freezed
-          ? _value.current
-          : current // ignore: cast_nullable_to_non_nullable
+      currentIndex: currentIndex == freezed
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
+      currentPosition: currentPosition == freezed
+          ? _value.currentPosition
+          : currentPosition // ignore: cast_nullable_to_non_nullable
               as Duration,
-      buffered: buffered == freezed
-          ? _value.buffered
-          : buffered // ignore: cast_nullable_to_non_nullable
+      bufferedPosition: bufferedPosition == freezed
+          ? _value.bufferedPosition
+          : bufferedPosition // ignore: cast_nullable_to_non_nullable
               as Duration,
-      total: total == freezed
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      audioState: audioState == freezed
-          ? _value.audioState
-          : audioState // ignore: cast_nullable_to_non_nullable
-              as AudioState,
-      error: error == freezed ? _value.error : error,
+      audioProcessingState: audioProcessingState == freezed
+          ? _value.audioProcessingState
+          : audioProcessingState // ignore: cast_nullable_to_non_nullable
+              as AudioProcessingState,
+      playing: playing == freezed
+          ? _value.playing
+          : playing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -87,11 +91,11 @@ abstract class _$$_AudioPlayerStateCopyWith<$Res>
       __$$_AudioPlayerStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Duration current,
-      Duration buffered,
-      Duration total,
-      AudioState audioState,
-      Object? error});
+      {int? currentIndex,
+      Duration currentPosition,
+      Duration bufferedPosition,
+      AudioProcessingState audioProcessingState,
+      bool playing});
 }
 
 /// @nodoc
@@ -107,30 +111,33 @@ class __$$_AudioPlayerStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? current = freezed,
-    Object? buffered = freezed,
-    Object? total = freezed,
-    Object? audioState = freezed,
-    Object? error = freezed,
+    Object? currentIndex = freezed,
+    Object? currentPosition = freezed,
+    Object? bufferedPosition = freezed,
+    Object? audioProcessingState = freezed,
+    Object? playing = freezed,
   }) {
     return _then(_$_AudioPlayerState(
-      current: current == freezed
-          ? _value.current
-          : current // ignore: cast_nullable_to_non_nullable
+      currentIndex: currentIndex == freezed
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
+      currentPosition: currentPosition == freezed
+          ? _value.currentPosition
+          : currentPosition // ignore: cast_nullable_to_non_nullable
               as Duration,
-      buffered: buffered == freezed
-          ? _value.buffered
-          : buffered // ignore: cast_nullable_to_non_nullable
+      bufferedPosition: bufferedPosition == freezed
+          ? _value.bufferedPosition
+          : bufferedPosition // ignore: cast_nullable_to_non_nullable
               as Duration,
-      total: total == freezed
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as Duration,
-      audioState: audioState == freezed
-          ? _value.audioState
-          : audioState // ignore: cast_nullable_to_non_nullable
-              as AudioState,
-      error: error == freezed ? _value.error : error,
+      audioProcessingState: audioProcessingState == freezed
+          ? _value.audioProcessingState
+          : audioProcessingState // ignore: cast_nullable_to_non_nullable
+              as AudioProcessingState,
+      playing: playing == freezed
+          ? _value.playing
+          : playing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -139,31 +146,31 @@ class __$$_AudioPlayerStateCopyWithImpl<$Res>
 
 class _$_AudioPlayerState implements _AudioPlayerState {
   const _$_AudioPlayerState(
-      {this.current = Duration.zero,
-      this.buffered = Duration.zero,
-      this.total = Duration.zero,
-      this.audioState = AudioState.paused,
-      this.error = null});
+      {this.currentIndex = null,
+      this.currentPosition = Duration.zero,
+      this.bufferedPosition = Duration.zero,
+      this.audioProcessingState = AudioProcessingState.idle,
+      this.playing = false});
 
   @override
   @JsonKey()
-  final Duration current;
+  final int? currentIndex;
   @override
   @JsonKey()
-  final Duration buffered;
+  final Duration currentPosition;
   @override
   @JsonKey()
-  final Duration total;
+  final Duration bufferedPosition;
   @override
   @JsonKey()
-  final AudioState audioState;
+  final AudioProcessingState audioProcessingState;
   @override
   @JsonKey()
-  final Object? error;
+  final bool playing;
 
   @override
   String toString() {
-    return 'AudioPlayerState(current: $current, buffered: $buffered, total: $total, audioState: $audioState, error: $error)';
+    return 'AudioPlayerState(currentIndex: $currentIndex, currentPosition: $currentPosition, bufferedPosition: $bufferedPosition, audioProcessingState: $audioProcessingState, playing: $playing)';
   }
 
   @override
@@ -171,22 +178,25 @@ class _$_AudioPlayerState implements _AudioPlayerState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AudioPlayerState &&
-            const DeepCollectionEquality().equals(other.current, current) &&
-            const DeepCollectionEquality().equals(other.buffered, buffered) &&
-            const DeepCollectionEquality().equals(other.total, total) &&
             const DeepCollectionEquality()
-                .equals(other.audioState, audioState) &&
-            const DeepCollectionEquality().equals(other.error, error));
+                .equals(other.currentIndex, currentIndex) &&
+            const DeepCollectionEquality()
+                .equals(other.currentPosition, currentPosition) &&
+            const DeepCollectionEquality()
+                .equals(other.bufferedPosition, bufferedPosition) &&
+            const DeepCollectionEquality()
+                .equals(other.audioProcessingState, audioProcessingState) &&
+            const DeepCollectionEquality().equals(other.playing, playing));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(current),
-      const DeepCollectionEquality().hash(buffered),
-      const DeepCollectionEquality().hash(total),
-      const DeepCollectionEquality().hash(audioState),
-      const DeepCollectionEquality().hash(error));
+      const DeepCollectionEquality().hash(currentIndex),
+      const DeepCollectionEquality().hash(currentPosition),
+      const DeepCollectionEquality().hash(bufferedPosition),
+      const DeepCollectionEquality().hash(audioProcessingState),
+      const DeepCollectionEquality().hash(playing));
 
   @JsonKey(ignore: true)
   @override
@@ -196,22 +206,22 @@ class _$_AudioPlayerState implements _AudioPlayerState {
 
 abstract class _AudioPlayerState implements AudioPlayerState {
   const factory _AudioPlayerState(
-      {final Duration current,
-      final Duration buffered,
-      final Duration total,
-      final AudioState audioState,
-      final Object? error}) = _$_AudioPlayerState;
+      {final int? currentIndex,
+      final Duration currentPosition,
+      final Duration bufferedPosition,
+      final AudioProcessingState audioProcessingState,
+      final bool playing}) = _$_AudioPlayerState;
 
   @override
-  Duration get current;
+  int? get currentIndex;
   @override
-  Duration get buffered;
+  Duration get currentPosition;
   @override
-  Duration get total;
+  Duration get bufferedPosition;
   @override
-  AudioState get audioState;
+  AudioProcessingState get audioProcessingState;
   @override
-  Object? get error;
+  bool get playing;
   @override
   @JsonKey(ignore: true)
   _$$_AudioPlayerStateCopyWith<_$_AudioPlayerState> get copyWith =>

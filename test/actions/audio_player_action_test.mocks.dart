@@ -6,6 +6,7 @@
 import 'dart:async' as _i5;
 
 import 'package:audio_service/audio_service.dart' as _i4;
+import 'package:manavo/models/audio_player_state.dart' as _i6;
 import 'package:manavo/services/audio/audio_service_handler.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:rxdart/rxdart.dart' as _i2;
@@ -160,6 +161,11 @@ class MockAudioServiceHandler extends _i1.Mock
   void setOnError(void Function(Object, StackTrace)? callback) =>
       super.noSuchMethod(Invocation.method(#setOnError, [callback]),
           returnValueForMissingStub: null);
+  @override
+  _i5.Stream<_i6.AudioPlayerState> audioPlayerStateStream() =>
+      (super.noSuchMethod(Invocation.method(#audioPlayerStateStream, []),
+              returnValue: _i5.Stream<_i6.AudioPlayerState>.empty())
+          as _i5.Stream<_i6.AudioPlayerState>);
   @override
   _i5.Future<void> prepare() => (super.noSuchMethod(
       Invocation.method(#prepare, []),

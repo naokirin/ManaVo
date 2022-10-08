@@ -5,16 +5,16 @@ part 'audio_player_state.freezed.dart';
 @freezed
 class AudioPlayerState with _$AudioPlayerState {
   const factory AudioPlayerState(
-      {@Default(Duration.zero) Duration current,
-      @Default(Duration.zero) Duration buffered,
-      @Default(Duration.zero) Duration total,
-      @Default(AudioState.paused) AudioState audioState,
-      @Default(null) Object? error}) = _AudioPlayerState;
+      {@Default(null)
+          int? currentIndex,
+      @Default(Duration.zero)
+          Duration currentPosition,
+      @Default(Duration.zero)
+          Duration bufferedPosition,
+      @Default(AudioProcessingState.idle)
+          AudioProcessingState audioProcessingState,
+      @Default(false)
+          bool playing}) = _AudioPlayerState;
 }
 
-enum AudioState {
-  ready,
-  paused,
-  playing,
-  loading,
-}
+enum AudioProcessingState { idle, loading, buffering, ready, completed }
