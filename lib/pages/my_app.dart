@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:manavo/pages/routes/router.dart';
+import 'package:manavo/providers/course.dart';
 import 'package:manavo/utils/global/scaffold_key.dart';
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+class MyApp extends ConsumerWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(Object context) {
+  Widget build(Object context, WidgetRef ref) {
+    startCheckingToUpdateCourses(ref.read);
     return MaterialApp.router(
       scaffoldMessengerKey: scaffoldKey,
       title: 'ManaVo',

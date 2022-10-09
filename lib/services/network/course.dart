@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:manavo/models/course.dart';
@@ -11,4 +12,13 @@ Future<List<Course>> fetchCourses() async {
   final response = await handleHttpResponse(
       () async => await http.get(Uri.parse(url ?? '')));
   return CourseList.fromJson(jsonDecode(response.body)).courses;
+}
+
+Future<String?> fetchLastModifiedCourses() async {
+  String? url = dotenv.env['COURSE_URL'];
+  final response = await handleHttpResponse(
+      () async => await http.head(Uri.parse(url ?? '')));
+  final lastModified = response.headers[HttpHeaders.lastModifiedHeader];
+  if (lastModified == null) return null;
+  return lastModified;
 }
