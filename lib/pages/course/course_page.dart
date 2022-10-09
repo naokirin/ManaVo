@@ -20,7 +20,10 @@ class CoursePage extends ConsumerWidget {
         ref.read(courseProvider).value?.firstWhere((course) => course.id == id);
     final lessonList = ref.watch(lessonListProvider(id));
     return Scaffold(
-        appBar: AppBar(title: Text(course?.name ?? '')),
+        appBar: AppBar(
+          title: Text(course?.name ?? ''),
+          backgroundColor: const Color.fromARGB(125, 56, 182, 255),
+        ),
         body: Stack(children: [
           const AppBackground(),
           Column(children: [

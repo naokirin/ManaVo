@@ -77,6 +77,17 @@ class AppBackground extends StatelessWidget {
               decoration: BoxDecoration(
                   shape: BoxShape.circle, color: Colors.pink.withOpacity(0.05)),
             ),
+          ),
+          Positioned(
+            top: -height * 5 + 12,
+            left: -height * 5 * 0.5 + width * 0.5,
+            child: Container(
+              height: height * 5,
+              width: height * 5,
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color.fromARGB(125, 56, 182, 255)),
+            ),
           )
         ],
       );

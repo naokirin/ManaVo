@@ -12,7 +12,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final courseList = ref.watch(courseProvider);
     return Scaffold(
-        appBar: AppBar(title: const Text('学習コース 一覧')),
+        appBar: AppBar(title: const Text('学習コース 一覧'), backgroundColor: const Color.fromARGB(125, 56, 182, 255)),
         body: Stack(children: [
           const AppBackground(),
           courseList.when(
