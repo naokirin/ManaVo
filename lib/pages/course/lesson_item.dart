@@ -3,6 +3,7 @@ import 'package:manavo/models/lesson.dart';
 import 'package:manavo/providers/listened.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:manavo/utils/progress_waiter.dart';
 
 class LessonItem extends ConsumerWidget {
   final String courseId;
@@ -47,7 +48,9 @@ class LessonItem extends ConsumerWidget {
                   padding: const EdgeInsets.only(top: 12.0),
                   child: Text(lesson.name)),
             ),
-            onTap: () => goPlayerPage(context)));
+            onTap: () => ProgressWaiter.get('default').onProgress(
+                () => goPlayerPage(context),
+                delay: const Duration(seconds: 2))));
   }
 
   void goPlayerPage(BuildContext context) {

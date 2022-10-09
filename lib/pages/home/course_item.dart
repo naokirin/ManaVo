@@ -4,6 +4,7 @@ import 'package:manavo/models/course.dart';
 import 'package:manavo/pages/home/listened_slider.dart';
 import 'package:manavo/utils/global/scaffold_key.dart';
 import 'package:go_router/go_router.dart';
+import 'package:manavo/utils/progress_waiter.dart';
 
 class CourseItem extends ConsumerWidget {
   final Course course;
@@ -91,7 +92,8 @@ class CourseItem extends ConsumerWidget {
                                                 ]))
                                           ])))
                             ])),
-                        onTap: () => goCoursePage(context))))));
+                        onTap: () => ProgressWaiter.get('default')
+                            .onProgress(() => goCoursePage(context), delay: const Duration(seconds: 2)))))));
   }
 
   void goCoursePage(BuildContext context) {
