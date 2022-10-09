@@ -48,14 +48,15 @@ flutter:
     - assets/images/
 
 flutter_native_splash:
-  color: '#ffffff'
-  image: assets/images/ManaVo.png
+  color: '#38b6ff'
+  image: assets/images/ManaVo_white.png
   color_dark: '#262626'
   image_dark: assets/images/ManaVo_white.png
   fullscreen: true
   android_12:
-    icon_background_color: '#ffffff'
-    image: assets/images/ManaVo_Android.png
+    color: '#38b6ff'
+    icon_background_color: '#38b6ff'
+    image: assets/images/ManaVo_white_Android.png
     icon_background_color_dark: '#262626'
     image_dark: assets/images/ManaVo_white_Android.png
 
