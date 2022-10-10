@@ -50,7 +50,7 @@ class LessonItem extends ConsumerWidget {
             ),
             onTap: () => ProgressWaiter.get('default').onProgress(
                 () => goPlayerPage(context),
-                delay: const Duration(seconds: 2))));
+                delay: const Duration(seconds: 1))));
   }
 
   void goPlayerPage(BuildContext context) {
