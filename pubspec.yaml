@@ -27,6 +27,8 @@ dependencies:
   duration: ^3.0.12
   connectivity_plus: ^2.3.7
   shared_preferences: ^2.0.15
+  package_info: ^2.0.2
+  url_launcher: ^6.1.6
 
 dev_dependencies:
   integration_test:

@@ -1,12 +1,16 @@
 import 'dart:async';
 
+import 'package:manavo/providers/app_info.dart';
 import 'package:manavo/services/network/course.dart';
 import 'package:manavo/models/course.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final courseProvider = FutureProvider<List<Course>>((ref) async {
+  final appInfo = ref.watch(appInfoProvider);
+  if (appInfo.value == null) return [];
+
   ref.watch(_lastModifiedCoursesProvider);
-  return await fetchCourses();
+  return await fetchCourses(ref.read);
 });
 
 // check updates per 15 minutes
@@ -27,7 +31,10 @@ void startCheckingToUpdateCourses(Reader read) {
 }
 
 Future<void> _updateLastModified(Reader read) async {
-  final lastModified = await fetchLastModifiedCourses();
+  final appInfo = read(appInfoProvider);
+  if (appInfo.value == null) return;
+
+  final lastModified = await fetchLastModifiedCourses(read);
   final notifier = read(_lastModifiedCoursesProvider.notifier);
   final previousLastModified = notifier.state;
   if (lastModified != previousLastModified) {
