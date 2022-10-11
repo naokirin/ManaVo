@@ -1,5 +1,6 @@
 import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:manavo/pages/audio_player/audio_player_page.dart';
 import 'package:manavo/pages/course/course_page.dart';
 import 'package:manavo/pages/home/home_page.dart';
@@ -28,10 +29,10 @@ final router = GoRouter(routes: <GoRoute>[
   GoRoute(
       path: '/license_page',
       builder: (context, state) {
-        return const LicensePage(
-            applicationName: 'ManaVo',
+        return LicensePage(
+            applicationName: dotenv.env['APP_NAME']!,
             applicationVersion: '1.0.0',
-            applicationIcon: Image(
+            applicationIcon: const Image(
                 image: AssetImage('assets/icons/ManaVo_icon.png'),
                 width: 60,
                 height: 60));

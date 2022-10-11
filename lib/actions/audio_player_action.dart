@@ -1,4 +1,5 @@
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:manavo/actions/listened_action.dart';
@@ -26,7 +27,7 @@ class AudioPlayerAction {
         id: lesson.url,
         album: album,
         title: lesson.name,
-        artist: 'ManaVo Lesson');
+        artist: '${dotenv.env['APP_NAME']} Lesson');
     await _handler.initPlayer(
         item: item,
         initialIndex: index,
@@ -46,7 +47,7 @@ class AudioPlayerAction {
         id: lesson.url,
         album: album,
         title: lesson.name,
-        artist: 'ManaVo Lesson');
+        artist: '${dotenv.env['APP_NAME']} Lesson');
     await _handler.setAudioSource(item: item, initialPosition: initialPosition);
   }
 

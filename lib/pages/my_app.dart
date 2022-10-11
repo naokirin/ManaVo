@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:manavo/pages/routes/router.dart';
 import 'package:manavo/pages/version_update/version_update_page.dart';
@@ -19,7 +20,7 @@ class MyApp extends ConsumerWidget {
           if (!data) {
             return MaterialApp.router(
               scaffoldMessengerKey: scaffoldKey,
-              title: 'ManaVo',
+              title: dotenv.env['APP_NAME']!,
               theme: ThemeData(
                   appBarTheme: const AppBarTheme(
                       backgroundColor: Colors.transparent,
