@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:manavo/actions/audio_player_action.dart';
 import 'package:manavo/components/app_background.dart';
 import 'package:manavo/components/networks/http_error_snack_bar.dart';
@@ -6,6 +7,7 @@ import 'package:manavo/pages/course/lesson_item.dart';
 import 'package:manavo/providers/course.dart';
 import 'package:manavo/providers/lesson_list.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:manavo/utils/progress_waiter.dart';
 
 class CoursePage extends ConsumerWidget {
   final String id;
@@ -23,6 +25,13 @@ class CoursePage extends ConsumerWidget {
         appBar: AppBar(
           title: Text(course?.name ?? ''),
           backgroundColor: const Color.fromARGB(125, 56, 182, 255),
+          actions: [
+            IconButton(
+                icon: const Icon(Icons.more_vert),
+                onPressed: () => ProgressWaiter.get('default').onProgress(
+                    () => GoRouter.of(context).push('/license_page'),
+                    delay: const Duration(seconds: 1)))
+          ]
         ),
         body: Stack(children: [
           const AppBackground(),
