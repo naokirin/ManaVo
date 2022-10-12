@@ -28,7 +28,7 @@ class HomePage extends ConsumerWidget {
           const AppBackground(),
           courseList.when(
               data: (list) => Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: ListView(
                       children: list
                           .map((course) => Padding(

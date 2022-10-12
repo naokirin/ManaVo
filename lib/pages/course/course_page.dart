@@ -23,28 +23,29 @@ class CoursePage extends ConsumerWidget {
     final lessonList = ref.watch(lessonListProvider(id));
     return Scaffold(
         appBar: AppBar(
-          title: Text(course?.name ?? ''),
-          backgroundColor: const Color.fromARGB(125, 56, 182, 255),
-          actions: [
-            IconButton(
-                icon: const Icon(Icons.more_vert),
-                onPressed: () => ProgressWaiter.get('default').onProgress(
-                    () => GoRouter.of(context).push('/license_page'),
-                    delay: const Duration(seconds: 1)))
-          ]
-        ),
+            title: Text(course?.name ?? ''),
+            backgroundColor: const Color.fromARGB(125, 56, 182, 255),
+            actions: [
+              IconButton(
+                  icon: const Icon(Icons.more_vert),
+                  onPressed: () => ProgressWaiter.get('default').onProgress(
+                      () => GoRouter.of(context).push('/license_page'),
+                      delay: const Duration(seconds: 1)))
+            ]),
         body: Stack(children: [
           const AppBackground(),
           Column(children: [
             Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.only(
+                    top: 30, bottom: 20, left: 20, right: 20),
                 child: Text(course?.description ?? '')),
             Flexible(
                 child: lessonList.when(
                     data: (list) => ListView(
                         children: list
                             .map((lesson) => Padding(
-                                padding: const EdgeInsets.all(10),
+                                padding: const EdgeInsets.only(
+                                    top: 5, bottom: 10, left: 10, right: 10),
                                 child:
                                     LessonItem(courseId: id, lesson: lesson)))
                             .toList()),
