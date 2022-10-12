@@ -1,21 +1,22 @@
 import 'dart:async';
 
+import 'package:manavo/models/app_version.dart';
 import 'package:manavo/services/app/info.dart';
 import 'package:manavo/services/network/app_info.dart';
 import 'package:manavo/models/app_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final forceUpdateProvider = FutureProvider<bool>((ref) {
-  final buildNumber = ref.watch(_buildNumberProvider);
-  final appInfo = ref.watch(appInfoProvider);
-  if (appInfo.value?.lowestVersion == null || buildNumber.value == null) {
-    return false;
-  }
-  return appInfo.value!.lowestVersion > buildNumber.value!;
+final appVersionProvider = FutureProvider<AppVersion>((ref) async {
+  final info = await ref.watch(_infoProvider.future);
+  final appInfo = await ref.watch(appInfoProvider.future);
+  return AppVersion(
+      version: info.version,
+      buildNumber: info.buildNumber,
+      lowestVersion: appInfo.lowestVersion);
 });
 
-final _buildNumberProvider = FutureProvider<int>(
-    (ref) async => await Info.getInstance().currentBuildNumber());
+final _infoProvider =
+    FutureProvider<Info>((ref) async => await Info.getInstance());
 
 final appInfoProvider = FutureProvider<AppInfo>((ref) async {
   ref.watch(_lastModifiedAppInfoProvider);

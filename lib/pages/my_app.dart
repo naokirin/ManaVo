@@ -14,10 +14,11 @@ class MyApp extends ConsumerWidget {
   Widget build(Object context, WidgetRef ref) {
     startCheckingToUpdateAppInfo(ref.read);
     startCheckingToUpdateCourses(ref.read);
-    final forceUpdate = ref.watch(forceUpdateProvider);
-    return forceUpdate.when(
+    final appVersion = ref.watch(appVersionProvider);
+    return appVersion.when(
         data: ((data) {
-          if (!data) {
+          if (!data.needsToForceUpdate()) {
+            final r = router(data);
             return MaterialApp.router(
               scaffoldMessengerKey: scaffoldKey,
               title: dotenv.env['APP_NAME']!,
@@ -32,15 +33,18 @@ class MyApp extends ConsumerWidget {
                       actionsIconTheme: IconThemeData(color: Colors.black),
                       elevation: 0),
                   scaffoldBackgroundColor: const Color(0xFFFEFEFE)),
-              routeInformationProvider: router.routeInformationProvider,
-              routeInformationParser: router.routeInformationParser,
-              routerDelegate: router.routerDelegate,
+              routeInformationProvider: r.routeInformationProvider,
+              routeInformationParser: r.routeInformationParser,
+              routerDelegate: r.routerDelegate,
             );
           } else {
             return const VersionUpdatePage();
           }
         }),
-        error: (Object error, StackTrace? stackTrace) => Container(),
+        error: (Object error, StackTrace? stackTrace) {
+          debugPrint('error: $error, stackTrace: $stackTrace');
+          return Container();
+        },
         loading: () => const CircularProgressIndicator());
   }
 }

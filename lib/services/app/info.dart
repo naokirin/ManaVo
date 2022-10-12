@@ -1,14 +1,24 @@
 import 'package:package_info/package_info.dart';
 
 class Info {
-  static final instance = Info._();
+  static Info instance = Info._();
 
-  Info._();
-  factory Info.getInstance() => instance;
+  bool _initialized = false;
+  String appName;
+  String version;
+  int buildNumber;
 
-  Future<int> currentBuildNumber() async {
-    final info = await PackageInfo.fromPlatform();
-    final buildNumber = int.parse(info.buildNumber);
-    return buildNumber;
+  Info._({this.appName = '', this.version = '', this.buildNumber = 1});
+
+  static Future<Info> getInstance() async {
+    if (!instance._initialized) {
+      final info = await PackageInfo.fromPlatform();
+      instance = Info._(
+          appName: info.appName,
+          version: info.version,
+          buildNumber: int.parse(info.buildNumber));
+    }
+    instance._initialized = true;
+    return instance;
   }
 }
