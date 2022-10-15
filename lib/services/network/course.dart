@@ -17,7 +17,7 @@ Future<List<Course>> fetchCourses(Reader read) async {
 }
 
 Future<String?> fetchLastModifiedCourses(Reader read) async {
-   final appInfo = read(appInfoProvider);
+  final appInfo = read(appInfoProvider);
   String? url = appInfo.value?.courseListPath;
   final response = await handleHttpResponse(
       () async => await http.head(Uri.parse(url ?? '')));

@@ -12,5 +12,5 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initServiceLocator();
 
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }

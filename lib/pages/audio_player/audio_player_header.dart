@@ -4,7 +4,6 @@ import 'package:manavo/models/course.dart';
 import 'package:manavo/models/lesson.dart';
 import 'package:manavo/pages/audio_player/last_updated_date.dart';
 import 'package:manavo/pages/audio_player/play_count.dart';
-import 'package:manavo/providers/listened.dart';
 
 class AudioPlayerHeader extends ConsumerWidget {
   final Course? course;
