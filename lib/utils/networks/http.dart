@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:manavo/utils/exceptions/connection_exception.dart';
 import 'package:manavo/utils/exceptions/error_response_exception.dart';
 import 'package:http/http.dart';
@@ -17,7 +18,8 @@ Future<Response> handleHttpResponse(Future<Response> Function() request) async {
     throw const ConnectionException.noNetwork();
   } on TimeoutException catch (_) {
     throw const ConnectionException.timeout();
-  } catch (_) {
+  } catch (e) {
+    debugPrint('$e');
     throw Exception('Invalid Request');
   }
 }

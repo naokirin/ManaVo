@@ -13,7 +13,8 @@ Future<List<Course>> fetchCourses(Reader read) async {
   String? url = appInfo.value?.courseListPath;
   final response = await handleHttpResponse(
       () async => await http.get(Uri.parse(url ?? '')));
-  return CourseList.fromJson(jsonDecode(response.body)).courses;
+  final body = utf8.decode(response.bodyBytes);
+  return CourseList.fromJson(jsonDecode(body)).courses;
 }
 
 Future<String?> fetchLastModifiedCourses(Reader read) async {

@@ -12,5 +12,6 @@ Future<List<Lesson>> fetchLessons(Ref ref, String courseId) async {
   final course = c?.firstWhere((item) => item.id == courseId);
   final response = await handleHttpResponse(
       () async => await http.get(Uri.parse(course?.lessonListUrl ?? '')));
-  return LessonList.fromJson(jsonDecode(response.body)).lessons;
+  final body = utf8.decode(response.bodyBytes);
+  return LessonList.fromJson(jsonDecode(body)).lessons;
 }
