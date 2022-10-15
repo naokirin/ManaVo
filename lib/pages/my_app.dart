@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:manavo/components/networks/http_error_snack_bar.dart';
 import 'package:manavo/pages/routes/router.dart';
 import 'package:manavo/pages/version_update/version_update_page.dart';
 import 'package:manavo/providers/app_info.dart';
@@ -43,8 +44,18 @@ class MyApp extends ConsumerWidget {
         }),
         error: (Object error, StackTrace? stackTrace) {
           debugPrint('error: $error, stackTrace: $stackTrace');
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            HttpErrorSnackBar.showHttpErrorSnackBar(
+                error: error,
+                onRetry: () {
+                  ref.refresh(appVersionProvider);
+                });
+          });
           return Container();
         },
-        loading: () => const CircularProgressIndicator());
+        loading: () => const SizedBox(
+            width: 200,
+            height: 200,
+            child: Center(child: CircularProgressIndicator())));
   }
 }

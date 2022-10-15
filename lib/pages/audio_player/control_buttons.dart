@@ -46,7 +46,10 @@ class ControlButtons extends ConsumerWidget {
                 margin: const EdgeInsets.all(8.0),
                 width: 64.0,
                 height: 64.0,
-                child: const CircularProgressIndicator(),
+                child: const SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: Center(child: CircularProgressIndicator())),
               );
             } else if (playing != true) {
               return IconButton(

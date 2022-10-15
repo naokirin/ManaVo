@@ -36,7 +36,10 @@ class HomePage extends ConsumerWidget {
                                   top: 20.0, left: 10.0, right: 10.0),
                               child: CourseItem(course: course)))
                           .toList())),
-              loading: () => const CircularProgressIndicator(),
+              loading: () => const SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: Center(child: CircularProgressIndicator())),
               error: (error, _) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   HttpErrorSnackBar.showHttpErrorSnackBar(
