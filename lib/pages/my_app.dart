@@ -53,9 +53,8 @@ class MyApp extends ConsumerWidget {
           });
           return Container();
         },
-        loading: () => const SizedBox(
-            width: 200,
-            height: 200,
-            child: Center(child: CircularProgressIndicator())));
+        loading: () => const Center(
+            child: SizedBox(
+                width: 40, height: 40, child: CircularProgressIndicator())));
   }
 }
