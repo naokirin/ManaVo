@@ -47,7 +47,7 @@ class AudioPlayerAction {
         id: lesson.url,
         album: album,
         title: lesson.name,
-        artist: '${dotenv.env['APP_NAME']} Lesson');
+        artist: '$_appName Lesson');
     await _handler.setAudioSource(item: item, initialPosition: initialPosition);
   }
 
@@ -59,4 +59,6 @@ class AudioPlayerAction {
 
   void setVolume(double volume) => _handler.setVolume(volume);
   void setSpeed(double speed) => _handler.setSpeed(speed);
+
+  String? get _appName => dotenv.env['APP_NAME'];
 }

@@ -1,4 +1,5 @@
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:manavo/actions/audio_player_action.dart';
@@ -14,7 +15,8 @@ import 'audio_player_action_test.mocks.dart';
 void main() {
   group('AudioPlayerAction Test', () {
     tearDown(() => GetIt.instance.reset());
-    test('setAudioSource', () {
+    test('setAudioSource', () async {
+      await dotenv.load(fileName: "res/.env.test");
       final mock = MockAudioServiceHandler();
       GetIt.instance.registerSingleton<AudioServiceHandler>(mock);
       when(mock.setAudioSource(
