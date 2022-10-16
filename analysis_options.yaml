@@ -13,6 +13,10 @@ analyzer:
   exclude:
     - lib/**/*.g.dart
     - lib/**/*.freezed.dart
+    - scripts/*.dart
+  errors:
+    # avoid warning with json_serializable
+    invalid_annotation_target: ignore
 
 linter:
   # The lint rules applied to this project can be customized in the
