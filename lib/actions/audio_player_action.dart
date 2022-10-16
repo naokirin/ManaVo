@@ -27,7 +27,7 @@ class AudioPlayerAction {
         id: lesson.url,
         album: album,
         title: lesson.name,
-        artist: '${dotenv.env['APP_NAME']} Lesson');
+        artist: '$_appName Lesson');
     await _handler.initPlayer(
         item: item,
         initialIndex: index,
