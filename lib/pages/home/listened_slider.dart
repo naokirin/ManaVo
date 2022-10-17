@@ -10,7 +10,8 @@ class ListenedSlider extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final listened = ref.watch(listenedProvider.notifier);
+    ref.watch(listenedProvider);
+    final listened = ref.read(listenedProvider.notifier);
     return FutureBuilder(
         future: listened.listened(courseId: course.id),
         builder: (context, snapshot) {
