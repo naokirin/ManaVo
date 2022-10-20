@@ -93,7 +93,7 @@ class AudioState extends ConsumerState<AudioPlayerPage>
                 icon: const Icon(Icons.more_vert),
                 onPressed: () => ProgressWaiter.get('default').onProgress(
                     () => GoRouter.of(context).push('/license_page'),
-                    delay: const Duration(seconds: 1)))
+                    delay: const Duration(milliseconds: 800)))
           ]),
       body: Column(children: [
         Expanded(child: AudioPlayerHeader(course: _course, lesson: _lesson)),

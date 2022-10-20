@@ -94,7 +94,7 @@ class CourseItem extends ConsumerWidget {
                             ])),
                         onTap: () => ProgressWaiter.get('default').onProgress(
                             () => goCoursePage(context),
-                            delay: const Duration(seconds: 1)))))));
+                            delay: const Duration(milliseconds: 800)))))));
   }
 
   void goCoursePage(BuildContext context) {
