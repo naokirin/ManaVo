@@ -1,18 +1,24 @@
 import 'dart:async';
 
+import 'package:fpdart/fpdart.dart' as fpdart;
 import 'package:manavo/models/app_version.dart';
 import 'package:manavo/services/app/info.dart';
 import 'package:manavo/services/network/app_info.dart';
 import 'package:manavo/models/app_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final appVersionProvider = FutureProvider<AppVersion>((ref) async {
-  final info = await ref.watch(_infoProvider.future);
-  final appInfo = await ref.watch(appInfoProvider.future);
-  return AppVersion(
-      version: info.version,
-      buildNumber: info.buildNumber,
-      lowestVersion: appInfo.lowestVersion);
+final appVersionProvider =
+    FutureProvider<fpdart.Either<Object, AppVersion>>((ref) async {
+  try {
+    final info = await ref.watch(_infoProvider.future);
+    final appInfo = await ref.watch(appInfoProvider.future);
+    return fpdart.Either.right(AppVersion(
+        version: info.version,
+        buildNumber: info.buildNumber,
+        lowestVersion: appInfo.lowestVersion));
+  } catch (e) {
+    return fpdart.Either.left(e);
+  }
 });
 
 final _infoProvider =
@@ -30,11 +36,11 @@ final _lastModifiedAppInfoProvider = StateProvider<String?>((ref) => null);
 final _ticker =
     Stream.periodic(const Duration(minutes: 30)).asBroadcastStream();
 final List<StreamSubscription> _tickerSubscriptions = [];
-void startCheckingToUpdateAppInfo(Reader read) {
+Future<void> startCheckingToUpdateAppInfo(Reader read) async {
   for (var subscription in _tickerSubscriptions) {
     subscription.cancel();
   }
-  _updateLastModified(read);
+  await _updateLastModified(read);
   _tickerSubscriptions.add(_ticker.listen((event) async {
     await _updateLastModified(read);
   }));

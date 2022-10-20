@@ -20,11 +20,11 @@ final _lastModifiedCoursesProvider = StateProvider<String?>((ref) => null);
 final _ticker =
     Stream.periodic(const Duration(minutes: 15)).asBroadcastStream();
 final List<StreamSubscription> _tickerSubscriptions = [];
-void startCheckingToUpdateCourses(Reader read) {
+Future<void> startCheckingToUpdateCourses(Reader read) async {
   for (var subscription in _tickerSubscriptions) {
     subscription.cancel();
   }
-  _updateLastModified(read);
+  await _updateLastModified(read);
   _tickerSubscriptions.add(_ticker.listen((event) async {
     await _updateLastModified(read);
   }));
