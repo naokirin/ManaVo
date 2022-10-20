@@ -4,8 +4,8 @@ import 'package:audio_session/audio_session.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 import 'package:manavo/actions/audio_player_action.dart';
+import 'package:manavo/components/app_bar/app_bar_popup_menu_button.dart';
 import 'package:manavo/components/networks/http_error_snack_bar.dart';
 import 'package:manavo/models/audio_player_state.dart';
 import 'package:manavo/models/course.dart';
@@ -21,7 +21,6 @@ import 'package:manavo/utils/exceptions/connection_exception.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:manavo/utils/common.dart';
 import 'package:collection/collection.dart';
-import 'package:manavo/utils/progress_waiter.dart';
 
 class AudioPlayerPage extends ConsumerStatefulWidget {
   final String courseId;
@@ -88,13 +87,7 @@ class AudioState extends ConsumerState<AudioPlayerPage>
           iconTheme: const IconThemeData(color: Colors.white),
           actionsIconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: Colors.transparent,
-          actions: [
-            IconButton(
-                icon: const Icon(Icons.more_vert),
-                onPressed: () => ProgressWaiter.get('default').onProgress(
-                    () => GoRouter.of(context).push('/license_page'),
-                    delay: const Duration(milliseconds: 800)))
-          ]),
+          actions: const [AppBarPopupMenuButton()]),
       body: Column(children: [
         Expanded(child: AudioPlayerHeader(course: _course, lesson: _lesson)),
         const SizedBox(height: 64.0),

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:manavo/components/app_background.dart';
+import 'package:manavo/components/app_bar/app_bar_popup_menu_button.dart';
 import 'package:manavo/components/networks/http_error_snack_bar.dart';
 import 'package:manavo/pages/home/course_item.dart';
 import 'package:manavo/providers/course.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:manavo/utils/progress_waiter.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,13 +16,7 @@ class HomePage extends ConsumerWidget {
         appBar: AppBar(
             title: const Text('学習コース 一覧'),
             backgroundColor: const Color.fromARGB(125, 56, 182, 255),
-            actions: [
-              IconButton(
-                  icon: const Icon(Icons.more_vert),
-                  onPressed: () => ProgressWaiter.get('default').onProgress(
-                      () => GoRouter.of(context).push('/license_page'),
-                      delay: const Duration(milliseconds: 800)))
-            ]),
+            actions: const [AppBarPopupMenuButton()]),
         body: Stack(children: [
           const AppBackground(),
           courseList.when(
