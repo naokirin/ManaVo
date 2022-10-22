@@ -24,7 +24,7 @@ class AudioServiceHandler extends BaseAudioHandler
   Future<void> setAudioSource(
       {required MediaItem item, required Duration initialPosition}) async {
     queue.add([item]);
-    final uri = AudioSource.uri(Uri.parse(item.id));
+    final uri = AudioSource.uri(Uri.parse(item.id), tag: { 'lessonId': item.extras?['lessonId'] });
     await _player.setAudioSource(uri, initialPosition: initialPosition);
     final position = _player.position;
     if (position > Duration.zero) {

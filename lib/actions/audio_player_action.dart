@@ -27,12 +27,13 @@ class AudioPlayerAction {
         id: lesson.url,
         album: album,
         title: lesson.name,
-        artist: '$_appName Lesson');
+        artist: '$_appName Lesson',
+        extras: {'lessonId': lesson.id});
     await _handler.initPlayer(
         item: item,
         initialIndex: index,
         initialPosition: initialPosition,
-        onCompleted: () async {
+        onCompleted: (item) async {
           final lessonId = lesson.id;
           listened.saveListened(courseId: courseId, lessonId: lessonId);
           listened.incrementListenedCount(lessonId: lessonId);
@@ -47,7 +48,8 @@ class AudioPlayerAction {
         id: lesson.url,
         album: album,
         title: lesson.name,
-        artist: '$_appName Lesson');
+        artist: '$_appName Lesson',
+        extras: {'lessonId': lesson.id});
     await _handler.setAudioSource(item: item, initialPosition: initialPosition);
   }
 
