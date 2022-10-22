@@ -72,7 +72,7 @@ class AudioState extends ConsumerState<AudioPlayerPage>
 
   @override
   Widget build(BuildContext context) {
-    final playerState = ref.watch(audioPlayerProvider);
+    final playingLessonId = ref.watch(playingLessonProvider);
     final player = _player();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!_ready && !player.notifier.playing) {
@@ -81,8 +81,13 @@ class AudioState extends ConsumerState<AudioPlayerPage>
       }
     });
 
-    final lesson =
-        _lessonList?.firstWhere((lesson) => lesson.id == playerState.lessonId);
+    Lesson? lesson;
+    if (playingLessonId != null) {
+      lesson = _lessonList
+          ?.firstWhere((lesson) => lesson.id == playingLessonId);
+    } else {
+      lesson = _lessonList?.firstWhere((lesson) => lesson.id == widget.initialId);
+    }
 
     return Scaffold(
       extendBodyBehindAppBar: true,

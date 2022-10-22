@@ -1,9 +1,6 @@
-import 'package:audio_service/audio_service.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:manavo/actions/audio_player_action.dart';
-import 'package:manavo/models/lesson.dart';
 import 'package:manavo/services/audio/audio_service_handler.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

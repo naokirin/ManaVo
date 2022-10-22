@@ -118,6 +118,10 @@ class AudioServiceHandler extends BaseAudioHandler
   void _notifyAudioHandlerAboutPlaybackEvents() {
     _player.playbackEventStream.listen((PlaybackEvent event) async {
       final playing = _player.playing;
+      if (event.currentIndex != null) {
+        mediaItem.add(queue.value[event.currentIndex!]
+            .copyWith(duration: _player.duration));
+      }
       playbackState.add(playbackState.value.copyWith(
         controls: [
           if (playing) MediaControl.pause else MediaControl.play,

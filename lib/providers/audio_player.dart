@@ -5,13 +5,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final seekBarDragProvider = StateProvider<double?>((ref) => null);
 
+final playingLessonProvider = StateProvider<String?>((ref) => null);
+
 final audioPlayerProvider =
     StateNotifierProvider<AudioPlayerNotifier, AudioPlayerState>(
-        (ref) => AudioPlayerNotifier());
+        (ref) => AudioPlayerNotifier(read: ref.read));
 
 class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
-  AudioPlayerNotifier() : super(const AudioPlayerState());
+  AudioPlayerNotifier({required this.read}) : super(const AudioPlayerState());
 
+  final Reader read;
   final StreamController<AudioPlayerState> _streamController =
       StreamController.broadcast();
   void Function(String?, String?) _onLessonCompleted =
@@ -34,12 +37,8 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
       _onLessonCompleted(lessonId, state.lessonId);
     }
     this.state = state;
+    read(playingLessonProvider.notifier).state = state.lessonId;
     _streamController.add(state);
-  }
-
-  void updateLessonId(String? lessonId) {
-    final nextState = state.copyWith(lessonId: lessonId);
-    setState(nextState);
   }
 
   void setOnLessonCompleted(
