@@ -99,26 +99,17 @@ class MockAudioServiceHandler extends _i1.Mock
           as _i2.BehaviorSubject<dynamic>);
   @override
   _i5.Future<void> initPlayer(
-          {_i4.MediaItem? item,
+          {List<_i4.MediaItem>? items,
           int? initialIndex,
           Duration? initialPosition,
-          _i5.Future<void> Function()? onCompleted}) =>
+          _i5.Future<void> Function(String?)? onCompleted}) =>
       (super.noSuchMethod(
               Invocation.method(#initPlayer, [], {
-                #item: item,
+                #items: items,
                 #initialIndex: initialIndex,
                 #initialPosition: initialPosition,
                 #onCompleted: onCompleted
               }),
-              returnValue: _i5.Future<void>.value(),
-              returnValueForMissingStub: _i5.Future<void>.value())
-          as _i5.Future<void>);
-  @override
-  _i5.Future<void> setAudioSource(
-          {_i4.MediaItem? item, Duration? initialPosition}) =>
-      (super.noSuchMethod(
-              Invocation.method(#setAudioSource, [],
-                  {#item: item, #initialPosition: initialPosition}),
               returnValue: _i5.Future<void>.value(),
               returnValueForMissingStub: _i5.Future<void>.value())
           as _i5.Future<void>);

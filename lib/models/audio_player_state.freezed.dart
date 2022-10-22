@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AudioPlayerState {
+  String? get lessonId => throw _privateConstructorUsedError;
   int? get currentIndex => throw _privateConstructorUsedError;
   Duration get currentPosition => throw _privateConstructorUsedError;
   Duration get bufferedPosition => throw _privateConstructorUsedError;
@@ -37,7 +38,8 @@ abstract class $AudioPlayerStateCopyWith<$Res> {
           AudioPlayerState value, $Res Function(AudioPlayerState) then) =
       _$AudioPlayerStateCopyWithImpl<$Res>;
   $Res call(
-      {int? currentIndex,
+      {String? lessonId,
+      int? currentIndex,
       Duration currentPosition,
       Duration bufferedPosition,
       Duration duration,
@@ -58,6 +60,7 @@ class _$AudioPlayerStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? lessonId = freezed,
     Object? currentIndex = freezed,
     Object? currentPosition = freezed,
     Object? bufferedPosition = freezed,
@@ -68,6 +71,10 @@ class _$AudioPlayerStateCopyWithImpl<$Res>
     Object? playing = freezed,
   }) {
     return _then(_value.copyWith(
+      lessonId: lessonId == freezed
+          ? _value.lessonId
+          : lessonId // ignore: cast_nullable_to_non_nullable
+              as String?,
       currentIndex: currentIndex == freezed
           ? _value.currentIndex
           : currentIndex // ignore: cast_nullable_to_non_nullable
@@ -112,7 +119,8 @@ abstract class _$$_AudioPlayerStateCopyWith<$Res>
       __$$_AudioPlayerStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int? currentIndex,
+      {String? lessonId,
+      int? currentIndex,
       Duration currentPosition,
       Duration bufferedPosition,
       Duration duration,
@@ -135,6 +143,7 @@ class __$$_AudioPlayerStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? lessonId = freezed,
     Object? currentIndex = freezed,
     Object? currentPosition = freezed,
     Object? bufferedPosition = freezed,
@@ -145,6 +154,10 @@ class __$$_AudioPlayerStateCopyWithImpl<$Res>
     Object? playing = freezed,
   }) {
     return _then(_$_AudioPlayerState(
+      lessonId: lessonId == freezed
+          ? _value.lessonId
+          : lessonId // ignore: cast_nullable_to_non_nullable
+              as String?,
       currentIndex: currentIndex == freezed
           ? _value.currentIndex
           : currentIndex // ignore: cast_nullable_to_non_nullable
@@ -185,7 +198,8 @@ class __$$_AudioPlayerStateCopyWithImpl<$Res>
 
 class _$_AudioPlayerState implements _AudioPlayerState {
   const _$_AudioPlayerState(
-      {this.currentIndex = null,
+      {this.lessonId = null,
+      this.currentIndex = null,
       this.currentPosition = Duration.zero,
       this.bufferedPosition = Duration.zero,
       this.duration = Duration.zero,
@@ -194,6 +208,9 @@ class _$_AudioPlayerState implements _AudioPlayerState {
       this.audioProcessingState = AudioProcessingState.idle,
       this.playing = false});
 
+  @override
+  @JsonKey()
+  final String? lessonId;
   @override
   @JsonKey()
   final int? currentIndex;
@@ -221,7 +238,7 @@ class _$_AudioPlayerState implements _AudioPlayerState {
 
   @override
   String toString() {
-    return 'AudioPlayerState(currentIndex: $currentIndex, currentPosition: $currentPosition, bufferedPosition: $bufferedPosition, duration: $duration, volume: $volume, speed: $speed, audioProcessingState: $audioProcessingState, playing: $playing)';
+    return 'AudioPlayerState(lessonId: $lessonId, currentIndex: $currentIndex, currentPosition: $currentPosition, bufferedPosition: $bufferedPosition, duration: $duration, volume: $volume, speed: $speed, audioProcessingState: $audioProcessingState, playing: $playing)';
   }
 
   @override
@@ -229,6 +246,7 @@ class _$_AudioPlayerState implements _AudioPlayerState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AudioPlayerState &&
+            const DeepCollectionEquality().equals(other.lessonId, lessonId) &&
             const DeepCollectionEquality()
                 .equals(other.currentIndex, currentIndex) &&
             const DeepCollectionEquality()
@@ -246,6 +264,7 @@ class _$_AudioPlayerState implements _AudioPlayerState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(lessonId),
       const DeepCollectionEquality().hash(currentIndex),
       const DeepCollectionEquality().hash(currentPosition),
       const DeepCollectionEquality().hash(bufferedPosition),
@@ -263,7 +282,8 @@ class _$_AudioPlayerState implements _AudioPlayerState {
 
 abstract class _AudioPlayerState implements AudioPlayerState {
   const factory _AudioPlayerState(
-      {final int? currentIndex,
+      {final String? lessonId,
+      final int? currentIndex,
       final Duration currentPosition,
       final Duration bufferedPosition,
       final Duration duration,
@@ -272,6 +292,8 @@ abstract class _AudioPlayerState implements AudioPlayerState {
       final AudioProcessingState audioProcessingState,
       final bool playing}) = _$_AudioPlayerState;
 
+  @override
+  String? get lessonId;
   @override
   int? get currentIndex;
   @override

@@ -23,7 +23,7 @@ GoRouter router(AppVersion appVersion) {
           final initialPosition = state.queryParams['initial_position'];
           return AudioPlayerPage(
               courseId: state.params['course_id'] ?? '',
-              id: state.params['id'] ?? '',
+              initialId: state.params['id'] ?? '',
               initialPosition: initialPosition != null
                   ? parseTime(initialPosition)
                   : Duration.zero);

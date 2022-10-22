@@ -6,31 +6,37 @@ import 'package:rxdart/rxdart.dart';
 
 class AudioServiceHandler extends BaseAudioHandler
     with QueueHandler, SeekHandler {
+  static const lessonIdTagKey = 'lessonId';
   final AudioPlayer _player = AudioPlayer();
-  Future<void> Function() _onCompleted = () => Future(() {});
 
   Future<void> initPlayer(
-      {required MediaItem item,
+      {required List<MediaItem> items,
       required int initialIndex,
-      required Duration initialPosition,
-      required Future<void> Function() onCompleted}) async {
+      required Duration initialPosition}) async {
     _notifyAudioHandlerAboutPlaybackEvents();
-
-    _onCompleted = onCompleted;
-
-    await setAudioSource(item: item, initialPosition: initialPosition);
+    await _setAudioSource(
+        items: items,
+        initialIndex: initialIndex,
+        initialPosition: initialPosition);
   }
 
-  Future<void> setAudioSource(
-      {required MediaItem item, required Duration initialPosition}) async {
-    queue.add([item]);
-    final uri = AudioSource.uri(Uri.parse(item.id));
-    await _player.setAudioSource(uri, initialPosition: initialPosition);
+  Future<void> _setAudioSource(
+      {required List<MediaItem> items,
+      required initialIndex,
+      required Duration initialPosition}) async {
+    queue.add(items);
+    final uris = items
+        .map((item) => AudioSource.uri(Uri.parse(item.id),
+            tag: {lessonIdTagKey: item.extras?[lessonIdTagKey]}))
+        .toList();
+    final playlist = ConcatenatingAudioSource(children: uris);
+    await _player.setAudioSource(playlist,
+        initialIndex: initialIndex, initialPosition: initialPosition);
     final position = _player.position;
     if (position > Duration.zero) {
       seek(position);
     }
-    mediaItem.add(item.copyWith(duration: _player.duration));
+    mediaItem.add(items[initialIndex].copyWith(duration: _player.duration));
   }
 
   @override
@@ -68,15 +74,16 @@ class AudioServiceHandler extends BaseAudioHandler
   get playerStateStream => _player.playerStateStream;
 
   Stream<model.AudioPlayerState> audioPlayerStateStream() {
-    return Rx.combineLatest6<Duration, Duration, Duration?, double, double,
-            PlaybackEvent, model.AudioPlayerState>(
+    return Rx.combineLatest7<Duration, Duration, Duration?, double, double,
+            PlaybackEvent, SequenceState?, model.AudioPlayerState>(
         _player.positionStream,
         _player.bufferedPositionStream,
         _player.durationStream,
         _player.volumeStream,
         _player.speedStream,
         _player.playbackEventStream,
-        (position, bufferedPosition, duration, volume, speed, event) {
+        _player.sequenceStateStream, (position, bufferedPosition, duration,
+            volume, speed, event, sequenceState) {
       model.AudioProcessingState? processingState;
       switch (event.processingState) {
         case ProcessingState.idle:
@@ -96,6 +103,7 @@ class AudioServiceHandler extends BaseAudioHandler
           break;
       }
       return model.AudioPlayerState(
+          lessonId: sequenceState?.currentSource?.tag[lessonIdTagKey],
           currentIndex: event.currentIndex,
           currentPosition: position,
           bufferedPosition: bufferedPosition,
@@ -110,8 +118,9 @@ class AudioServiceHandler extends BaseAudioHandler
   void _notifyAudioHandlerAboutPlaybackEvents() {
     _player.playbackEventStream.listen((PlaybackEvent event) async {
       final playing = _player.playing;
-      if (_player.processingState == ProcessingState.completed) {
-        await _onCompleted();
+      if (event.currentIndex != null) {
+        mediaItem.add(queue.value[event.currentIndex!]
+            .copyWith(duration: _player.duration));
       }
       playbackState.add(playbackState.value.copyWith(
         controls: [
