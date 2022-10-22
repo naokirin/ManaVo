@@ -137,7 +137,7 @@ class AudioState extends ConsumerState<AudioPlayerPage>
 
       await player.action.init(
           courseId: widget.courseId,
-          lesson: _lesson!,
+          lessons: _lessonList!,
           album: _course?.name ?? '',
           index: index,
           initialPosition: widget.initialPosition);

@@ -15,35 +15,6 @@ import 'audio_player_action_test.mocks.dart';
 void main() {
   group('AudioPlayerAction Test', () {
     tearDown(() => GetIt.instance.reset());
-    test('setAudioSource', () async {
-      await dotenv.load(fileName: "res/.env.test");
-      final mock = MockAudioServiceHandler();
-      GetIt.instance.registerSingleton<AudioServiceHandler>(mock);
-      when(mock.setAudioSource(
-              item: const MediaItem(id: '', title: ''),
-              initialPosition: Duration.zero))
-          .thenAnswer((_) async {});
-
-      final container = ProviderContainer();
-      addTearDown(container.dispose);
-
-      container.read(audioPlayerActionProvider).setAudioSource(
-            lesson: const Lesson(
-                id: '',
-                name: '',
-                length: '',
-                description: '',
-                url: '',
-                lastUpdatedDate: ''),
-            album: '',
-            initialPosition: Duration.zero,
-          );
-
-      verify(mock.setAudioSource(
-              item: const MediaItem(id: '', title: ''),
-              initialPosition: Duration.zero))
-          .called(1);
-    });
 
     test('play', () {
       final mock = MockAudioServiceHandler();

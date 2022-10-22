@@ -6,6 +6,8 @@ part 'audio_player_state.freezed.dart';
 class AudioPlayerState with _$AudioPlayerState {
   const factory AudioPlayerState(
       {@Default(null)
+          String? lessonId,
+      @Default(null)
           int? currentIndex,
       @Default(Duration.zero)
           Duration currentPosition,

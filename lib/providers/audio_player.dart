@@ -14,6 +14,8 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
 
   final StreamController<AudioPlayerState> _streamController =
       StreamController.broadcast();
+  void Function(String?, String?) _onLessonCompleted =
+      (currentLessonId, nextLessonId) {};
   void Function() _onResetted = () {};
   void Function() _onDisposed = () {};
 
@@ -27,14 +29,27 @@ class AudioPlayerNotifier extends StateNotifier<AudioPlayerState> {
   void reset() => _onResetted();
 
   void setState(AudioPlayerState state) {
+    if (state.audioProcessingState == AudioProcessingState.completed ||
+        (lessonId != null && lessonId != state.lessonId)) {
+      _onLessonCompleted(lessonId, state.lessonId);
+    }
     this.state = state;
     _streamController.add(state);
   }
 
+  void updateLessonId(String? lessonId) {
+    final nextState = state.copyWith(lessonId: lessonId);
+    setState(nextState);
+  }
+
+  void setOnLessonCompleted(
+          void Function(String?, String?) onLessonCompleted) =>
+      _onLessonCompleted = onLessonCompleted;
   void setOnResetted(void Function() onResetted) => _onResetted = onResetted;
   void setOnDisposed(void Function() onDisposed) => _onDisposed = onDisposed;
 
   bool get playing => state.playing;
+  String? get lessonId => state.lessonId;
   int? get currentIndex => state.currentIndex;
   Duration get currentPosition => state.currentPosition;
   Stream<AudioPlayerState> get playerStateStream => _streamController.stream;
