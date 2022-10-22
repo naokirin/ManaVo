@@ -24,13 +24,13 @@ import 'package:collection/collection.dart';
 
 class AudioPlayerPage extends ConsumerStatefulWidget {
   final String courseId;
-  final String id;
+  final String initialId;
   final Duration initialPosition;
 
   const AudioPlayerPage(
       {super.key,
       required this.courseId,
-      required this.id,
+      required this.initialId,
       required this.initialPosition});
 
   @override
@@ -40,7 +40,6 @@ class AudioPlayerPage extends ConsumerStatefulWidget {
 class AudioState extends ConsumerState<AudioPlayerPage>
     with WidgetsBindingObserver {
   Course? _course;
-  Lesson? _lesson;
   List<Lesson>? _lessonList;
   bool _ready = false;
 
@@ -73,6 +72,7 @@ class AudioState extends ConsumerState<AudioPlayerPage>
 
   @override
   Widget build(BuildContext context) {
+    final playerState = ref.watch(audioPlayerProvider);
     final player = _player();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!_ready && !player.notifier.playing) {
@@ -80,6 +80,9 @@ class AudioState extends ConsumerState<AudioPlayerPage>
         _ready = true;
       }
     });
+
+    final lesson =
+        _lessonList?.firstWhere((lesson) => lesson.id == playerState.lessonId);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -89,7 +92,7 @@ class AudioState extends ConsumerState<AudioPlayerPage>
           backgroundColor: Colors.transparent,
           actions: const [AppBarPopupMenuButton()]),
       body: Column(children: [
-        Expanded(child: AudioPlayerHeader(course: _course, lesson: _lesson)),
+        Expanded(child: AudioPlayerHeader(course: _course, lesson: lesson)),
         const SizedBox(height: 64.0),
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -129,8 +132,8 @@ class AudioState extends ConsumerState<AudioPlayerPage>
             .value
             ?.firstWhereOrNull((item) => item.id == widget.courseId);
         _lessonList = ref.read(lessonListProvider(widget.courseId)).value;
-        index = _lessonList?.indexWhere((item) => item.id == widget.id) ?? 0;
-        _lesson = _lessonList?[index];
+        index =
+            _lessonList?.indexWhere((item) => item.id == widget.initialId) ?? 0;
       });
 
       initAudioPlayerProvider(ref.read);

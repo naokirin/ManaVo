@@ -14,7 +14,6 @@ class AudioPlayerAction {
   AudioPlayerAction(this.read);
 
   final Reader read;
-
   final AudioServiceHandler _handler = GetIt.I<AudioServiceHandler>();
 
   Future<void> init(
