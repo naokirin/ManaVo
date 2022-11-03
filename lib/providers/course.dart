@@ -4,6 +4,7 @@ import 'package:manavo/providers/app_info.dart';
 import 'package:manavo/services/network/course.dart';
 import 'package:manavo/models/course.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:manavo/utils/streams/ticker.dart';
 
 final courseProvider = FutureProvider<List<Course>>((ref) async {
   final appInfo = ref.watch(appInfoProvider);
@@ -17,8 +18,7 @@ final courseProvider = FutureProvider<List<Course>>((ref) async {
 final _lastModifiedCoursesProvider = StateProvider<String?>((ref) => null);
 
 // convert BroadcastStream for hot reloading
-final _ticker =
-    Stream.periodic(const Duration(minutes: 15)).asBroadcastStream();
+final _ticker = createTicker(const Duration(minutes: 15));
 final List<StreamSubscription> _tickerSubscriptions = [];
 Future<void> startCheckingToUpdateCourses(Reader read) async {
   for (var subscription in _tickerSubscriptions) {

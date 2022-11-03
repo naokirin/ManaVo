@@ -1,5 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:manavo/services/app/info.dart';
 import 'package:manavo/services/audio/audio_service_handler.dart';
 import 'package:get_it/get_it.dart';
 import 'package:manavo/services/listened/listened.dart';
@@ -9,6 +10,7 @@ final GetIt _getIt = GetIt.instance;
 Future<void> initServiceLocator() async {
   _getIt.registerSingleton<AudioServiceHandler>(await _initeAudioService());
   _getIt.registerSingleton<Listened>(await _initListenedService());
+  _getIt.registerSingleton<Info>(await _initInfoService());
 }
 
 Future<AudioServiceHandler> _initeAudioService() async {
@@ -23,4 +25,8 @@ Future<AudioServiceHandler> _initeAudioService() async {
 
 Future<Listened> _initListenedService() async {
   return await Listened.getInstance();
+}
+
+Future<Info> _initInfoService() async {
+  return await Info.getInstance();
 }
