@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fpdart/fpdart.dart' as fpdart;
+import 'package:get_it/get_it.dart';
 import 'package:manavo/models/app_version.dart';
 import 'package:manavo/services/app/info.dart';
 import 'package:manavo/services/network/app_info.dart';
@@ -10,7 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final appVersionProvider =
     FutureProvider<fpdart.Either<Object, AppVersion>>((ref) async {
   try {
-    final info = await ref.watch(_infoProvider.future);
+    final info = ref.watch(_infoProvider);
     final appInfo = await ref.watch(appInfoProvider.future);
     return fpdart.Either.right(AppVersion(
         version: info.version,
@@ -21,8 +22,7 @@ final appVersionProvider =
   }
 });
 
-final _infoProvider =
-    FutureProvider<Info>((ref) async => await Info.getInstance());
+final _infoProvider = StateProvider<Info>((ref) => GetIt.I<Info>());
 
 final appInfoProvider = FutureProvider<AppInfo>((ref) async {
   ref.watch(_lastModifiedAppInfoProvider);

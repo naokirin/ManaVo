@@ -101,14 +101,12 @@ class MockAudioServiceHandler extends _i1.Mock
   _i5.Future<void> initPlayer(
           {List<_i4.MediaItem>? items,
           int? initialIndex,
-          Duration? initialPosition,
-          _i5.Future<void> Function(String?)? onCompleted}) =>
+          Duration? initialPosition}) =>
       (super.noSuchMethod(
               Invocation.method(#initPlayer, [], {
                 #items: items,
                 #initialIndex: initialIndex,
-                #initialPosition: initialPosition,
-                #onCompleted: onCompleted
+                #initialPosition: initialPosition
               }),
               returnValue: _i5.Future<void>.value(),
               returnValueForMissingStub: _i5.Future<void>.value())

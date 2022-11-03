@@ -4,9 +4,9 @@ class Info {
   static Info instance = Info._();
 
   bool _initialized = false;
-  String appName;
-  String version;
-  int buildNumber;
+  final String appName;
+  final String version;
+  final int buildNumber;
 
   Info._({this.appName = '', this.version = '', this.buildNumber = 1});
 
