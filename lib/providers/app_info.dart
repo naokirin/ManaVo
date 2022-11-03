@@ -7,6 +7,7 @@ import 'package:manavo/services/app/info.dart';
 import 'package:manavo/services/network/app_info.dart';
 import 'package:manavo/models/app_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:manavo/utils/streams/ticker.dart';
 
 final appVersionProvider =
     FutureProvider<fpdart.Either<Object, AppVersion>>((ref) async {
@@ -33,8 +34,7 @@ final appInfoProvider = FutureProvider<AppInfo>((ref) async {
 final _lastModifiedAppInfoProvider = StateProvider<String?>((ref) => null);
 
 // convert BroadcastStream for hot reloading
-final _ticker =
-    Stream.periodic(const Duration(minutes: 30)).asBroadcastStream();
+final _ticker = createTicker(const Duration(minutes: 30));
 final List<StreamSubscription> _tickerSubscriptions = [];
 Future<void> startCheckingToUpdateAppInfo(Reader read) async {
   for (var subscription in _tickerSubscriptions) {
