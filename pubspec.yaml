@@ -1,9 +1,10 @@
 name: manavo
 description: ManaVo is a voice lesson app
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+3
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: ">=2.18.0 <3.0.0"
+  flutter: ">=3.3.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -27,7 +28,7 @@ dependencies:
   duration: ^3.0.12
   connectivity_plus: ^2.3.7
   shared_preferences: ^2.0.15
-  package_info: ^2.0.2
+  package_info_plus: ^3.0.2
   url_launcher: ^6.1.6
   fpdart: ^0.3.0
 
@@ -51,21 +52,21 @@ flutter:
     - assets/icons/
 
 flutter_native_splash:
-  color: '#38b6ff'
+  color: "#38b6ff"
   image: assets/images/ManaVo_white.png
-  color_dark: '#262626'
+  color_dark: "#262626"
   image_dark: assets/images/ManaVo_white.png
   fullscreen: true
   android_12:
-    color: '#38b6ff'
-    icon_background_color: '#38b6ff'
+    color: "#38b6ff"
+    icon_background_color: "#38b6ff"
     image: assets/images/ManaVo_white_Android.png
-    icon_background_color_dark: '#262626'
+    icon_background_color_dark: "#262626"
     image_dark: assets/images/ManaVo_white_Android.png
 
 flutter_icons:
-  android: true 
+  android: true
   ios: true
   image_path: "assets/icons/ManaVo_icon.png"
-  adaptive_icon_background: 'assets/icons/ManaVo_background.png'
-  adaptive_icon_foreground: 'assets/icons/ManaVo_icon.png'
+  adaptive_icon_background: "assets/icons/ManaVo_background.png"
+  adaptive_icon_foreground: "assets/icons/ManaVo_icon.png"
