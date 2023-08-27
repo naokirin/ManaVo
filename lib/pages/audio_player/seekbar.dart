@@ -54,7 +54,7 @@ class SeekBar extends ConsumerWidget {
                       .firstMatch("${duration - position}")
                       ?.group(1) ??
                   '${duration - position}',
-              style: Theme.of(context).textTheme.caption),
+              style: Theme.of(context).textTheme.bodySmall),
         ),
       ],
     );
