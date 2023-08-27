@@ -14,16 +14,16 @@ GoRouter router(AppVersion appVersion) {
     GoRoute(
       path: '/course/:id',
       builder: (context, state) {
-        return CoursePage(id: state.params['id'] ?? '');
+        return CoursePage(id: state.pathParameters['id'] ?? '');
       },
     ),
     GoRoute(
         path: '/player/:course_id/:id',
         builder: (context, state) {
-          final initialPosition = state.queryParams['initial_position'];
+          final initialPosition = state.uri.queryParameters['initial_position'];
           return AudioPlayerPage(
-              courseId: state.params['course_id'] ?? '',
-              initialId: state.params['id'] ?? '',
+              courseId: state.pathParameters['course_id'] ?? '',
+              initialId: state.pathParameters['id'] ?? '',
               initialPosition: initialPosition != null
                   ? parseTime(initialPosition)
                   : Duration.zero);
