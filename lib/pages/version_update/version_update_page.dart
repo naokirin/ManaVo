@@ -5,13 +5,13 @@ class VersionUpdatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
         home: Scaffold(
             body: Center(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
           Text('バージョンアップのお知らせ', style: TextStyle(fontSize: 24)),
           Padding(
               padding: EdgeInsets.all(30),
