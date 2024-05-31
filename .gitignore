@@ -52,3 +52,6 @@ app.*.map.json
 Info.plist
 *.xcworkspace
 *.xcodeproj
+
+# FVM Version Cache
+.fvm/
