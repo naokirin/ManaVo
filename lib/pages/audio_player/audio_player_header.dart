@@ -79,7 +79,6 @@ void _showSimpleDialog(BuildContext context, Lesson? lesson) {
                   height: 1.0,
                 ),
                 SingleChildScrollView(
-                    child: Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -89,7 +88,7 @@ void _showSimpleDialog(BuildContext context, Lesson? lesson) {
                       )
                     ],
                   ),
-                )),
+                ),
                 const Divider(
                   color: Colors.grey,
                   height: 1.0,
