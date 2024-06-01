@@ -9,6 +9,7 @@ void main() {
         'name': 'lesson_name',
         'description': 'lesson_description',
         'length': '10:45',
+        'body': 'test body',
         'url': 'https://example.com',
         'last_updated_date': '2022/10/01'
       });

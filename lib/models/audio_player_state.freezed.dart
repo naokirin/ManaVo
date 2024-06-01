@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'audio_player_state.dart';
 
@@ -12,7 +12,7 @@ part of 'audio_player_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$AudioPlayerState {
@@ -36,7 +36,8 @@ mixin _$AudioPlayerState {
 abstract class $AudioPlayerStateCopyWith<$Res> {
   factory $AudioPlayerStateCopyWith(
           AudioPlayerState value, $Res Function(AudioPlayerState) then) =
-      _$AudioPlayerStateCopyWithImpl<$Res>;
+      _$AudioPlayerStateCopyWithImpl<$Res, AudioPlayerState>;
+  @useResult
   $Res call(
       {String? lessonId,
       int? currentIndex,
@@ -50,74 +51,77 @@ abstract class $AudioPlayerStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AudioPlayerStateCopyWithImpl<$Res>
+class _$AudioPlayerStateCopyWithImpl<$Res, $Val extends AudioPlayerState>
     implements $AudioPlayerStateCopyWith<$Res> {
   _$AudioPlayerStateCopyWithImpl(this._value, this._then);
 
-  final AudioPlayerState _value;
   // ignore: unused_field
-  final $Res Function(AudioPlayerState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? lessonId = freezed,
     Object? currentIndex = freezed,
-    Object? currentPosition = freezed,
-    Object? bufferedPosition = freezed,
-    Object? duration = freezed,
-    Object? volume = freezed,
-    Object? speed = freezed,
-    Object? audioProcessingState = freezed,
-    Object? playing = freezed,
+    Object? currentPosition = null,
+    Object? bufferedPosition = null,
+    Object? duration = null,
+    Object? volume = null,
+    Object? speed = null,
+    Object? audioProcessingState = null,
+    Object? playing = null,
   }) {
     return _then(_value.copyWith(
-      lessonId: lessonId == freezed
+      lessonId: freezed == lessonId
           ? _value.lessonId
           : lessonId // ignore: cast_nullable_to_non_nullable
               as String?,
-      currentIndex: currentIndex == freezed
+      currentIndex: freezed == currentIndex
           ? _value.currentIndex
           : currentIndex // ignore: cast_nullable_to_non_nullable
               as int?,
-      currentPosition: currentPosition == freezed
+      currentPosition: null == currentPosition
           ? _value.currentPosition
           : currentPosition // ignore: cast_nullable_to_non_nullable
               as Duration,
-      bufferedPosition: bufferedPosition == freezed
+      bufferedPosition: null == bufferedPosition
           ? _value.bufferedPosition
           : bufferedPosition // ignore: cast_nullable_to_non_nullable
               as Duration,
-      duration: duration == freezed
+      duration: null == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as Duration,
-      volume: volume == freezed
+      volume: null == volume
           ? _value.volume
           : volume // ignore: cast_nullable_to_non_nullable
               as double,
-      speed: speed == freezed
+      speed: null == speed
           ? _value.speed
           : speed // ignore: cast_nullable_to_non_nullable
               as double,
-      audioProcessingState: audioProcessingState == freezed
+      audioProcessingState: null == audioProcessingState
           ? _value.audioProcessingState
           : audioProcessingState // ignore: cast_nullable_to_non_nullable
               as AudioProcessingState,
-      playing: playing == freezed
+      playing: null == playing
           ? _value.playing
           : playing // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_AudioPlayerStateCopyWith<$Res>
+abstract class _$$AudioPlayerStateImplCopyWith<$Res>
     implements $AudioPlayerStateCopyWith<$Res> {
-  factory _$$_AudioPlayerStateCopyWith(
-          _$_AudioPlayerState value, $Res Function(_$_AudioPlayerState) then) =
-      __$$_AudioPlayerStateCopyWithImpl<$Res>;
+  factory _$$AudioPlayerStateImplCopyWith(_$AudioPlayerStateImpl value,
+          $Res Function(_$AudioPlayerStateImpl) then) =
+      __$$AudioPlayerStateImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? lessonId,
       int? currentIndex,
@@ -131,62 +135,60 @@ abstract class _$$_AudioPlayerStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AudioPlayerStateCopyWithImpl<$Res>
-    extends _$AudioPlayerStateCopyWithImpl<$Res>
-    implements _$$_AudioPlayerStateCopyWith<$Res> {
-  __$$_AudioPlayerStateCopyWithImpl(
-      _$_AudioPlayerState _value, $Res Function(_$_AudioPlayerState) _then)
-      : super(_value, (v) => _then(v as _$_AudioPlayerState));
+class __$$AudioPlayerStateImplCopyWithImpl<$Res>
+    extends _$AudioPlayerStateCopyWithImpl<$Res, _$AudioPlayerStateImpl>
+    implements _$$AudioPlayerStateImplCopyWith<$Res> {
+  __$$AudioPlayerStateImplCopyWithImpl(_$AudioPlayerStateImpl _value,
+      $Res Function(_$AudioPlayerStateImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_AudioPlayerState get _value => super._value as _$_AudioPlayerState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? lessonId = freezed,
     Object? currentIndex = freezed,
-    Object? currentPosition = freezed,
-    Object? bufferedPosition = freezed,
-    Object? duration = freezed,
-    Object? volume = freezed,
-    Object? speed = freezed,
-    Object? audioProcessingState = freezed,
-    Object? playing = freezed,
+    Object? currentPosition = null,
+    Object? bufferedPosition = null,
+    Object? duration = null,
+    Object? volume = null,
+    Object? speed = null,
+    Object? audioProcessingState = null,
+    Object? playing = null,
   }) {
-    return _then(_$_AudioPlayerState(
-      lessonId: lessonId == freezed
+    return _then(_$AudioPlayerStateImpl(
+      lessonId: freezed == lessonId
           ? _value.lessonId
           : lessonId // ignore: cast_nullable_to_non_nullable
               as String?,
-      currentIndex: currentIndex == freezed
+      currentIndex: freezed == currentIndex
           ? _value.currentIndex
           : currentIndex // ignore: cast_nullable_to_non_nullable
               as int?,
-      currentPosition: currentPosition == freezed
+      currentPosition: null == currentPosition
           ? _value.currentPosition
           : currentPosition // ignore: cast_nullable_to_non_nullable
               as Duration,
-      bufferedPosition: bufferedPosition == freezed
+      bufferedPosition: null == bufferedPosition
           ? _value.bufferedPosition
           : bufferedPosition // ignore: cast_nullable_to_non_nullable
               as Duration,
-      duration: duration == freezed
+      duration: null == duration
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as Duration,
-      volume: volume == freezed
+      volume: null == volume
           ? _value.volume
           : volume // ignore: cast_nullable_to_non_nullable
               as double,
-      speed: speed == freezed
+      speed: null == speed
           ? _value.speed
           : speed // ignore: cast_nullable_to_non_nullable
               as double,
-      audioProcessingState: audioProcessingState == freezed
+      audioProcessingState: null == audioProcessingState
           ? _value.audioProcessingState
           : audioProcessingState // ignore: cast_nullable_to_non_nullable
               as AudioProcessingState,
-      playing: playing == freezed
+      playing: null == playing
           ? _value.playing
           : playing // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -196,8 +198,8 @@ class __$$_AudioPlayerStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AudioPlayerState implements _AudioPlayerState {
-  const _$_AudioPlayerState(
+class _$AudioPlayerStateImpl implements _AudioPlayerState {
+  const _$AudioPlayerStateImpl(
       {this.lessonId = null,
       this.currentIndex = null,
       this.currentPosition = Duration.zero,
@@ -242,42 +244,46 @@ class _$_AudioPlayerState implements _AudioPlayerState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AudioPlayerState &&
-            const DeepCollectionEquality().equals(other.lessonId, lessonId) &&
-            const DeepCollectionEquality()
-                .equals(other.currentIndex, currentIndex) &&
-            const DeepCollectionEquality()
-                .equals(other.currentPosition, currentPosition) &&
-            const DeepCollectionEquality()
-                .equals(other.bufferedPosition, bufferedPosition) &&
-            const DeepCollectionEquality().equals(other.duration, duration) &&
-            const DeepCollectionEquality().equals(other.volume, volume) &&
-            const DeepCollectionEquality().equals(other.speed, speed) &&
-            const DeepCollectionEquality()
-                .equals(other.audioProcessingState, audioProcessingState) &&
-            const DeepCollectionEquality().equals(other.playing, playing));
+            other is _$AudioPlayerStateImpl &&
+            (identical(other.lessonId, lessonId) ||
+                other.lessonId == lessonId) &&
+            (identical(other.currentIndex, currentIndex) ||
+                other.currentIndex == currentIndex) &&
+            (identical(other.currentPosition, currentPosition) ||
+                other.currentPosition == currentPosition) &&
+            (identical(other.bufferedPosition, bufferedPosition) ||
+                other.bufferedPosition == bufferedPosition) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration) &&
+            (identical(other.volume, volume) || other.volume == volume) &&
+            (identical(other.speed, speed) || other.speed == speed) &&
+            (identical(other.audioProcessingState, audioProcessingState) ||
+                other.audioProcessingState == audioProcessingState) &&
+            (identical(other.playing, playing) || other.playing == playing));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(lessonId),
-      const DeepCollectionEquality().hash(currentIndex),
-      const DeepCollectionEquality().hash(currentPosition),
-      const DeepCollectionEquality().hash(bufferedPosition),
-      const DeepCollectionEquality().hash(duration),
-      const DeepCollectionEquality().hash(volume),
-      const DeepCollectionEquality().hash(speed),
-      const DeepCollectionEquality().hash(audioProcessingState),
-      const DeepCollectionEquality().hash(playing));
+      lessonId,
+      currentIndex,
+      currentPosition,
+      bufferedPosition,
+      duration,
+      volume,
+      speed,
+      audioProcessingState,
+      playing);
 
   @JsonKey(ignore: true)
   @override
-  _$$_AudioPlayerStateCopyWith<_$_AudioPlayerState> get copyWith =>
-      __$$_AudioPlayerStateCopyWithImpl<_$_AudioPlayerState>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$AudioPlayerStateImplCopyWith<_$AudioPlayerStateImpl> get copyWith =>
+      __$$AudioPlayerStateImplCopyWithImpl<_$AudioPlayerStateImpl>(
+          this, _$identity);
 }
 
 abstract class _AudioPlayerState implements AudioPlayerState {
@@ -290,7 +296,7 @@ abstract class _AudioPlayerState implements AudioPlayerState {
       final double volume,
       final double speed,
       final AudioProcessingState audioProcessingState,
-      final bool playing}) = _$_AudioPlayerState;
+      final bool playing}) = _$AudioPlayerStateImpl;
 
   @override
   String? get lessonId;
@@ -312,6 +318,6 @@ abstract class _AudioPlayerState implements AudioPlayerState {
   bool get playing;
   @override
   @JsonKey(ignore: true)
-  _$$_AudioPlayerStateCopyWith<_$_AudioPlayerState> get copyWith =>
+  _$$AudioPlayerStateImplCopyWith<_$AudioPlayerStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -16,6 +16,8 @@ class Lesson with _$Lesson {
           required String url,
       @JsonKey(name: 'description')
           required String description,
+      @JsonKey(name: 'body')
+          required String body,
       @JsonKey(name: 'last_updated_date')
           required String lastUpdatedDate}) = _Lesson;
 

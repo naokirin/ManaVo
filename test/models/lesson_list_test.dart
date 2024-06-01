@@ -10,6 +10,7 @@ void main() {
             'id': 'lesson_id',
             'name': 'lesson_name',
             'description': 'lesson_description',
+            'body': 'test body',
             'length': '10:45',
             'url': 'https://example.com',
             'last_updated_date': '2022/10/01'
