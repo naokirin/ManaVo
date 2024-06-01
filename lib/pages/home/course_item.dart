@@ -14,7 +14,7 @@ class CourseItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
-        height: 140,
+        height: 160,
         child: Card(
             elevation: 10,
             shape:

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'course_list.dart';
 
@@ -12,7 +12,7 @@ part of 'course_list.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 CourseList _$CourseListFromJson(Map<String, dynamic> json) {
   return _CourseList.fromJson(json);
@@ -33,57 +33,61 @@ mixin _$CourseList {
 abstract class $CourseListCopyWith<$Res> {
   factory $CourseListCopyWith(
           CourseList value, $Res Function(CourseList) then) =
-      _$CourseListCopyWithImpl<$Res>;
+      _$CourseListCopyWithImpl<$Res, CourseList>;
+  @useResult
   $Res call({@JsonKey(name: 'courses') List<Course> courses});
 }
 
 /// @nodoc
-class _$CourseListCopyWithImpl<$Res> implements $CourseListCopyWith<$Res> {
+class _$CourseListCopyWithImpl<$Res, $Val extends CourseList>
+    implements $CourseListCopyWith<$Res> {
   _$CourseListCopyWithImpl(this._value, this._then);
 
-  final CourseList _value;
   // ignore: unused_field
-  final $Res Function(CourseList) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? courses = freezed,
+    Object? courses = null,
   }) {
     return _then(_value.copyWith(
-      courses: courses == freezed
+      courses: null == courses
           ? _value.courses
           : courses // ignore: cast_nullable_to_non_nullable
               as List<Course>,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_CourseListCopyWith<$Res>
+abstract class _$$CourseListImplCopyWith<$Res>
     implements $CourseListCopyWith<$Res> {
-  factory _$$_CourseListCopyWith(
-          _$_CourseList value, $Res Function(_$_CourseList) then) =
-      __$$_CourseListCopyWithImpl<$Res>;
+  factory _$$CourseListImplCopyWith(
+          _$CourseListImpl value, $Res Function(_$CourseListImpl) then) =
+      __$$CourseListImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({@JsonKey(name: 'courses') List<Course> courses});
 }
 
 /// @nodoc
-class __$$_CourseListCopyWithImpl<$Res> extends _$CourseListCopyWithImpl<$Res>
-    implements _$$_CourseListCopyWith<$Res> {
-  __$$_CourseListCopyWithImpl(
-      _$_CourseList _value, $Res Function(_$_CourseList) _then)
-      : super(_value, (v) => _then(v as _$_CourseList));
+class __$$CourseListImplCopyWithImpl<$Res>
+    extends _$CourseListCopyWithImpl<$Res, _$CourseListImpl>
+    implements _$$CourseListImplCopyWith<$Res> {
+  __$$CourseListImplCopyWithImpl(
+      _$CourseListImpl _value, $Res Function(_$CourseListImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_CourseList get _value => super._value as _$_CourseList;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? courses = freezed,
+    Object? courses = null,
   }) {
-    return _then(_$_CourseList(
-      courses: courses == freezed
+    return _then(_$CourseListImpl(
+      courses: null == courses
           ? _value._courses
           : courses // ignore: cast_nullable_to_non_nullable
               as List<Course>,
@@ -94,18 +98,19 @@ class __$$_CourseListCopyWithImpl<$Res> extends _$CourseListCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_CourseList implements _CourseList {
-  const _$_CourseList(
+class _$CourseListImpl implements _CourseList {
+  const _$CourseListImpl(
       {@JsonKey(name: 'courses') required final List<Course> courses})
       : _courses = courses;
 
-  factory _$_CourseList.fromJson(Map<String, dynamic> json) =>
-      _$$_CourseListFromJson(json);
+  factory _$CourseListImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CourseListImplFromJson(json);
 
   final List<Course> _courses;
   @override
   @JsonKey(name: 'courses')
   List<Course> get courses {
+    if (_courses is EqualUnmodifiableListView) return _courses;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_courses);
   }
@@ -116,10 +121,10 @@ class _$_CourseList implements _CourseList {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CourseList &&
+            other is _$CourseListImpl &&
             const DeepCollectionEquality().equals(other._courses, _courses));
   }
 
@@ -130,12 +135,13 @@ class _$_CourseList implements _CourseList {
 
   @JsonKey(ignore: true)
   @override
-  _$$_CourseListCopyWith<_$_CourseList> get copyWith =>
-      __$$_CourseListCopyWithImpl<_$_CourseList>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$CourseListImplCopyWith<_$CourseListImpl> get copyWith =>
+      __$$CourseListImplCopyWithImpl<_$CourseListImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CourseListToJson(
+    return _$$CourseListImplToJson(
       this,
     );
   }
@@ -144,16 +150,16 @@ class _$_CourseList implements _CourseList {
 abstract class _CourseList implements CourseList {
   const factory _CourseList(
           {@JsonKey(name: 'courses') required final List<Course> courses}) =
-      _$_CourseList;
+      _$CourseListImpl;
 
   factory _CourseList.fromJson(Map<String, dynamic> json) =
-      _$_CourseList.fromJson;
+      _$CourseListImpl.fromJson;
 
   @override
   @JsonKey(name: 'courses')
   List<Course> get courses;
   @override
   @JsonKey(ignore: true)
-  _$$_CourseListCopyWith<_$_CourseList> get copyWith =>
+  _$$CourseListImplCopyWith<_$CourseListImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'lesson.dart';
 
@@ -12,7 +12,7 @@ part of 'lesson.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Lesson _$LessonFromJson(Map<String, dynamic> json) {
   return _Lesson.fromJson(json);
@@ -30,6 +30,8 @@ mixin _$Lesson {
   String get url => throw _privateConstructorUsedError;
   @JsonKey(name: 'description')
   String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'body')
+  String get body => throw _privateConstructorUsedError;
   @JsonKey(name: 'last_updated_date')
   String get lastUpdatedDate => throw _privateConstructorUsedError;
 
@@ -41,116 +43,134 @@ mixin _$Lesson {
 /// @nodoc
 abstract class $LessonCopyWith<$Res> {
   factory $LessonCopyWith(Lesson value, $Res Function(Lesson) then) =
-      _$LessonCopyWithImpl<$Res>;
+      _$LessonCopyWithImpl<$Res, Lesson>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'length') String length,
       @JsonKey(name: 'url') String url,
       @JsonKey(name: 'description') String description,
+      @JsonKey(name: 'body') String body,
       @JsonKey(name: 'last_updated_date') String lastUpdatedDate});
 }
 
 /// @nodoc
-class _$LessonCopyWithImpl<$Res> implements $LessonCopyWith<$Res> {
+class _$LessonCopyWithImpl<$Res, $Val extends Lesson>
+    implements $LessonCopyWith<$Res> {
   _$LessonCopyWithImpl(this._value, this._then);
 
-  final Lesson _value;
   // ignore: unused_field
-  final $Res Function(Lesson) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? length = freezed,
-    Object? url = freezed,
-    Object? description = freezed,
-    Object? lastUpdatedDate = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? length = null,
+    Object? url = null,
+    Object? description = null,
+    Object? body = null,
+    Object? lastUpdatedDate = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      length: length == freezed
+      length: null == length
           ? _value.length
           : length // ignore: cast_nullable_to_non_nullable
               as String,
-      url: url == freezed
+      url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      lastUpdatedDate: lastUpdatedDate == freezed
+      body: null == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastUpdatedDate: null == lastUpdatedDate
           ? _value.lastUpdatedDate
           : lastUpdatedDate // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_LessonCopyWith<$Res> implements $LessonCopyWith<$Res> {
-  factory _$$_LessonCopyWith(_$_Lesson value, $Res Function(_$_Lesson) then) =
-      __$$_LessonCopyWithImpl<$Res>;
+abstract class _$$LessonImplCopyWith<$Res> implements $LessonCopyWith<$Res> {
+  factory _$$LessonImplCopyWith(
+          _$LessonImpl value, $Res Function(_$LessonImpl) then) =
+      __$$LessonImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'name') String name,
       @JsonKey(name: 'length') String length,
       @JsonKey(name: 'url') String url,
       @JsonKey(name: 'description') String description,
+      @JsonKey(name: 'body') String body,
       @JsonKey(name: 'last_updated_date') String lastUpdatedDate});
 }
 
 /// @nodoc
-class __$$_LessonCopyWithImpl<$Res> extends _$LessonCopyWithImpl<$Res>
-    implements _$$_LessonCopyWith<$Res> {
-  __$$_LessonCopyWithImpl(_$_Lesson _value, $Res Function(_$_Lesson) _then)
-      : super(_value, (v) => _then(v as _$_Lesson));
+class __$$LessonImplCopyWithImpl<$Res>
+    extends _$LessonCopyWithImpl<$Res, _$LessonImpl>
+    implements _$$LessonImplCopyWith<$Res> {
+  __$$LessonImplCopyWithImpl(
+      _$LessonImpl _value, $Res Function(_$LessonImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_Lesson get _value => super._value as _$_Lesson;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? length = freezed,
-    Object? url = freezed,
-    Object? description = freezed,
-    Object? lastUpdatedDate = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? length = null,
+    Object? url = null,
+    Object? description = null,
+    Object? body = null,
+    Object? lastUpdatedDate = null,
   }) {
-    return _then(_$_Lesson(
-      id: id == freezed
+    return _then(_$LessonImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      length: length == freezed
+      length: null == length
           ? _value.length
           : length // ignore: cast_nullable_to_non_nullable
               as String,
-      url: url == freezed
+      url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      lastUpdatedDate: lastUpdatedDate == freezed
+      body: null == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastUpdatedDate: null == lastUpdatedDate
           ? _value.lastUpdatedDate
           : lastUpdatedDate // ignore: cast_nullable_to_non_nullable
               as String,
@@ -160,17 +180,18 @@ class __$$_LessonCopyWithImpl<$Res> extends _$LessonCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Lesson implements _Lesson {
-  const _$_Lesson(
+class _$LessonImpl implements _Lesson {
+  const _$LessonImpl(
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'length') required this.length,
       @JsonKey(name: 'url') required this.url,
       @JsonKey(name: 'description') required this.description,
+      @JsonKey(name: 'body') required this.body,
       @JsonKey(name: 'last_updated_date') required this.lastUpdatedDate});
 
-  factory _$_Lesson.fromJson(Map<String, dynamic> json) =>
-      _$$_LessonFromJson(json);
+  factory _$LessonImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LessonImplFromJson(json);
 
   @override
   @JsonKey(name: 'id')
@@ -188,48 +209,47 @@ class _$_Lesson implements _Lesson {
   @JsonKey(name: 'description')
   final String description;
   @override
+  @JsonKey(name: 'body')
+  final String body;
+  @override
   @JsonKey(name: 'last_updated_date')
   final String lastUpdatedDate;
 
   @override
   String toString() {
-    return 'Lesson(id: $id, name: $name, length: $length, url: $url, description: $description, lastUpdatedDate: $lastUpdatedDate)';
+    return 'Lesson(id: $id, name: $name, length: $length, url: $url, description: $description, body: $body, lastUpdatedDate: $lastUpdatedDate)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Lesson &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.length, length) &&
-            const DeepCollectionEquality().equals(other.url, url) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.lastUpdatedDate, lastUpdatedDate));
+            other is _$LessonImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.length, length) || other.length == length) &&
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.body, body) || other.body == body) &&
+            (identical(other.lastUpdatedDate, lastUpdatedDate) ||
+                other.lastUpdatedDate == lastUpdatedDate));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(length),
-      const DeepCollectionEquality().hash(url),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(lastUpdatedDate));
+      runtimeType, id, name, length, url, description, body, lastUpdatedDate);
 
   @JsonKey(ignore: true)
   @override
-  _$$_LessonCopyWith<_$_Lesson> get copyWith =>
-      __$$_LessonCopyWithImpl<_$_Lesson>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$LessonImplCopyWith<_$LessonImpl> get copyWith =>
+      __$$LessonImplCopyWithImpl<_$LessonImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_LessonToJson(
+    return _$$LessonImplToJson(
       this,
     );
   }
@@ -237,20 +257,16 @@ class _$_Lesson implements _Lesson {
 
 abstract class _Lesson implements Lesson {
   const factory _Lesson(
-      {@JsonKey(name: 'id')
-          required final String id,
-      @JsonKey(name: 'name')
-          required final String name,
-      @JsonKey(name: 'length')
-          required final String length,
-      @JsonKey(name: 'url')
-          required final String url,
-      @JsonKey(name: 'description')
-          required final String description,
+      {@JsonKey(name: 'id') required final String id,
+      @JsonKey(name: 'name') required final String name,
+      @JsonKey(name: 'length') required final String length,
+      @JsonKey(name: 'url') required final String url,
+      @JsonKey(name: 'description') required final String description,
+      @JsonKey(name: 'body') required final String body,
       @JsonKey(name: 'last_updated_date')
-          required final String lastUpdatedDate}) = _$_Lesson;
+      required final String lastUpdatedDate}) = _$LessonImpl;
 
-  factory _Lesson.fromJson(Map<String, dynamic> json) = _$_Lesson.fromJson;
+  factory _Lesson.fromJson(Map<String, dynamic> json) = _$LessonImpl.fromJson;
 
   @override
   @JsonKey(name: 'id')
@@ -268,10 +284,13 @@ abstract class _Lesson implements Lesson {
   @JsonKey(name: 'description')
   String get description;
   @override
+  @JsonKey(name: 'body')
+  String get body;
+  @override
   @JsonKey(name: 'last_updated_date')
   String get lastUpdatedDate;
   @override
   @JsonKey(ignore: true)
-  _$$_LessonCopyWith<_$_Lesson> get copyWith =>
+  _$$LessonImplCopyWith<_$LessonImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

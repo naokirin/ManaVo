@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'app_info.dart';
 
@@ -12,7 +12,7 @@ part of 'app_info.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 AppInfo _$AppInfoFromJson(Map<String, dynamic> json) {
   return _AppInfo.fromJson(json);
@@ -33,69 +33,74 @@ mixin _$AppInfo {
 /// @nodoc
 abstract class $AppInfoCopyWith<$Res> {
   factory $AppInfoCopyWith(AppInfo value, $Res Function(AppInfo) then) =
-      _$AppInfoCopyWithImpl<$Res>;
+      _$AppInfoCopyWithImpl<$Res, AppInfo>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'lowest_version') int lowestVersion,
       @JsonKey(name: 'course_list_path') String courseListPath});
 }
 
 /// @nodoc
-class _$AppInfoCopyWithImpl<$Res> implements $AppInfoCopyWith<$Res> {
+class _$AppInfoCopyWithImpl<$Res, $Val extends AppInfo>
+    implements $AppInfoCopyWith<$Res> {
   _$AppInfoCopyWithImpl(this._value, this._then);
 
-  final AppInfo _value;
   // ignore: unused_field
-  final $Res Function(AppInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? lowestVersion = freezed,
-    Object? courseListPath = freezed,
+    Object? lowestVersion = null,
+    Object? courseListPath = null,
   }) {
     return _then(_value.copyWith(
-      lowestVersion: lowestVersion == freezed
+      lowestVersion: null == lowestVersion
           ? _value.lowestVersion
           : lowestVersion // ignore: cast_nullable_to_non_nullable
               as int,
-      courseListPath: courseListPath == freezed
+      courseListPath: null == courseListPath
           ? _value.courseListPath
           : courseListPath // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_AppInfoCopyWith<$Res> implements $AppInfoCopyWith<$Res> {
-  factory _$$_AppInfoCopyWith(
-          _$_AppInfo value, $Res Function(_$_AppInfo) then) =
-      __$$_AppInfoCopyWithImpl<$Res>;
+abstract class _$$AppInfoImplCopyWith<$Res> implements $AppInfoCopyWith<$Res> {
+  factory _$$AppInfoImplCopyWith(
+          _$AppInfoImpl value, $Res Function(_$AppInfoImpl) then) =
+      __$$AppInfoImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'lowest_version') int lowestVersion,
       @JsonKey(name: 'course_list_path') String courseListPath});
 }
 
 /// @nodoc
-class __$$_AppInfoCopyWithImpl<$Res> extends _$AppInfoCopyWithImpl<$Res>
-    implements _$$_AppInfoCopyWith<$Res> {
-  __$$_AppInfoCopyWithImpl(_$_AppInfo _value, $Res Function(_$_AppInfo) _then)
-      : super(_value, (v) => _then(v as _$_AppInfo));
+class __$$AppInfoImplCopyWithImpl<$Res>
+    extends _$AppInfoCopyWithImpl<$Res, _$AppInfoImpl>
+    implements _$$AppInfoImplCopyWith<$Res> {
+  __$$AppInfoImplCopyWithImpl(
+      _$AppInfoImpl _value, $Res Function(_$AppInfoImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_AppInfo get _value => super._value as _$_AppInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? lowestVersion = freezed,
-    Object? courseListPath = freezed,
+    Object? lowestVersion = null,
+    Object? courseListPath = null,
   }) {
-    return _then(_$_AppInfo(
-      lowestVersion: lowestVersion == freezed
+    return _then(_$AppInfoImpl(
+      lowestVersion: null == lowestVersion
           ? _value.lowestVersion
           : lowestVersion // ignore: cast_nullable_to_non_nullable
               as int,
-      courseListPath: courseListPath == freezed
+      courseListPath: null == courseListPath
           ? _value.courseListPath
           : courseListPath // ignore: cast_nullable_to_non_nullable
               as String,
@@ -106,13 +111,13 @@ class __$$_AppInfoCopyWithImpl<$Res> extends _$AppInfoCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_AppInfo implements _AppInfo {
-  const _$_AppInfo(
+class _$AppInfoImpl implements _AppInfo {
+  const _$AppInfoImpl(
       {@JsonKey(name: 'lowest_version') required this.lowestVersion,
       @JsonKey(name: 'course_list_path') required this.courseListPath});
 
-  factory _$_AppInfo.fromJson(Map<String, dynamic> json) =>
-      _$$_AppInfoFromJson(json);
+  factory _$AppInfoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AppInfoImplFromJson(json);
 
   @override
   @JsonKey(name: 'lowest_version')
@@ -127,31 +132,29 @@ class _$_AppInfo implements _AppInfo {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AppInfo &&
-            const DeepCollectionEquality()
-                .equals(other.lowestVersion, lowestVersion) &&
-            const DeepCollectionEquality()
-                .equals(other.courseListPath, courseListPath));
+            other is _$AppInfoImpl &&
+            (identical(other.lowestVersion, lowestVersion) ||
+                other.lowestVersion == lowestVersion) &&
+            (identical(other.courseListPath, courseListPath) ||
+                other.courseListPath == courseListPath));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(lowestVersion),
-      const DeepCollectionEquality().hash(courseListPath));
+  int get hashCode => Object.hash(runtimeType, lowestVersion, courseListPath);
 
   @JsonKey(ignore: true)
   @override
-  _$$_AppInfoCopyWith<_$_AppInfo> get copyWith =>
-      __$$_AppInfoCopyWithImpl<_$_AppInfo>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$AppInfoImplCopyWith<_$AppInfoImpl> get copyWith =>
+      __$$AppInfoImplCopyWithImpl<_$AppInfoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AppInfoToJson(
+    return _$$AppInfoImplToJson(
       this,
     );
   }
@@ -159,12 +162,11 @@ class _$_AppInfo implements _AppInfo {
 
 abstract class _AppInfo implements AppInfo {
   const factory _AppInfo(
-      {@JsonKey(name: 'lowest_version')
-          required final int lowestVersion,
+      {@JsonKey(name: 'lowest_version') required final int lowestVersion,
       @JsonKey(name: 'course_list_path')
-          required final String courseListPath}) = _$_AppInfo;
+      required final String courseListPath}) = _$AppInfoImpl;
 
-  factory _AppInfo.fromJson(Map<String, dynamic> json) = _$_AppInfo.fromJson;
+  factory _AppInfo.fromJson(Map<String, dynamic> json) = _$AppInfoImpl.fromJson;
 
   @override
   @JsonKey(name: 'lowest_version')
@@ -174,6 +176,6 @@ abstract class _AppInfo implements AppInfo {
   String get courseListPath;
   @override
   @JsonKey(ignore: true)
-  _$$_AppInfoCopyWith<_$_AppInfo> get copyWith =>
+  _$$AppInfoImplCopyWith<_$AppInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

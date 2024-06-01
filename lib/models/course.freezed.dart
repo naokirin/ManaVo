@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'course.dart';
 
@@ -12,7 +12,7 @@ part of 'course.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Course _$CourseFromJson(Map<String, dynamic> json) {
   return _Course.fromJson(json);
@@ -43,7 +43,8 @@ mixin _$Course {
 /// @nodoc
 abstract class $CourseCopyWith<$Res> {
   factory $CourseCopyWith(Course value, $Res Function(Course) then) =
-      _$CourseCopyWithImpl<$Res>;
+      _$CourseCopyWithImpl<$Res, Course>;
+  @useResult
   $Res call(
       {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'name') String name,
@@ -55,61 +56,66 @@ abstract class $CourseCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CourseCopyWithImpl<$Res> implements $CourseCopyWith<$Res> {
+class _$CourseCopyWithImpl<$Res, $Val extends Course>
+    implements $CourseCopyWith<$Res> {
   _$CourseCopyWithImpl(this._value, this._then);
 
-  final Course _value;
   // ignore: unused_field
-  final $Res Function(Course) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? lessons = freezed,
-    Object? length = freezed,
-    Object? lessonListUrl = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? lessons = null,
+    Object? length = null,
+    Object? lessonListUrl = null,
     Object? backgroundImage = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      lessons: lessons == freezed
+      lessons: null == lessons
           ? _value.lessons
           : lessons // ignore: cast_nullable_to_non_nullable
               as int,
-      length: length == freezed
+      length: null == length
           ? _value.length
           : length // ignore: cast_nullable_to_non_nullable
               as String,
-      lessonListUrl: lessonListUrl == freezed
+      lessonListUrl: null == lessonListUrl
           ? _value.lessonListUrl
           : lessonListUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      backgroundImage: backgroundImage == freezed
+      backgroundImage: freezed == backgroundImage
           ? _value.backgroundImage
           : backgroundImage // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_CourseCopyWith<$Res> implements $CourseCopyWith<$Res> {
-  factory _$$_CourseCopyWith(_$_Course value, $Res Function(_$_Course) then) =
-      __$$_CourseCopyWithImpl<$Res>;
+abstract class _$$CourseImplCopyWith<$Res> implements $CourseCopyWith<$Res> {
+  factory _$$CourseImplCopyWith(
+          _$CourseImpl value, $Res Function(_$CourseImpl) then) =
+      __$$CourseImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'name') String name,
@@ -121,50 +127,50 @@ abstract class _$$_CourseCopyWith<$Res> implements $CourseCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_CourseCopyWithImpl<$Res> extends _$CourseCopyWithImpl<$Res>
-    implements _$$_CourseCopyWith<$Res> {
-  __$$_CourseCopyWithImpl(_$_Course _value, $Res Function(_$_Course) _then)
-      : super(_value, (v) => _then(v as _$_Course));
+class __$$CourseImplCopyWithImpl<$Res>
+    extends _$CourseCopyWithImpl<$Res, _$CourseImpl>
+    implements _$$CourseImplCopyWith<$Res> {
+  __$$CourseImplCopyWithImpl(
+      _$CourseImpl _value, $Res Function(_$CourseImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_Course get _value => super._value as _$_Course;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? lessons = freezed,
-    Object? length = freezed,
-    Object? lessonListUrl = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? lessons = null,
+    Object? length = null,
+    Object? lessonListUrl = null,
     Object? backgroundImage = freezed,
   }) {
-    return _then(_$_Course(
-      id: id == freezed
+    return _then(_$CourseImpl(
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      lessons: lessons == freezed
+      lessons: null == lessons
           ? _value.lessons
           : lessons // ignore: cast_nullable_to_non_nullable
               as int,
-      length: length == freezed
+      length: null == length
           ? _value.length
           : length // ignore: cast_nullable_to_non_nullable
               as String,
-      lessonListUrl: lessonListUrl == freezed
+      lessonListUrl: null == lessonListUrl
           ? _value.lessonListUrl
           : lessonListUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      backgroundImage: backgroundImage == freezed
+      backgroundImage: freezed == backgroundImage
           ? _value.backgroundImage
           : backgroundImage // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -175,8 +181,8 @@ class __$$_CourseCopyWithImpl<$Res> extends _$CourseCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$_Course implements _Course {
-  const _$_Course(
+class _$CourseImpl implements _Course {
+  const _$CourseImpl(
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'name') required this.name,
       @JsonKey(name: 'description') required this.description,
@@ -185,8 +191,8 @@ class _$_Course implements _Course {
       @JsonKey(name: 'lesson_list_url') required this.lessonListUrl,
       @JsonKey(name: 'background_image') required this.backgroundImage});
 
-  factory _$_Course.fromJson(Map<String, dynamic> json) =>
-      _$$_CourseFromJson(json);
+  factory _$CourseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CourseImplFromJson(json);
 
   @override
   @JsonKey(name: 'id')
@@ -216,42 +222,36 @@ class _$_Course implements _Course {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Course &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.lessons, lessons) &&
-            const DeepCollectionEquality().equals(other.length, length) &&
-            const DeepCollectionEquality()
-                .equals(other.lessonListUrl, lessonListUrl) &&
-            const DeepCollectionEquality()
-                .equals(other.backgroundImage, backgroundImage));
+            other is _$CourseImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.lessons, lessons) || other.lessons == lessons) &&
+            (identical(other.length, length) || other.length == length) &&
+            (identical(other.lessonListUrl, lessonListUrl) ||
+                other.lessonListUrl == lessonListUrl) &&
+            (identical(other.backgroundImage, backgroundImage) ||
+                other.backgroundImage == backgroundImage));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(lessons),
-      const DeepCollectionEquality().hash(length),
-      const DeepCollectionEquality().hash(lessonListUrl),
-      const DeepCollectionEquality().hash(backgroundImage));
+  int get hashCode => Object.hash(runtimeType, id, name, description, lessons,
+      length, lessonListUrl, backgroundImage);
 
   @JsonKey(ignore: true)
   @override
-  _$$_CourseCopyWith<_$_Course> get copyWith =>
-      __$$_CourseCopyWithImpl<_$_Course>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$CourseImplCopyWith<_$CourseImpl> get copyWith =>
+      __$$CourseImplCopyWithImpl<_$CourseImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CourseToJson(
+    return _$$CourseImplToJson(
       this,
     );
   }
@@ -259,22 +259,16 @@ class _$_Course implements _Course {
 
 abstract class _Course implements Course {
   const factory _Course(
-      {@JsonKey(name: 'id')
-          required final String id,
-      @JsonKey(name: 'name')
-          required final String name,
-      @JsonKey(name: 'description')
-          required final String description,
-      @JsonKey(name: 'lessons')
-          required final int lessons,
-      @JsonKey(name: 'length')
-          required final String length,
-      @JsonKey(name: 'lesson_list_url')
-          required final String lessonListUrl,
+      {@JsonKey(name: 'id') required final String id,
+      @JsonKey(name: 'name') required final String name,
+      @JsonKey(name: 'description') required final String description,
+      @JsonKey(name: 'lessons') required final int lessons,
+      @JsonKey(name: 'length') required final String length,
+      @JsonKey(name: 'lesson_list_url') required final String lessonListUrl,
       @JsonKey(name: 'background_image')
-          required final String? backgroundImage}) = _$_Course;
+      required final String? backgroundImage}) = _$CourseImpl;
 
-  factory _Course.fromJson(Map<String, dynamic> json) = _$_Course.fromJson;
+  factory _Course.fromJson(Map<String, dynamic> json) = _$CourseImpl.fromJson;
 
   @override
   @JsonKey(name: 'id')
@@ -299,6 +293,6 @@ abstract class _Course implements Course {
   String? get backgroundImage;
   @override
   @JsonKey(ignore: true)
-  _$$_CourseCopyWith<_$_Course> get copyWith =>
+  _$$CourseImplCopyWith<_$CourseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

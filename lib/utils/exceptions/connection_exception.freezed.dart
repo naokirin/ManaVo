@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'connection_exception.dart';
 
@@ -12,7 +12,7 @@ part of 'connection_exception.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ConnectionException {
@@ -24,8 +24,8 @@ mixin _$ConnectionException {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? noNetwork,
-    TResult Function()? timeout,
+    TResult? Function()? noNetwork,
+    TResult? Function()? timeout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,8 +43,8 @@ mixin _$ConnectionException {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(NoNetworkException value)? noNetwork,
-    TResult Function(TimeoutException value)? timeout,
+    TResult? Function(NoNetworkException value)? noNetwork,
+    TResult? Function(TimeoutException value)? timeout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,47 +60,45 @@ mixin _$ConnectionException {
 abstract class $ConnectionExceptionCopyWith<$Res> {
   factory $ConnectionExceptionCopyWith(
           ConnectionException value, $Res Function(ConnectionException) then) =
-      _$ConnectionExceptionCopyWithImpl<$Res>;
+      _$ConnectionExceptionCopyWithImpl<$Res, ConnectionException>;
 }
 
 /// @nodoc
-class _$ConnectionExceptionCopyWithImpl<$Res>
+class _$ConnectionExceptionCopyWithImpl<$Res, $Val extends ConnectionException>
     implements $ConnectionExceptionCopyWith<$Res> {
   _$ConnectionExceptionCopyWithImpl(this._value, this._then);
 
-  final ConnectionException _value;
   // ignore: unused_field
-  final $Res Function(ConnectionException) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class _$$NoNetworkExceptionCopyWith<$Res> {
-  factory _$$NoNetworkExceptionCopyWith(_$NoNetworkException value,
-          $Res Function(_$NoNetworkException) then) =
-      __$$NoNetworkExceptionCopyWithImpl<$Res>;
+abstract class _$$NoNetworkExceptionImplCopyWith<$Res> {
+  factory _$$NoNetworkExceptionImplCopyWith(_$NoNetworkExceptionImpl value,
+          $Res Function(_$NoNetworkExceptionImpl) then) =
+      __$$NoNetworkExceptionImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$NoNetworkExceptionCopyWithImpl<$Res>
-    extends _$ConnectionExceptionCopyWithImpl<$Res>
-    implements _$$NoNetworkExceptionCopyWith<$Res> {
-  __$$NoNetworkExceptionCopyWithImpl(
-      _$NoNetworkException _value, $Res Function(_$NoNetworkException) _then)
-      : super(_value, (v) => _then(v as _$NoNetworkException));
+class __$$NoNetworkExceptionImplCopyWithImpl<$Res>
+    extends _$ConnectionExceptionCopyWithImpl<$Res, _$NoNetworkExceptionImpl>
+    implements _$$NoNetworkExceptionImplCopyWith<$Res> {
+  __$$NoNetworkExceptionImplCopyWithImpl(_$NoNetworkExceptionImpl _value,
+      $Res Function(_$NoNetworkExceptionImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$NoNetworkExceptionImpl implements NoNetworkException {
+  const _$NoNetworkExceptionImpl();
 
   @override
-  _$NoNetworkException get _value => super._value as _$NoNetworkException;
-}
-
-/// @nodoc
-
-class _$NoNetworkException implements NoNetworkException {
-  const _$NoNetworkException();
-
-  @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$NoNetworkException);
+        (other.runtimeType == runtimeType && other is _$NoNetworkExceptionImpl);
   }
 
   @override
@@ -118,8 +116,8 @@ class _$NoNetworkException implements NoNetworkException {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? noNetwork,
-    TResult Function()? timeout,
+    TResult? Function()? noNetwork,
+    TResult? Function()? timeout,
   }) {
     return noNetwork?.call();
   }
@@ -149,8 +147,8 @@ class _$NoNetworkException implements NoNetworkException {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(NoNetworkException value)? noNetwork,
-    TResult Function(TimeoutException value)? timeout,
+    TResult? Function(NoNetworkException value)? noNetwork,
+    TResult? Function(TimeoutException value)? timeout,
   }) {
     return noNetwork?.call(this);
   }
@@ -170,37 +168,34 @@ class _$NoNetworkException implements NoNetworkException {
 }
 
 abstract class NoNetworkException implements ConnectionException {
-  const factory NoNetworkException() = _$NoNetworkException;
+  const factory NoNetworkException() = _$NoNetworkExceptionImpl;
 }
 
 /// @nodoc
-abstract class _$$TimeoutExceptionCopyWith<$Res> {
-  factory _$$TimeoutExceptionCopyWith(
-          _$TimeoutException value, $Res Function(_$TimeoutException) then) =
-      __$$TimeoutExceptionCopyWithImpl<$Res>;
+abstract class _$$TimeoutExceptionImplCopyWith<$Res> {
+  factory _$$TimeoutExceptionImplCopyWith(_$TimeoutExceptionImpl value,
+          $Res Function(_$TimeoutExceptionImpl) then) =
+      __$$TimeoutExceptionImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$TimeoutExceptionCopyWithImpl<$Res>
-    extends _$ConnectionExceptionCopyWithImpl<$Res>
-    implements _$$TimeoutExceptionCopyWith<$Res> {
-  __$$TimeoutExceptionCopyWithImpl(
-      _$TimeoutException _value, $Res Function(_$TimeoutException) _then)
-      : super(_value, (v) => _then(v as _$TimeoutException));
+class __$$TimeoutExceptionImplCopyWithImpl<$Res>
+    extends _$ConnectionExceptionCopyWithImpl<$Res, _$TimeoutExceptionImpl>
+    implements _$$TimeoutExceptionImplCopyWith<$Res> {
+  __$$TimeoutExceptionImplCopyWithImpl(_$TimeoutExceptionImpl _value,
+      $Res Function(_$TimeoutExceptionImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$TimeoutExceptionImpl implements TimeoutException {
+  const _$TimeoutExceptionImpl();
 
   @override
-  _$TimeoutException get _value => super._value as _$TimeoutException;
-}
-
-/// @nodoc
-
-class _$TimeoutException implements TimeoutException {
-  const _$TimeoutException();
-
-  @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$TimeoutException);
+        (other.runtimeType == runtimeType && other is _$TimeoutExceptionImpl);
   }
 
   @override
@@ -218,8 +213,8 @@ class _$TimeoutException implements TimeoutException {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? noNetwork,
-    TResult Function()? timeout,
+    TResult? Function()? noNetwork,
+    TResult? Function()? timeout,
   }) {
     return timeout?.call();
   }
@@ -249,8 +244,8 @@ class _$TimeoutException implements TimeoutException {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(NoNetworkException value)? noNetwork,
-    TResult Function(TimeoutException value)? timeout,
+    TResult? Function(NoNetworkException value)? noNetwork,
+    TResult? Function(TimeoutException value)? timeout,
   }) {
     return timeout?.call(this);
   }
@@ -270,5 +265,5 @@ class _$TimeoutException implements TimeoutException {
 }
 
 abstract class TimeoutException implements ConnectionException {
-  const factory TimeoutException() = _$TimeoutException;
+  const factory TimeoutException() = _$TimeoutExceptionImpl;
 }

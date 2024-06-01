@@ -6,12 +6,13 @@ part of 'app_info.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AppInfo _$$_AppInfoFromJson(Map<String, dynamic> json) => _$_AppInfo(
-      lowestVersion: json['lowest_version'] as int,
+_$AppInfoImpl _$$AppInfoImplFromJson(Map<String, dynamic> json) =>
+    _$AppInfoImpl(
+      lowestVersion: (json['lowest_version'] as num).toInt(),
       courseListPath: json['course_list_path'] as String,
     );
 
-Map<String, dynamic> _$$_AppInfoToJson(_$_AppInfo instance) =>
+Map<String, dynamic> _$$AppInfoImplToJson(_$AppInfoImpl instance) =>
     <String, dynamic>{
       'lowest_version': instance.lowestVersion,
       'course_list_path': instance.courseListPath,

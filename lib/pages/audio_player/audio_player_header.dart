@@ -52,10 +52,57 @@ class AudioPlayerHeader extends ConsumerWidget {
                       child: Text(lesson?.description ?? '',
                           style: const TextStyle(color: Colors.white))),
                   LastUpdatedDate(lesson),
-                  PlayCount(lesson)
+                  PlayCount(lesson),
+                  Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: FilledButton(
+                          onPressed: () => _showSimpleDialog(context, lesson),
+                          child: const Text('本文を表示')))
                 ]))));
   }
 
   String get imagePath =>
       'assets/images/${course?.backgroundImage ?? 'green'}.jpg';
+}
+
+void _showSimpleDialog(BuildContext context, Lesson? lesson) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+            title: const Text("本文"),
+            insetPadding: const EdgeInsets.all(20.0),
+            children: [
+              Column(children: [
+                const Divider(
+                  color: Colors.grey,
+                  height: 1.0,
+                ),
+                SingleChildScrollView(
+                    child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(lesson?.body ?? ''),
+                      )
+                    ],
+                  ),
+                )),
+                const Divider(
+                  color: Colors.grey,
+                  height: 1.0,
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Center(
+                      child: FilledButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: const Text('閉じる'),
+                      ),
+                    )),
+              ])
+            ]);
+      });
 }
